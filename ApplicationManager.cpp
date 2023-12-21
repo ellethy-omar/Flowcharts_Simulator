@@ -4,6 +4,9 @@
 #include "GUI\Input.h"
 #include "GUI\Output.h"
 #include "Actions\AddStart.h"
+#include "Actions/AddOperAssign.h"
+#include "Actions/AddVariableAssign.h"
+
 //Constructor
 ApplicationManager::ApplicationManager()
 {
@@ -57,11 +60,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_VAR_ASSIGN:
-			pOut->PrintMessage("Action: add variable assignment statement , Click anywhere");
+			pAct = new AddVariableAssign(this);
 			break;
 
 		case ADD_OPER_ASSIGN:
-			pOut->PrintMessage("Action: add operator assignment statement , Click anywhere");
+			pAct = new AddOperAssign(this);
 			break;
 
 		case ADD_CONDITION:
