@@ -1,15 +1,12 @@
 #include "AddValueAssign.h"
-
 #include "..\ApplicationManager.h"
-
 #include "..\GUI\input.h"
 #include "..\GUI\Output.h"
-
 #include <sstream>
 using namespace std;
 
 //constructor: set the ApplicationManager pointer inside this action
-AddValueAssign::AddValueAssign(ApplicationManager *pAppManager):Action(pAppManager)
+AddValueAssign::AddValueAssign(ApplicationManager *pAppManager):Action(pAppManager)          
 {}
 
 void AddValueAssign::ReadActionParameters()
@@ -24,9 +21,11 @@ void AddValueAssign::ReadActionParameters()
 	pOut->ClearStatusBar();		
 
 	//TODO: Ask the user in the status bar to enter the LHS and set the data member
-
+	pOut->PrintMessage("Add the LHS for the statment");
+	LHS = pIn->GetVariable(pOut);
 	//TODO: Ask the user in the status bar to enter the RHS and set the data member
-
+	pOut->PrintMessage("Add the RHS for the statment");
+	RHS = pIn->GetValue(pOut);
 	//Note: You should validate the LHS to be variable name and RHS to be a value
 	//      Call the appropriate functions for this.
 }
@@ -39,12 +38,12 @@ void AddValueAssign::Execute()
 	//Calculating left corner of assignement statement block
 	Point Corner;
 	Corner.x = Position.x - UI.ASSGN_WDTH/2;
-	Corner.y = Position.y ;
+	Corner.y = Position.y;
 	
-	ValueAssign *pAssign = new ValueAssign(Corner, "", 0);
+	ValueAssign *pAssign = new ValueAssign(Corner, LHS, RHS);
 	//TODO: should set the LHS and RHS of pAssign statement
-	//      with the data members set and validated before in ReadActionParameters()
+	//with the data members set and validated before in ReadActionParameters()
 
-	pManager->AddStatement(pAssign); // Adds the created statement to application manger's statement list
+	pManager->AddStatement(pAssign); // Adds the created statement to application manger's statement list              
 }
 
