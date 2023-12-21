@@ -31,7 +31,8 @@ public:
 	bool IsSelected() const;
 
 	virtual void Draw(Output* pOut) const  = 0 ;	//Draw the statement
-	
+
+	virtual bool Is_In_Region(Point & p1) = 0;
 	
 
 	///TODO:The following functions should be supported by the Statement class
