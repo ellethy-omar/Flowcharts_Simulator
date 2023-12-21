@@ -1,8 +1,9 @@
 #include "ApplicationManager.h"
 #include "Actions\AddValueAssign.h"
+#include "Actions/AddEnd.h"
 #include "GUI\Input.h"
 #include "GUI\Output.h"
-
+#include "Actions\AddStart.h"
 //Constructor
 ApplicationManager::ApplicationManager()
 {
@@ -47,21 +48,107 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			pAct = new AddValueAssign(this);
 			break;
 
-		case ADD_CONDITION:
-			///create AddCondition Action here
+		case ADD_END:
+			pAct = new AddEnd(this);
+			break;
 
+		case ADD_START:
+			pAct = new AddStart(this);
+			break;
+
+		case ADD_VAR_ASSIGN:
+			pOut->PrintMessage("Action: add variable assignment statement , Click anywhere");
+			break;
+
+		case ADD_OPER_ASSIGN:
+			pOut->PrintMessage("Action: add operator assignment statement , Click anywhere");
+			break;
+
+		case ADD_CONDITION:
+			pOut->PrintMessage("Action: add conditional statement , Click anywhere");
+			break;
+
+		case ADD_READ:
+			pOut->PrintMessage("Action: read statement , Click anywhere");
+			break;
+
+		case ADD_WRITE:
+			pOut->PrintMessage("Action: write statement , Click anywhere");
+			break;
+
+		case ADD_CONNECTOR:
+			pOut->PrintMessage("Action: add a connector , Click anywhere");
 			break;
 
 		case SELECT:
-			///create Select Action here
+			pOut->PrintMessage("Action: select action, Click anywhere");
+			break;
 
+		case EDIT_STAT:
+			pOut->PrintMessage("Action: edit statement action, Click anywhere");
+			break;
+
+		case DEL:
+			pOut->PrintMessage("Action: delete action, Click anywhere");
+			break;
+
+		case DSN_TOOL:
+			pOut->PrintMessage("Action: a click on the Design Tool Bar, Click anywhere");
+			break;
+
+		case COPY:
+			pOut->PrintMessage("Action: copy action, Click anywhere");
+			break;
+
+		case CUT:
+			pOut->PrintMessage("Action: cut action, Click anywhere");
+			break;
+
+		case PASTE:
+			pOut->PrintMessage("Action: paste action, Click anywhere");
+			break;
+
+		case SAVE:
+			pOut->PrintMessage("Action: save action, Click anywhere");
+			break;
+
+		case LOAD:
+			pOut->PrintMessage("Action: load action, Click anywhere");
+			break;
+
+		case SWITCH_SIM_MODE:
+			pOut->PrintMessage("Action: Switch to Simulation Mode, creating simualtion tool bar");
+			pOut->CreateSimulationToolBar(); // THIS TESTS Output::CreateSimulationToolBar() function //////
+			break;
+
+		case SWITCH_DSN_MODE:
+			pOut->PrintMessage("Action: Switch to Design Mode, creating Design tool bar");
+			pOut->CreateDesignToolBar();
+			break;
+
+		case DRAWING_AREA:
+			pOut->PrintMessage("Action: a click on the drawing area, click to continue");
+			break;
+
+		case OUTPUT_AREA:
+			pOut->PrintMessage("Action: a click on the output area, click to continue");
+			break;
+
+		case VALIDATE:
+			pOut->PrintMessage("Action: validate, click to continue");
+			break;
+
+		case RUN:
+			pOut->PrintMessage("Action: run, click to continue");
+			break;
+
+		case SIM_TOOL:
+			pOut->PrintMessage("Action: a click on the Simulation Tool Bar, Click anywhere");
 			break;
 
 		case EXIT:
-			///create Exit Action here
-			
 			break;
-		
+
 		case STATUS:
 			return;
 	}

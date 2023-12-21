@@ -1,7 +1,5 @@
 #include "AddValueAssign.h"
 
-
-
 #include "..\ApplicationManager.h"
 
 #include "..\GUI\input.h"
