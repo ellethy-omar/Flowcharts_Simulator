@@ -48,8 +48,10 @@ public:
 
 	// Note: you should use the following 4 functions 
 	//       in order not to break class responsibilities (especially in copy, cut and paste)
+
 	Statement *GetSelectedStatement() const;	 //Returns the selected Statement
 	void SetSelectedStatement(Statement *pStat); //Set the Statement selected by the user
+
 	Statement *GetClipboard() const;	         //Returns the Clipboard
 	void SetClipboard(Statement *pStat);         //Set the Clipboard
 
