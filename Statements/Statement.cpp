@@ -4,7 +4,8 @@ Statement::Statement()
 { 
 	//TODO: set the ID with a unique value
 	Text = "";
-	Selected = false;		
+	Selected = false;
+
 }
 
 void Statement::SetSelected(bool s)

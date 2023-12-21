@@ -7,21 +7,27 @@
 #include "..\GUI\Output.h"
 
 //Base class for all Statements
+
 class Statement
 {
 protected:
-	int ID;			//Each Statement has an ID --> must be unique
-	string Text;	//Statement text (e.g.  "X = 5" OR "salary > 3000" and so on)
-	bool Selected;	//true if the statement is selected on the folwchart
 
+	int ID;			//Each Statement has an ID --> must be unique
+
+	string Text;	//Statement text (e.g.  "X = 5" OR "salary > 3000" and so on)
+
+	bool Selected;	//true if the statement is selected on the folwchart
 
 	virtual void UpdateStatementText() = 0;	//is called when any part of the stat. is edited	
 
 	/// Add more parameters if needed.
 
 public:
+
 	Statement();
+
 	void SetSelected(bool s);
+
 	bool IsSelected() const;
 
 	virtual void Draw(Output* pOut) const  = 0 ;	//Draw the statement
