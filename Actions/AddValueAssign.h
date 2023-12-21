@@ -1,9 +1,12 @@
+
+//AddValueAssign.h
+
 #ifndef ADD_VALUE_ASSIGN_H
 #define ADD_VALUE_ASSIGN_H
-
+#include <iostream>
 #include "Action.h"
 #include "..\Statements\ValueAssign.h"
-
+//
 //Add Value Assignment Statement Action
 //This class is responsible for 
 // 1 - Getting Assignment stat. coordinates from the user (one of the parameters of this action)
@@ -19,7 +22,8 @@ private:
 
 	Point Position;	//Position where the user clicks to add the stat.
 	//TODO: you should add LHS and RHS of the assignment statement as parameters
-
+	string LHS;
+	double RHS;
 public:
 	AddValueAssign(ApplicationManager *pAppManager);
 
