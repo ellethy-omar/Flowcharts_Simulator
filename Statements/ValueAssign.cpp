@@ -1,6 +1,6 @@
 #include "ValueAssign.h"
 #include <sstream>
-
+#include <iostream>
 using namespace std;
 
 ValueAssign::ValueAssign(Point Lcorner, string LeftHS, double RightHS)
@@ -18,7 +18,7 @@ ValueAssign::ValueAssign(Point Lcorner, string LeftHS, double RightHS)
 
 	Inlet.x = LeftCorner.x + UI.ASSGN_WDTH /2;
 	Inlet.y = LeftCorner.y;
-
+	//Inlet.x = LeftCorner.x;
 	Outlet.x = Inlet.x;
 	Outlet.y = LeftCorner.y + UI.ASSGN_HI;	
 }
@@ -35,6 +35,16 @@ void ValueAssign::setRHS(double R)
 	UpdateStatementText();
 }
 
+Point ValueAssign::getInlet()
+{
+	return Inlet;
+}
+
+Point ValueAssign::getOutlet()
+{
+	return Outlet;
+}
+
 
 void ValueAssign::Draw(Output* pOut) const
 {
@@ -43,6 +53,17 @@ void ValueAssign::Draw(Output* pOut) const
 	
 }
 
+bool ValueAssign::Is_In_Region(Point& p1)
+{
+	if ((p1.x >= (LeftCorner.x - UI.ASSGN_WDTH / 2)) && (p1.x <= (LeftCorner.x + UI.ASSGN_WDTH / 2)) && (p1.y >= LeftCorner.y) && (p1.y <= LeftCorner.y + UI.ASSGN_HI))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
 
 //This function should be called when LHS or RHS changes
 void ValueAssign::UpdateStatementText()
