@@ -68,7 +68,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_CONDITION:
-			pOut->PrintMessage("Action: add conditional statement , Click anywhere");
+			pAct = new AddCondition(this);
 			break;
 
 		case ADD_READ:
