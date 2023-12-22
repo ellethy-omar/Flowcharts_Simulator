@@ -12,7 +12,7 @@ private:
 	string CompOperator;
 	Connector* pOutConn;
 	Point Inlet;
-	Point Outlet;
+	Point OutletTrue, OutletFalse;
 	Point UpperPoint;
 
 	virtual void UpdateStatementText();
