@@ -28,14 +28,15 @@ struct UI_Info	//User Interface Info.
 
 	int ASSGN_WDTH;		//Assignment statement default width
 	int ASSGN_HI;		//Assignment statement default height
-	
+	int COND_WDTH;
+	int COND_HI;
 }UI;	//create a single global object UI
 
 struct Point	
 {
 	int x,y;
 	Point(int a=0, int b=0)	//constructor
-	{ x=a;	y=b;}
+	{ x=a;	y=b;	}
 };
 
 #endif
