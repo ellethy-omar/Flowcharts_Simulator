@@ -5,16 +5,16 @@
 
 class Output	//The application manager should have a pointer to this class
 {
-private:	
+private:
 
 	window* pWind;	//Pointer to the Graphics Window
 
 
 public:
 
-	Output();	
+	Output();
 
-	window* CreateWind(int, int, int , int);
+	window* CreateWind(int, int, int, int);
 
 	Input* CreateInput(); //Creates a pointer to the Input object	
 
@@ -40,15 +40,15 @@ public:
 
 	void DrawAssign(Point Left, int width, int height, string Text, bool Selected = false);
 
-	void DrawCondtionalStat(Point left, int width, int height, string Text, bool Selected = false);
+	void DrawCondtionalStat(Point Upper, int width, int height, string Text, bool Selected = false);
 
 	void DrawReadstat(Point Left, int width, int height, string Text, bool Selected = false);
 
 	void DrawWritestat(Point Left, int width, int height, string Text, bool Selected = false);
 
-	void DrawStart(Point Left, int width, int height, string text, bool Selected = false);
+	void DrawStart(Point Center, int width, int height, string text, bool Selected = false);
 
-	void DrawEnd(Point Left, int width, int height, string text, bool Selected = false);
+	void DrawEnd(Point Center, int width, int height, string text, bool Selected = false);
 
 	void DrawConnector(Point start, Point end, bool Selected = false);
 
@@ -57,7 +57,7 @@ public:
 	//TODO: Add similar functions for drawing all other statements.
 	//		e.g. DrawCondtionalStat(......), DrawStart(......), DrawEnd(.......), ...etc
 	//		Decide the parameters that should be passed to each of them
-	
+
 	//TODO: Add DrawConnector function
 
 	~Output();

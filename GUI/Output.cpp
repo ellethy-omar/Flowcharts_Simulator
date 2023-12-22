@@ -23,12 +23,15 @@ Output::Output()
 	UI.ASSGN_WDTH = 150;
 	UI.ASSGN_HI = 50;
 
+	UI.COND_WDTH = 175;
+	UI.COND_HI = 80;
+
 	//Create the output window
 	pWind = CreateWind(UI.width, UI.height, UI.wx, UI.wy);
 	//Change the title
 	pWind->ChangeTitle("Programming Techniques Project");
-	
-	pWind->SetPen(RED,3);
+
+	pWind->SetPen(RED, 3);
 	CreateDesignToolBar();
 	CreateStatusBar();
 	ClearDrawArea();
@@ -53,21 +56,21 @@ window* Output::CreateWind(int wd, int h, int x, int y)
 //////////////////////////////////////////////////////////////////////////////////////////
 void Output::CreateStatusBar()
 {
-	pWind->DrawLine(0, UI.height-UI.StatusBarHeight, UI.width, UI.height-UI.StatusBarHeight);
+	pWind->DrawLine(0, UI.height - UI.StatusBarHeight, UI.width, UI.height - UI.StatusBarHeight);
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 //TODO: Complete this function
 void Output::CreateDesignToolBar() //Draws the Design Menu
 {
-	
+
 	UI.AppMode = DESIGN;	//Design Mode
 
-	
+
 	//fill the tool bar 
-		
+
 	//You can draw the tool bar icons in any way you want.
 	//Below is one possible way
-	
+
 	//First prepare List of images for each menu item
 	//To control the order of these images in the menu, 
 	//reoder them in Defs.h ==> enum DrawMenuItem
@@ -101,7 +104,7 @@ void Output::CreateDesignToolBar() //Draws the Design Menu
 
 	//Draw menu item one image at a time
 	for (int i = 0; i < DSN_ITM_CNT; i++) {
-		if (i != DSN_ITM_CNT-1) {
+		if (i != DSN_ITM_CNT - 1) {
 			pWind->DrawImage(MenuItemImages[i], i * UI.MenuItemWidth, 0, UI.MenuItemWidth, UI.ToolBarHeight);
 			pWind->SetPen(RED, 6);
 			pWind->DrawLine((i + 1) * UI.MenuItemWidth, UI.ToolBarHeight, (i + 1) * UI.MenuItemWidth, 0);
@@ -114,7 +117,7 @@ void Output::CreateDesignToolBar() //Draws the Design Menu
 	}
 	//Draw a line under the toolbar
 	pWind->SetPen(RED, 2);
-	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);	
+	pWind->DrawLine(0, UI.ToolBarHeight, UI.width, UI.ToolBarHeight);
 
 }
 
@@ -123,7 +126,7 @@ void Output::CreateDesignToolBar() //Draws the Design Menu
 
 void Output::CreateSimulationToolBar() //Draws the Simulation Menu
 {
-	
+
 	UI.AppMode = SIMULATION;	//Simulation Mode
 	///TODO: add code to create the simulation tool bar
 	ClearToolBar();
@@ -192,10 +195,10 @@ void Output::ClearToolBar() {
 void Output::PrintMessage(string msg)	//Prints a message on status bar
 {
 	ClearStatusBar();	//First clear the status bar
-	
+
 	pWind->SetPen(UI.MsgColor, 50);
-	pWind->SetFont(20, BOLD , BY_NAME, "Arial");   
-	pWind->DrawString(10, UI.height - (int) (UI.StatusBarHeight/1.5), msg);
+	pWind->SetFont(20, BOLD, BY_NAME, "Arial");
+	pWind->DrawString(10, UI.height - (int)(UI.StatusBarHeight / 1.5), msg);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -215,10 +218,10 @@ void Output::DrawString(const int iX, const int iY, const string Text)
 //Draw assignment statement and write the "Text" on it
 void Output::DrawAssign(Point Left, int width, int height, string Text, bool Selected)
 {
-	if(Selected)	//if stat is selected, it should be highlighted
-		pWind->SetPen(UI.HighlightColor,3);	//use highlighting color
+	if (Selected)	//if stat is selected, it should be highlighted
+		pWind->SetPen(UI.HighlightColor, 3);	//use highlighting color
 	else
-		pWind->SetPen(UI.DrawColor,3);	//use normal color
+		pWind->SetPen(UI.DrawColor, 3);	//use normal color
 
 	//Draw the statement block rectangle
 	pWind->DrawRectangle(Left.x, Left.y, Left.x + width, Left.y + height);
@@ -236,20 +239,21 @@ void Output::DrawAssign(Point Left, int width, int height, string Text, bool Sel
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-void Output::DrawCondtionalStat(Point Left, int width, int height, string Text, bool Selected) {
+void Output::DrawCondtionalStat(Point Upper, int width, int height, string Text, bool Selected) {
 
-	if (Selected)	
-		pWind->SetPen(UI.HighlightColor, 3);	
+	if (Selected)
+		pWind->SetPen(UI.HighlightColor, 3);
 	else
-		pWind->SetPen(UI.DrawColor, 3);	
+		pWind->SetPen(UI.DrawColor, 3);
 
-	pWind->DrawLine(Left.x, Left.y, Left.x + width / 2, Left.y - height / 2);
-	pWind->DrawLine(Left.x + width / 2, Left.y - height / 2, Left.x + width, Left.y);
-	pWind->DrawLine(Left.x, Left.y, Left.x + width / 2, Left.y + height / 2);
-	pWind->DrawLine(Left.x + width / 2, Left.y + height / 2, Left.x + width, Left.y);
+	pWind->DrawLine(Upper.x, Upper.y, Upper.x + width / 2, Upper.y + height / 2);
+	pWind->DrawLine(Upper.x, Upper.y, Upper.x - width / 2, Upper.y + height / 2);
+	pWind->DrawLine(Upper.x, Upper.y + height, Upper.x - width / 2, Upper.y + height / 2);
+	pWind->DrawLine(Upper.x, Upper.y + height, Upper.x + width / 2, Upper.y + height / 2);
+	
 
 	pWind->SetPen(BLACK, 2);
-	pWind->DrawString(Left.x + width / 3, Left.y - height / 6, Text);
+	pWind->DrawString((Upper.x - width / 2) + width / 4, (Upper.y + height / 2) - height / 6, Text);
 
 
 }
@@ -290,43 +294,45 @@ void Output::DrawWritestat(Point Left, int width, int height, string Text, bool 
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-void Output::DrawStart(Point Left, int width, int height, string text,bool Selected) {
+void Output::DrawStart(Point Center, int width, int height, string text, bool Selected) {
 
 	if (Selected)
 		pWind->SetPen(UI.HighlightColor, 3);
 	else
 		pWind->SetPen(UI.DrawColor, 3);
 
-	pWind->DrawEllipse(Left.x, Left.y, Left.x + width, Left.y + height, FRAME);
+	
+
+	pWind->DrawEllipse(Center.x - width / 2, Center.y - height / 2, Center.x + width / 2, Center.y + height / 2, FRAME);
 
 	pWind->SetPen(BLACK, 2);
-	pWind->DrawString(Left.x + width / 3, Left.y + height / 4.5, text);
+	pWind->DrawString((Center.x - width / 2) + width / 3, (Center.y - height / 2) + height / 4.5, text);
 
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-void Output::DrawEnd(Point Left, int width, int height, string text, bool Selected) {
+void Output::DrawEnd(Point Center, int width, int height, string text, bool Selected) {
 
 	if (Selected)
 		pWind->SetPen(UI.HighlightColor, 3);
 	else
 		pWind->SetPen(UI.DrawColor, 3);
 
-	pWind->DrawEllipse(Left.x, Left.y, Left.x + width, Left.y + height, FRAME);
+	pWind->DrawEllipse(Center.x - width / 2, Center.y - height / 2, Center.x + width / 2, Center.y + height / 2, FRAME);
 
 	pWind->SetPen(BLACK, 2);
-	pWind->DrawString(Left.x + width / 5 * 2, Left.y + height / 4, text);
+	pWind->DrawString((Center.x - width / 2) + width / 5 * 2, (Center.y - height / 2) + height / 4, text);
 }
 
 //TODO: Add DrawConnector function
 
 void Output::DrawConnector(Point start, Point end, bool Selected)
 {
-	if (Selected)	
-		pWind->SetPen(UI.HighlightColor, 3);	
+	if (Selected)
+		pWind->SetPen(UI.HighlightColor, 3);
 	else
-		pWind->SetPen(UI.DrawColor, 3);	
+		pWind->SetPen(UI.DrawColor, 3);
 
 	pWind->DrawLine(start.x, start.y, end.x, end.y);
 
