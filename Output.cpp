@@ -312,17 +312,17 @@ void Output::DrawStart(Point Center, int width, int height, string text, bool Se
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-void Output::DrawEnd(Point Left, int width, int height, string text, bool Selected) {
+void Output::DrawEnd(Point Center, int width, int height, string text, bool Selected) {
 
 	if (Selected)
 		pWind->SetPen(UI.HighlightColor, 3);
 	else
 		pWind->SetPen(UI.DrawColor, 3);
 
-	pWind->DrawEllipse(Left.x, Left.y, Left.x + width, Left.y + height, FRAME);
+	pWind->DrawEllipse(Center.x - width / 2, Center.y - height / 2, Center.x + width / 2, Center.y + height / 2, FRAME);
 
 	pWind->SetPen(BLACK, 2);
-	pWind->DrawString(Left.x + width / 5 * 2, Left.y + height / 4, text);
+	pWind->DrawString((Center.x - width / 2) + width / 5 * 2, (Center.y - height / 2) + height / 4, text);
 }
 
 //TODO: Add DrawConnector function

@@ -46,9 +46,9 @@ public:
 
 	void DrawWritestat(Point Left, int width, int height, string Text, bool Selected = false);
 
-	void DrawStart(Point Left, int width, int height, string text, bool Selected = false);
+	void DrawStart(Point Center, int width, int height, string text, bool Selected = false);
 
-	void DrawEnd(Point Left, int width, int height, string text, bool Selected = false);
+	void DrawEnd(Point Center, int width, int height, string text, bool Selected = false);
 
 	void DrawConnector(Point start, Point end, bool Selected = false);
 
