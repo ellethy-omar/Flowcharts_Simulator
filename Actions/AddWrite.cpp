@@ -1,10 +1,9 @@
-#include"AddWrite.h"
-#include "AddWrite.h"
+#include"Actions/AddWrite.h"
 #include "GUI/Input.h"
 #include"GUI/Output.h"
 #include"ApplicationManager.h"
 #include"HelperFn.h"
-#include"Write.h"
+#include"Statements/Write.h"
 
 AddWrite::AddWrite(ApplicationManager* pAppManager) :Action(pAppManager) {};
 void AddWrite::Execute() {
