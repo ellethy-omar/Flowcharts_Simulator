@@ -6,6 +6,7 @@
 #include "Actions\AddStart.h"
 #include "Actions/AddOperAssign.h"
 #include "Actions/AddVariableAssign.h"
+#include "Actions\AddCondition.h"
 
 //Constructor
 ApplicationManager::ApplicationManager()

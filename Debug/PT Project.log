@@ -1,0 +1,59 @@
+﻿cl : command line  warning D9035: option 'Gm' has been deprecated and will be removed in a future release
+  main.cpp
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(1,1): error C2059: syntax error: '<<'
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(8,1): error C2143: syntax error: missing ';' before '{'
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(8,1): error C2447: '{': missing function header (old-style formal list?)
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(112,1): error C2059: syntax error: '=='
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(225,1): fatal  error C1070: mismatched #if/#endif pair in file 'E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h'
+  ValueAssign.cpp
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\defs.h(1,1): error C2059: syntax error: '<<'
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\defs.h(8,1): error C2143: syntax error: missing ';' before '{'
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\defs.h(8,1): error C2447: '{': missing function header (old-style formal list?)
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\defs.h(112,1): error C2059: syntax error: '=='
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\defs.h(225,1): fatal  error C1070: mismatched #if/#endif pair in file 'E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\defs.h'
+  Statement.cpp
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\defs.h(1,1): error C2059: syntax error: '<<'
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\defs.h(8,1): error C2143: syntax error: missing ';' before '{'
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\defs.h(8,1): error C2447: '{': missing function header (old-style formal list?)
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\defs.h(112,1): error C2059: syntax error: '=='
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\defs.h(225,1): fatal  error C1070: mismatched #if/#endif pair in file 'E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\defs.h'
+  HelperFn.cpp
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\HelperFn.cpp(1,1): error C2059: syntax error: '<<'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\sal.h(2361,12): error C2143: syntax error: missing ';' before '{'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\sal.h(2361,12): error C2447: '{': missing function header (old-style formal list?)
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(1,1): error C2059: syntax error: '<<'
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(8,1): error C2143: syntax error: missing ';' before '{'
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(8,1): error C2447: '{': missing function header (old-style formal list?)
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(112,1): error C2059: syntax error: '=='
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(225,1): fatal  error C1070: mismatched #if/#endif pair in file 'E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h'
+  Output.cpp
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(1,1): error C2059: syntax error: '<<'
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(8,1): error C2143: syntax error: missing ';' before '{'
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(8,1): error C2447: '{': missing function header (old-style formal list?)
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(112,1): error C2059: syntax error: '=='
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(225,1): fatal  error C1070: mismatched #if/#endif pair in file 'E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h'
+  Input.cpp
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(1,1): error C2059: syntax error: '<<'
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(8,1): error C2143: syntax error: missing ';' before '{'
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(8,1): error C2447: '{': missing function header (old-style formal list?)
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(112,1): error C2059: syntax error: '=='
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(225,1): fatal  error C1070: mismatched #if/#endif pair in file 'E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h'
+  Connector.cpp
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(1,1): error C2059: syntax error: '<<'
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(8,1): error C2143: syntax error: missing ';' before '{'
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(8,1): error C2447: '{': missing function header (old-style formal list?)
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(112,1): error C2059: syntax error: '=='
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(225,1): fatal  error C1070: mismatched #if/#endif pair in file 'E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h'
+  ApplicationManager.cpp
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(1,1): error C2059: syntax error: '<<'
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(8,1): error C2143: syntax error: missing ';' before '{'
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(8,1): error C2447: '{': missing function header (old-style formal list?)
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(112,1): error C2059: syntax error: '=='
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(225,1): fatal  error C1070: mismatched #if/#endif pair in file 'E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h'
+  AddValueAssign.cpp
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(1,1): error C2059: syntax error: '<<'
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(8,1): error C2143: syntax error: missing ';' before '{'
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(8,1): error C2447: '{': missing function header (old-style formal list?)
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(112,1): error C2059: syntax error: '=='
+E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h(225,1): fatal  error C1070: mismatched #if/#endif pair in file 'E:\First year computer engineering\programming techniques\Project\GitHub\Phase_2\DEFS.h'
+  Generating Code...
