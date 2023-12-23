@@ -1,11 +1,20 @@
-#include "Actions/AddVariableAssign.h"
+#include "..\Actions\AddVariableAssign.h"
 #include <iostream>
+<<<<<<< Updated upstream
 #include"Actions\Action.h"
 #include "Statements\Statement.h"
 #include"GUI/Input.h"
 #include"GUI/Output.h"
 #include"ApplicationManager.h"
 #include "Statements/VariableAssign.h"
+=======
+#include"..\Actions\Action.h"
+#include "..\Statements\Statement.h"
+#include"..\GUI\Input.h"
+#include"..\GUI\Output.h"
+#include"..\ApplicationManager.h"
+#include "..\Statements\VariableAssign.h"
+>>>>>>> Stashed changes
 AddVariableAssign::AddVariableAssign(ApplicationManager* pAppManager):Action(pAppManager)
 {
 }

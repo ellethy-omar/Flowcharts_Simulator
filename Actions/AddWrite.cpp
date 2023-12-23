@@ -1,9 +1,9 @@
-#include"Actions/AddWrite.h"
-#include "GUI/Input.h"
-#include"GUI/Output.h"
-#include"ApplicationManager.h"
-#include"HelperFn.h"
-#include"Statements/Write.h"
+#include"AddWrite.h"
+#include "..\GUI/Input.h"
+#include"..\GUI/Output.h"
+#include"..\ApplicationManager.h"
+#include"..\HelperFn.h"
+#include"..\Statements/Write.h"
 
 AddWrite::AddWrite(ApplicationManager* pAppManager) :Action(pAppManager) {};
 void AddWrite::Execute() {
@@ -11,8 +11,8 @@ void AddWrite::Execute() {
 	Point Corner;
 	Corner.x = Position.x - UI.ASSGN_WDTH / 2;
 	Corner.y = Position.y;
-	Write* pWrite = new Write(Corner, print);
-	pManager->AddStatement(pWrite);
+	/*Write* pWrite = new Write(Corner, print);*/
+	/*pManager->AddStatement(pWrite);*/
 
 };
 void AddWrite::ReadActionParameters() {

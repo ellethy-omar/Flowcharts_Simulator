@@ -1,7 +1,7 @@
 #pragma once
-#include "Statements/Statement.h"
-#include "ApplicationManager.h"
-#include "Actions/AddVariableAssign.h"
+#include "..\Statements\Statement.h"
+#include "..\ApplicationManager.h"
+#include "..\Actions/AddVariableAssign.h"
 class VariableAssign :  public Statement
 {
 private:

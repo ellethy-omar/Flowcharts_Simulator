@@ -1,3 +1,4 @@
+#pragma once
 #ifndef STATEMENT_H
 #define STATEMENT_H
 
@@ -5,8 +6,9 @@
 #include "..\Connector.h"
 //class Output;
 #include "..\GUI\Output.h"
-
+#include "ForbiddenRegion.h"
 //Base class for all Statements
+class ForForbiddenReigon;
 
 class Statement
 {
@@ -21,11 +23,13 @@ protected:
 	virtual void UpdateStatementText() = 0;	//is called when any part of the stat. is edited	
 
 	/// Add more parameters if needed.
+	/*ForbiddenReigon F;*/
 
 public:
 
 	Statement();
-
+	virtual Point getInlet() = 0;
+	virtual Point getOutlet() = 0;
 	void SetSelected(bool s);
 
 	bool IsSelected() const;
@@ -34,6 +38,9 @@ public:
 
 	virtual bool Is_In_Region(Point & p1) = 0;
 	
+	virtual bool isForbidden(Point & p1) const;
+
+	//virtual ForbiddenReigon GetForbiddenReigon() const;
 
 	///TODO:The following functions should be supported by the Statement class
 	///		It should then be overridden by each derived Statement

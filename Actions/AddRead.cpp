@@ -1,9 +1,9 @@
-#include "Actions/AddRead.h"
-#include "GUI/Input.h"
-#include"GUI/Output.h"
-#include"ApplicationManager.h"
-#include "Statements/Read.h"
-#include"Statements/Statement.h"
+#include "AddRead.h"
+#include "..\GUI/Input.h"
+#include"..\GUI/Output.h"
+#include"..\ApplicationManager.h"
+#include "..\Statements/Read.h"
+#include"..\Statements/Statement.h"
 
 AddRead::AddRead(ApplicationManager* pAppManager) :Action(pAppManager) {};
 
@@ -27,6 +27,6 @@ void AddRead::Execute() {
 	Point Corner;
 	Corner.x = Position.x - UI.ASSGN_WDTH / 2;
 	Corner.y = Position.y;
-	Read* pRead = new Read(Corner, variable, Value);
-	pManager->AddStatement(pRead);
+	/*Read* pRead = new Read(Corner, variable, Value);
+	pManager->AddStatement(pRead);*/
 };

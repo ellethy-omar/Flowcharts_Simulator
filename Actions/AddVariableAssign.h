@@ -1,7 +1,9 @@
 #pragma once
-#include "D:\PT_finalphase2\Phase 2 (1)\Phase 2\Phase2_Code\Actions\Action.h"
+#ifndef ADD_VARIABLE_ASSIGN_H
+#define ADD_VARIABLE_ASSIGN_H
+#include "Action.h"
 #include <iostream>
-#include "D:\PT_finalphase2\Phase 2 (1)\Phase 2\Phase2_Code\Statements\Statement.h"
+#include "..\Statements\VariableAssign.h"
 
 class AddVariableAssign : public Action
 {
@@ -14,6 +16,5 @@ public:
 	AddVariableAssign(ApplicationManager* pAppManager);
 	virtual void ReadActionParameters();
 	virtual void Execute();
-
 };
-
+#endif

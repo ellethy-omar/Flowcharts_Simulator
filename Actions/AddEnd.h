@@ -1,5 +1,6 @@
 #pragma once
-
+#ifndef ADD_END_H
+#define ADD_END_H
 #include "Action.h"
 #include "..\Statements\End.h"
 
@@ -27,3 +28,4 @@ public:
 
 
 };
+#endif

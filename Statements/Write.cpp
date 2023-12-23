@@ -1,7 +1,7 @@
-#include "Statements/Write.h"
-#include"GUI/Output.h"
+#include "Write.h"
+#include"..\GUI/Output.h"
 #include <sstream>
-#include"HelperFn.h"
+#include"..\HelperFn.h"
 
 
 

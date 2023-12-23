@@ -1,9 +1,9 @@
 #ifndef ADD_CONDITION_H
 #define ADD_CONDITION_H
 
-
-#include "Actions/Action.h"
-#include "Condition.h"
+#include "..\ApplicationManager.h"
+#include "..\Actions/Action.h"
+#include "..\Statements\Condition.h"
 class AddCondition : public Action
 {
 private:

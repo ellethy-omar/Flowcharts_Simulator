@@ -1,6 +1,6 @@
 #pragma once
-#include "Statements/Statement.h"
-#include "ApplicationManager.h"
+#include "..\Statements\Statement.h"
+#include "..\ApplicationManager.h"
 
 class OperAssign : public Statement
 {

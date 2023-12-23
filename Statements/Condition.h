@@ -2,7 +2,11 @@
 #define CONDITION_H
 
 #include "Statement.h"
+<<<<<<< Updated upstream
 #include "../HelperFn.h"
+=======
+#include "..\HelperFn.h"
+>>>>>>> Stashed changes
 
 class Condition : public Statement
 {
@@ -13,7 +17,7 @@ private:
 	Connector* pOutConnTrue;
 	Connector* pOutConnFalse;
 	Point Inlet;
-	Point OutletTrue, OutletFalse;
+	Point Outlet;
 	Point UpperPoint;
 
 	virtual void UpdateStatementText();

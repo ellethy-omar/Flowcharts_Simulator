@@ -60,3 +60,4 @@ void AddValueAssign::Execute()
 	pManager->AddStatement(pAssign); // Adds the created statement to application manger's statement list              
 }
 
+

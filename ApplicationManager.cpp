@@ -1,14 +1,16 @@
-#include "ApplicationManager.h"
+#include "Actions\AddRead.h"
+#include "Actions\AddWrite.h"
+#include "Actions\AddCondition.h"
+#include "Actions\AddEnd.h"
+#include "Actions\AddOperAssign.h"
+#include "Actions\AddVariableAssign.h"
+#include "Actions\AddStart.h"
 #include "Actions\AddValueAssign.h"
-#include "Actions/AddEnd.h"
+#include "ApplicationManager.h"
 #include "GUI\Input.h"
 #include "GUI\Output.h"
-#include "Actions\AddStart.h"
-#include "Actions/AddOperAssign.h"
-#include "Actions/AddVariableAssign.h"
-#include "Actions\AddCondition.h"
-
 //Constructor
+
 ApplicationManager::ApplicationManager()
 {
 	//Create Input and output
@@ -44,10 +46,8 @@ ActionType ApplicationManager::GetUserAction() const
 void ApplicationManager::ExecuteAction(ActionType ActType) 
 {
 	Action* pAct = NULL;
-	
+	Point P;
 	//According to ActioType, create the corresponding action object
-	if (UI.AppMode == DESIGN)
-	{
 	switch (ActType)
 	{
 		case ADD_VALUE_ASSIGN:
@@ -55,35 +55,35 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_END:
-			pAct = new AddEnd(this);
+			/*pAct = new AddEnd(this);*/
 			break;
 
 		case ADD_START:
-			pAct = new AddStart(this);
+			/*pAct = new AddStart(this);*/
 			break;
 
 		case ADD_VAR_ASSIGN:
-			pAct = new AddVariableAssign(this);
+			/*pAct = new AddVariableAssign(this);*/
 			break;
 
 		case ADD_OPER_ASSIGN:
-			pAct = new AddOperAssign(this);
+			/*pAct = new AddOperAssign(this);*/
 			break;
 
 		case ADD_CONDITION:
-			pAct = new AddCondition(this);
+			/*pAct = new AddCondition(this);*/
 			break;
 
 		case ADD_READ:
-			pOut->PrintMessage("Action: read statement , Click anywhere");
+			/*pAct = new AddRead(this);*/
 			break;
 
 		case ADD_WRITE:
-			pOut->PrintMessage("Action: write statement , Click anywhere");
+			/*pAct = new AddWrite(this);*/
 			break;
 
 		case ADD_CONNECTOR:
-			pOut->PrintMessage("Action: add a connector , Click anywhere");
+			AddConnector(ConnList[ConnCount]);
 			break;
 
 		case SELECT:
@@ -123,8 +123,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case SWITCH_SIM_MODE:
-			UI.AppMode = SIMULATION;
-			pOut->CreateSimulationToolBar();
+			pOut->PrintMessage("Action: Switch to Simulation Mode, creating simualtion tool bar");
+			pOut->CreateSimulationToolBar(); // THIS TESTS Output::CreateSimulationToolBar() function //////
 			break;
 
 		case SWITCH_DSN_MODE:
@@ -158,25 +158,45 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case STATUS:
 			return;
 	}
-	}
-	else if (UI.AppMode == SIMULATION)
-	{
-		switch (ActType)
-		{
-		case SWITCH_DSN_MODE:
-			UI.AppMode = SIMULATION;
-			pOut->CreateDesignToolBar();
-			break;
-
-		}
-	}
-	
+	int c = 0;
 	//Execute the created action
-	if(pAct != NULL)
+	
+	if (pAct != NULL)
 	{
-		pAct->Execute();//Execute
-		delete pAct;	//Action is not needed any more ==> delete it
-	}
+		
+		while (StatCount != 0)
+		{
+			c++;
+			pOut->PrintMessage("click where to put the Statment or connector");
+			pIn->GetPointClicked(P);
+			while ((P.x >= (UI.DrawingAreaWidth - UI.ASSGN_WDTH / 2)) || (P.y >= (UI.height - UI.ASSGN_HI / 2 - UI.StatusBarHeight)) || (P.y <= (UI.StatusBarHeight)))
+			{
+				pOut->PrintMessage("Click inside the drawing area, such that the drawing doesn't get out of drawing area");
+				pIn->GetPointClicked(P);
+			}
+
+			for (int i = 0; i < StatCount; i++)
+			{
+				if (StatList[i]->Is_In_Region(P) == true)
+				{
+					c = 0;
+					pOut->PrintMessage("Error");
+					break;
+				}
+			}
+			if (c != 0)
+			{
+				pAct->Execute();//Execute
+				delete pAct;	//Action is not needed any more ==> delete it
+				break;
+			}
+		}
+		if (StatCount == 0)
+		{
+			pAct->Execute();//Execute
+			delete pAct;	//Action is not needed any more ==> delete it
+		}
+	}	
 }
 
 
@@ -194,8 +214,75 @@ void ApplicationManager::AddStatement(Statement *pStat)
 	
 }
 
+int ApplicationManager::GetStatCount() const
+{
+	return StatCount;
+}
+
+int ApplicationManager::GetConnectorCount() const
+{
+	return ConnCount;
+}
+
+void ApplicationManager::AddConnector(Connector* pConn)
+{
+
+	Point Position;
+	Statement* s1 = NULL;
+	Statement* s2 = NULL;
+
+	pOut->PrintMessage("Connector : Click on the first delivering statment");
+	pIn->GetPointClicked(Position);
+
+	while (GetStatement(Position) == NULL)
+	{
+		pOut->PrintMessage("Please, select on the delivering statment");
+		pIn->GetPointClicked(Position);
+	}
+	s1 = GetStatement(Position);
+
+	pOut->PrintMessage("Successfully made delivering statment, now click on recieveing statment");
+	pIn->GetPointClicked(Position);
+
+	while (GetStatement(Position) == NULL || GetStatement(Position) == s1)
+	{
+		pOut->PrintMessage("Please, select on the recieveing statment");
+		pIn->GetPointClicked(Position);
+	}
+	ForbiddenReigon* ForbiddenArr = NULL;
+	s2 = GetStatement(Position);
+	/*if (StatCount > 2)
+	{
+		ForbiddenArr = new ForbiddenReigon[StatCount - 2];
+		for (int i = 0; i < StatCount; i++)
+		{
+			if (GetStatementIteration(i) != s1 && GetStatementIteration(i) != s2)
+			{
+				ForbiddenArr[i] = GetStatementIteration(i)->GetForbiddenReigon();
+			}
+		}
+	}*/
+	
+
+	pConn = new Connector(s1, s2, ForbiddenArr, StatCount);
+	ConnList[ConnCount] = pConn;
+	ConnCount++;
+}
+
+Connector* ApplicationManager::GetConnector(Point P) const
+{
+	for (int i = 0; i < ConnCount; i++)
+	{
+		if (ConnList[i]->IsSelectedCon(P) == true)
+		{
+			return ConnList[i];
+		}
+	}
+	return NULL;
+}
+
 ////////////////////////////////////////////////////////////////////////////////////
-Statement *ApplicationManager::GetStatement(Point P) const
+Statement* ApplicationManager::GetStatement(Point P) const
 {
 	//If this point P(x,y) belongs to a statement return a pointer to it.
 	//otherwise, return NULL
@@ -203,9 +290,27 @@ Statement *ApplicationManager::GetStatement(Point P) const
 
 	///Add your code here to search for a statement given a point P(x,y)	
 	///WITHOUT breaking class responsibilities
-
+	for (int i = 0; i < StatCount; i++)
+	{
+		if (StatList[i]->Is_In_Region(P) == true)
+		{
+			StatList[i]->SetSelected(true);
+			return StatList[i];
+		}
+	}
 	return NULL;
 }
+
+Statement* ApplicationManager::GetStatementIteration(int i)
+{
+	if (i< StatCount)
+	{
+		return StatList[i];
+	}
+	return NULL;
+}
+
+
 ////////////////////////////////////////////////////////////////////////////////////
 //Returns the selected statement
 Statement *ApplicationManager::GetSelectedStatement() const

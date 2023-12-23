@@ -33,13 +33,14 @@ public:
 	
 
 	ValueAssign(Point Lcorner, string LeftHS="", double RightHS=0);
-	
 	void setLHS(const string &L);
 	void setRHS(double R);
 	Point getInlet();
 	Point getOutlet();
 	virtual void Draw(Output* pOut) const;
 	bool Is_In_Region(Point& p1);
+	void SetOutlet();
+	/*void SetInlet();*/
 };
 
 #endif

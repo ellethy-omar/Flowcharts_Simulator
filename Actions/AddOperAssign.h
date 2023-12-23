@@ -1,6 +1,8 @@
 #pragma once
-#include "Actions/Action.h"
-#include "ApplicationManager.h"
+#ifndef ADD_OPERATOR_ASSIGN_H
+#define ADD_OPERATOR_ASSIGN_H
+#include "Action.h"
+#include "..\ApplicationManager.h"
 class AddOperAssign : public Action
 {
 private:
@@ -13,3 +15,4 @@ public:
 	virtual void Execute();
 };
 
+#endif

@@ -1,5 +1,6 @@
 #pragma once
-
+#ifndef ADD_START_H
+#define ADD_START_H
 #include "Action.h"
 #include "..\Statements\Start.h"
 
@@ -25,3 +26,4 @@ public:
 	virtual void Execute();
 
 };
+#endif

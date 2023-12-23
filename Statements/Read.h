@@ -1,6 +1,6 @@
 #pragma once
-#include "Statements/statement.h"
-#include "GUI/UI_Info.h"
+#include "Statement.h"
+#include "..\GUI/UI_Info.h"
 #include <sstream>
 class Read:public Statement
 {

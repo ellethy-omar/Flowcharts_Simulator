@@ -28,6 +28,7 @@ private:
 
 	virtual void UpdateStatementText();
 
+	virtual bool Is_In_Region(Point& p1);
 
 public:
 

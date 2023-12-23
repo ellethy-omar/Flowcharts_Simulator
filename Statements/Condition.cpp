@@ -12,6 +12,7 @@ Condition::Condition(Point UPpoint, string LeftHS, string ComparisonOperator, st
 
 	UpperPoint = UPpoint;
 
+<<<<<<< Updated upstream
 	pOutConnTrue = NULL;	
 	pOutConnFalse = NULL;
 
@@ -23,6 +24,23 @@ Condition::Condition(Point UPpoint, string LeftHS, string ComparisonOperator, st
 
 	OutletFalse = UpperPoint.x - UI.COND_WDTH / 2;
 	OutletFalse.y = UpperPoint.y + UI.COND_HI / 2;
+=======
+	pOutConn = NULL;	
+		
+	Inlet.x = UpperPoint.x;
+	Inlet.y = UpperPoint.y;
+
+	Outlet.x = Inlet.x;
+	Outlet.y = UpperPoint.y + UI.COND_HI;/*UI.COND_HI*/
+
+	//ForbiddenRegion
+
+	F.pf1.x = Inlet.x - UI.COND_WDTH / 2 - 10;	F.pf1.y = Inlet.y + 5;
+	F.pf2.x = Inlet.x + UI.COND_WDTH / 2 + 10;	F.pf2.y = Inlet.y + 5;
+	F.pf3.x = Inlet.x + UI.COND_WDTH / 2 + 10;	F.pf3.y = Outlet.y - 5;
+	F.pf4.x = Inlet.x - UI.COND_WDTH / 2 - 10;	F.pf4.y = Outlet.y - 5;
+
+>>>>>>> Stashed changes
 }
 
 void Condition::setLHS(const string& R) {

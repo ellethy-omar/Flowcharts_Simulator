@@ -1,5 +1,5 @@
 #pragma once
-#include"Statements/Statement.h"
+#include"Statement.h"
 class Write:public Statement
 {
 	Connector* pOutConn;

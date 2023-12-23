@@ -4,9 +4,11 @@
 #include "DEFS.h"
 
 #include "Statements\Statement.h"
+#include "Connector.h"
 class Input;
 class Output;
-
+class Statement;
+class Connector;
 
 //Main class that manages everything in the application.
 class ApplicationManager
@@ -40,10 +42,14 @@ public:
 	// == Statements/Connector Management Functions ==
 	void AddStatement(Statement* pStat);    //Adds a new Statement to the Flowchart
 	Statement *GetStatement(Point P) const;	//Searches for a statement where point P belongs
-	                                        //TODO: Complete its implementation 
+										     //TODO: Complete its implementation 
 	                                        //      WITHOUT breaking class responsibilities
+	int GetStatCount() const;
+	int GetConnectorCount() const;
 
-	void AddConnector(Connector* pConn);    //Adds a new Connector to the Flowchart
+	Statement* GetStatementIteration(int i);
+
+	void AddConnector(Connector* pConn);  //Adds a new Connector to the Flowchart
 	Connector *GetConnector(Point P) const;	//search for a Connector where point P belongs
 
 	// Note: you should use the following 4 functions 

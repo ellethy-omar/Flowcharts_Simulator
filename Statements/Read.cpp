@@ -1,5 +1,5 @@
-#include "Statements/Read.h"
-#include "GUI/UI_Info.h"
+#include "Read.h"
+#include "..\GUI/UI_Info.h"
 #include <sstream>
 
 Read::Read(Point corner, string text, double input_value) {

@@ -22,13 +22,18 @@ private:
 	//      we will begin with start statement then its output connector
 	//      then the connector's destination statement and so on (follow the connectors)
 
-	Point Inlet;	//A point where connections enters this statement 
+	Point Outlet;	//A point where connections enters this statement 
 	//It's used as the (End) point of the (Input) connectors
 
 	Point Center;	//Center of the statement block.
 
 	virtual void UpdateStatementText();
 
+	virtual bool Is_In_Region(Point& p1);
+
+	void SetConnector(Connector* pOutConn);
+
+	Connector* GetConnector();
 
 public:
 

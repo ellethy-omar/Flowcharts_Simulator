@@ -1,8 +1,8 @@
-#include "Actions/AddOperAssign.h"
-#include "ApplicationManager.h"
-#include "GUI/Input.h"
-#include "GUI/Output.h"
-#include "Statements/OperAssign.h"
+#include "..\Actions\AddOperAssign.h"
+#include "..\ApplicationManager.h"
+#include "..\GUI\Input.h"
+#include "..\GUI\Output.h"
+#include "..\Statements\OperAssign.h"
 AddOperAssign::AddOperAssign(ApplicationManager* pAppManager) :Action(pAppManager)
 {
 }
