@@ -12,7 +12,8 @@ Condition::Condition(Point UPpoint, string LeftHS, string ComparisonOperator, st
 
 	UpperPoint = UPpoint;
 
-	pOutConn = NULL;	
+	pOutConnTrue = NULL;	
+	pOutConnFalse = NULL;
 
 	Inlet.x = UpperPoint.x;
 	Inlet.y = UpperPoint.y;
