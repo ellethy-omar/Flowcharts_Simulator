@@ -10,7 +10,8 @@ private:
 	string RHS;
 	string LHS;
 	string CompOperator;
-	Connector* pOutConn;
+	Connector* pOutConnTrue;
+	Connector* pOutConnFalse;
 	Point Inlet;
 	Point OutletTrue, OutletFalse;
 	Point UpperPoint;
