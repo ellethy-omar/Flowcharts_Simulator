@@ -1,8 +1,8 @@
 #ifndef CONDITION_H
 #define CONDITION_H
 
-#include "Statements/Statement.h"
-#include "HelperFn.h"
+#include "Statement.h"
+#include "../HelperFn.h"
 
 class Condition : public Statement
 {
