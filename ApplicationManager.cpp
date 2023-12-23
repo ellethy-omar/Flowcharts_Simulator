@@ -46,6 +46,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	Action* pAct = NULL;
 	
 	//According to ActioType, create the corresponding action object
+	if (UI.AppMode == DESIGN)
+	{
 	switch (ActType)
 	{
 		case ADD_VALUE_ASSIGN:
@@ -121,8 +123,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case SWITCH_SIM_MODE:
-			pOut->PrintMessage("Action: Switch to Simulation Mode, creating simualtion tool bar");
-			pOut->CreateSimulationToolBar(); // THIS TESTS Output::CreateSimulationToolBar() function //////
+			UI.AppMode = SIMULATION;
+			pOut->CreateSimulationToolBar();
 			break;
 
 		case SWITCH_DSN_MODE:
@@ -155,6 +157,18 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case STATUS:
 			return;
+	}
+	}
+	else if (UI.AppMode == SIMULATION)
+	{
+		switch (ActType)
+		{
+		case SWITCH_DSN_MODE:
+			UI.AppMode = SIMULATION;
+			pOut->CreateDesignToolBar();
+			break;
+
+		}
 	}
 	
 	//Execute the created action
