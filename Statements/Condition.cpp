@@ -17,8 +17,11 @@ Condition::Condition(Point UPpoint, string LeftHS, string ComparisonOperator, st
 	Inlet.x = UpperPoint.x;
 	Inlet.y = UpperPoint.y;
 
-	Outlet.x = Inlet.x;
-	Outlet.y = UpperPoint.y + UI.COND_HI;/*UI.COND_HI*/
+	OutletTrue.x = UpperPoint.x + UI.COND_WDTH / 2;
+	OutletTrue.y = UpperPoint.y + UI.COND_HI / 2;
+
+	OutletFalse = UpperPoint.x - UI.COND_WDTH / 2;
+	OutletFalse.y = UpperPoint.y + UI.COND_HI / 2;
 }
 
 void Condition::setLHS(const string& R) {
@@ -96,4 +99,17 @@ bool Condition::Is_In_Region(Point& p1) {
 	}
 
 	return true;
+}
+
+
+Point Condition::getInlet() {
+	return Inlet;
+}
+
+Point Condition::getOutletTrue() {
+	return OutletTrue;
+}
+
+Point Condition::getOutletFalse() {
+	return OutletFalse;
 }
