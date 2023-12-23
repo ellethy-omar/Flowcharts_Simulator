@@ -1,7 +1,6 @@
 #include "Actions/AddVariableAssign.h"
 #include <iostream>
 #include"Actions\Action.h"
-#include "D:\PT_finalphase2\Phase 2 (1)\Phase 2\Phase2_Code\Statements\Statement.h"
 #include "Statements\Statement.h"
 #include"GUI/Input.h"
 #include"GUI/Output.h"
@@ -16,9 +15,23 @@ void AddVariableAssign::ReadActionParameters()
 	Input* pIn = pManager->GetInput();
 	Output* pOut = pManager->GetOutput();
 
-	pOut->PrintMessage("Value Assignment Statement: Click to add the statement");
+	Point dummyp;
+	bool conti = false;
+	while (conti == false)
+	{
+		pOut->PrintMessage("Value Assignment Statement: Click to add the statement");
 
-	pIn->GetPointClicked(Position);
+		pIn->GetPointClicked(Position);
+		if ((((Position.x) + UI.ASSGN_WDTH / 2) >= 0.75 * UI.width) || (Position.y <= UI.ToolBarHeight) || (Position.y + UI.ASSGN_HI >= UI.height - UI.StatusBarHeight))
+		{
+			pOut->PrintMessage("you cannot draw in this area,click to continue");
+			pIn->GetPointClicked(dummyp);
+		}
+		else
+		{
+			conti = true;
+		}
+	}
 	pOut->ClearStatusBar();
 
 	pOut->PrintMessage("Add the LHS for the statment");
@@ -36,4 +49,5 @@ void AddVariableAssign::Execute()
 	VariableAssign* pAssign = new VariableAssign(Corner, LHS, RHS);
 	pManager->AddStatement(pAssign);            
 }
+
 
