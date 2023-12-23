@@ -5,7 +5,6 @@
 #include <sstream>
 using namespace std;
 
-//constructor: set the ApplicationManager pointer inside this action
 AddValueAssign::AddValueAssign(ApplicationManager *pAppManager):Action(pAppManager)          
 {}
 
@@ -15,9 +14,23 @@ void AddValueAssign::ReadActionParameters()
 	Output *pOut = pManager->GetOutput();
 	
 	//Read the (Position) parameter
-	pOut->PrintMessage("Value Assignment Statement: Click to add the statement");
+	Point dummyp;
+	bool conti = false;
+	while (conti == false)
+	{
+		pOut->PrintMessage("Value Assignment Statement: Click to add the statement");
 
-	pIn->GetPointClicked(Position);
+		pIn->GetPointClicked(Position);
+		if ((((Position.x) +UI.ASSGN_WDTH / 2) >= 0.75 * UI.width)  || (Position.y <= UI.ToolBarHeight) || (Position.y + UI.ASSGN_HI >= UI.height - UI.StatusBarHeight) )
+		{
+			pOut->PrintMessage("you cannot draw in this area,click to continue");
+			pIn->GetPointClicked(dummyp);
+		}
+		else
+		{
+			conti = true;
+		}
+	}
 	pOut->ClearStatusBar();		
 
 	//TODO: Ask the user in the status bar to enter the LHS and set the data member
