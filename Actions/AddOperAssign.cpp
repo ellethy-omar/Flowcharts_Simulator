@@ -11,10 +11,24 @@ void AddOperAssign::ReadActionParameters()
 {
 	Input* pIn = pManager->GetInput();
 	Output* pOut = pManager->GetOutput();
+	Point dummyp;
+	bool conti = false;
+	while (conti == false)
+	{
+		pOut->PrintMessage("Value Assignment Statement: Click to add the statement");
 
-	pOut->PrintMessage("Operation Assignment Statement: Click to add the statement");
+		pIn->GetPointClicked(Position);
+		if ((((Position.x) + UI.ASSGN_WDTH / 2) >= 0.75 * UI.width) || (Position.y <= UI.ToolBarHeight) || (Position.y + UI.ASSGN_HI >= UI.height - UI.StatusBarHeight))
+		{
+			pOut->PrintMessage("you cannot draw in this area,click to continue");
+			pIn->GetPointClicked(dummyp);
+		}
+		else
+		{
+			conti = true;
+		}
+	}
 
-	pIn->GetPointClicked(Position);
 	pOut->ClearStatusBar();
 
 	pOut->PrintMessage("Add the LHS for the statment");
@@ -61,27 +75,39 @@ void AddOperAssign::ReadActionParameters()
 		}
 		else if (arithmaticoperator == 1)
 		{
-			BeforeArithmaticOperator = RHS1.substr(0, ArithmaticOperator_Index);
-			int leadingzerosbefore = BeforeArithmaticOperator.find_first_not_of(" \t");
-			int endingzerosbefore = BeforeArithmaticOperator.find_last_not_of(" \t");
-			BeforeArithmaticOperator_WithotSpaces = BeforeArithmaticOperator.substr(leadingzerosbefore, endingzerosbefore - leadingzerosbefore + 1);
-			if (ValueOrVariable(BeforeArithmaticOperator_WithotSpaces) == 2)
+			if (ArithmaticOperator_Index != 0 && ArithmaticOperator_Index != RHS1.length()-1)
 			{
-				pOut->PrintMessage("what you entered Before the Arithmatic Operator is neither a varibale nor a value,click anywhere to continue");
-				pIn->GetPointClicked(dummy);
+				BeforeArithmaticOperator = RHS1.substr(0, ArithmaticOperator_Index);
+				int leadingzerosbefore = BeforeArithmaticOperator.find_first_not_of(" \t");
+				int endingzerosbefore = BeforeArithmaticOperator.find_last_not_of(" \t");
+				BeforeArithmaticOperator_WithotSpaces = BeforeArithmaticOperator.substr(leadingzerosbefore, endingzerosbefore - leadingzerosbefore + 1);
+				if (ValueOrVariable(BeforeArithmaticOperator_WithotSpaces) == 2)
+				{
+					pOut->PrintMessage("what you entered Before the Arithmatic Operator is neither a varibale nor a value,click anywhere to continue");
+					pIn->GetPointClicked(dummy);
+				}
+				AfterArithmaticOperator = RHS1.substr(ArithmaticOperator_Index + 1);
+				int leadingzerosafter = AfterArithmaticOperator.find_first_not_of(" \t");
+				int endingzerosafter = AfterArithmaticOperator.find_last_not_of(" \t");
+				AfterArithmaticOperator_WithotSpaces = AfterArithmaticOperator.substr(leadingzerosafter, endingzerosafter - leadingzerosafter + 1);
+				if (ValueOrVariable(AfterArithmaticOperator_WithotSpaces) == 2)
+				{
+					pOut->PrintMessage("what you entered After the Arithmatic Operator is neither a varibale nor a value,click anywhere to continue");
+					pIn->GetPointClicked(dummy);
+				}
+				if (ValueOrVariable(AfterArithmaticOperator_WithotSpaces) != 2 && ValueOrVariable(BeforeArithmaticOperator_WithotSpaces) != 2)
+				{
+					Continue = true;
+				}
 			}
-			AfterArithmaticOperator = RHS1.substr(ArithmaticOperator_Index + 1);
-			int leadingzerosafter = AfterArithmaticOperator.find_first_not_of(" \t");
-			int endingzerosafter = AfterArithmaticOperator.find_last_not_of(" \t");
-			AfterArithmaticOperator_WithotSpaces = AfterArithmaticOperator.substr(leadingzerosafter, endingzerosafter - leadingzerosafter + 1);
-			if (ValueOrVariable(AfterArithmaticOperator_WithotSpaces) == 2)
+			else
 			{
-				pOut->PrintMessage("what you entered After the Arithmatic Operator is neither a varibale nor a value,click anywhere to continue");
+				if(ArithmaticOperator_Index == 0)
+				pOut->PrintMessage("there is nothing before the arithmatic operator,click anywhere to continue");
+				else
+					pOut->PrintMessage("there is nothing after the arithmatic operator,click anywhere to continue");
+
 				pIn->GetPointClicked(dummy);
-			}
-			if (ValueOrVariable(AfterArithmaticOperator_WithotSpaces) != 2 && ValueOrVariable(BeforeArithmaticOperator_WithotSpaces) != 2)
-			{
-				Continue = true;
 			}
 		}
 	}
@@ -97,5 +123,7 @@ void AddOperAssign::Execute()
 	OperAssign* pAssign = new OperAssign(Corner, LHS, RHS);
 	pManager->AddStatement(pAssign);
 }
+
+
 
 
