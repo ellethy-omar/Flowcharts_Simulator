@@ -12,6 +12,6 @@ public:
 	Write(Point corner, string text);
 	virtual void Draw(Output* pOut) const;
 	void UpdateStatementText();
-	void SetConnector(connector* connect);
+	void SetConnector(Connector* connect);
 };
 

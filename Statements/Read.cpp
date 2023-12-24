@@ -28,6 +28,6 @@ void Read:: UpdateStatementText() {
 	Text=T.str();
 
 };
-void Read:: SetConnector(connector* connect){
+void Read::SetConnector(Connector* connect){
 	pOutConn=connect;
 };

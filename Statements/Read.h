@@ -15,6 +15,6 @@ public:
 	void Draw(Output* pOut) const ;
 	virtual void UpdateStatementText();
 
-
+	void SetConnector(Connector* connect);
 };
 
