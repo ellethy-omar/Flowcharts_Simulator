@@ -19,12 +19,8 @@ ValueAssign::ValueAssign(Point Lcorner, string LeftHS, double RightHS)
 	Inlet.x = LeftCorner.x + UI.ASSGN_WDTH /2;
 	Inlet.y = LeftCorner.y;
 	Outlet.x = Inlet.x;
-	Outlet.y = LeftCorner.y + UI.ASSGN_HI;	
+	Outlet.y = LeftCorner.y + UI.ASSGN_HI;
 
-	/*F.pf1.x = Inlet.x - UI.ASSGN_WDTH / 2 - 10;		F.pf1.y = Inlet.y - 5;
-	F.pf2.x = Inlet.x + UI.ASSGN_WDTH / 2 + 10;		F.pf2.y = Inlet.y - 5;
-	F.pf3.x = Outlet.x + UI.ASSGN_WDTH / 2 + 10;	F.pf3.y = Outlet.y + 5;
-	F.pf4.x = Outlet.x - UI.ASSGN_WDTH / 2 - 10;	F.pf4.y = Outlet.y + 5;*/
 }
 
 void ValueAssign::setLHS(const string &L)
@@ -67,11 +63,6 @@ bool ValueAssign::Is_In_Region(Point& p1)
 	{
 		return false;
 	}
-}
-
-void ValueAssign::SetOutlet()
-{
-
 }
 
 //This function should be called when LHS or RHS changes

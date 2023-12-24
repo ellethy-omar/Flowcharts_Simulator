@@ -27,13 +27,19 @@ public:
 
 	void setRHS(const string& R);
 
+	Point getOutlet();
+
 	Point getInlet();
+
 	Point getOutletTrue();
+
 	Point getOutletFalse();
 
 	virtual void Draw(Output* pOut) const;
 
 	virtual bool Is_In_Region(Point& p1);
+
+	
 };
 
 #endif

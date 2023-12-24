@@ -55,32 +55,32 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_END:
-			/*pAct = new AddEnd(this);*/
+			pAct = new AddEnd(this);
 			break;
 
 		case ADD_START:
-			/*pAct = new AddStart(this);*/
+			pAct = new AddStart(this);
 			break;
 
 		case ADD_VAR_ASSIGN:
-			/*pAct = new AddVariableAssign(this);*/
+			pAct = new AddVariableAssign(this);
 			break;
 
 		case ADD_OPER_ASSIGN:
-			/*pAct = new AddOperAssign(this);*/
+			pAct = new AddOperAssign(this);
 			break;
 
 		case ADD_CONDITION:
-			/*pAct = new AddCondition(this);*/
+			pAct = new AddCondition(this);
 			break;
 
 		case ADD_READ:
-			/*pAct = new AddRead(this);*/
-			break;
+			/*pAct = new AddRead(this);
+			break;*/
 
 		case ADD_WRITE:
-			/*pAct = new AddWrite(this);*/
-			break;
+			/*pAct = new AddWrite(this);
+			break;*/
 
 		case ADD_CONNECTOR:
 			AddConnector(ConnList[ConnCount]);
@@ -158,44 +158,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		case STATUS:
 			return;
 	}
-	int c = 0;
-	//Execute the created action
-	
+	//Execute the created action	
 	if (pAct != NULL)
 	{
+		pAct->Execute();//Execute
+		delete pAct;	//Action is not needed any more ==> delete it
 		
-		while (StatCount != 0)
-		{
-			c++;
-			pOut->PrintMessage("click where to put the Statment or connector");
-			pIn->GetPointClicked(P);
-			while ((P.x >= (UI.DrawingAreaWidth - UI.ASSGN_WDTH / 2)) || (P.y >= (UI.height - UI.ASSGN_HI / 2 - UI.StatusBarHeight)) || (P.y <= (UI.StatusBarHeight)))
-			{
-				pOut->PrintMessage("Click inside the drawing area, such that the drawing doesn't get out of drawing area");
-				pIn->GetPointClicked(P);
-			}
-
-			for (int i = 0; i < StatCount; i++)
-			{
-				if (StatList[i]->Is_In_Region(P) == true)
-				{
-					c = 0;
-					pOut->PrintMessage("Error");
-					break;
-				}
-			}
-			if (c != 0)
-			{
-				pAct->Execute();//Execute
-				delete pAct;	//Action is not needed any more ==> delete it
-				break;
-			}
-		}
-		if (StatCount == 0)
-		{
-			pAct->Execute();//Execute
-			delete pAct;	//Action is not needed any more ==> delete it
-		}
 	}	
 }
 
@@ -211,6 +179,7 @@ void ApplicationManager::AddStatement(Statement *pStat)
 {
 	if(StatCount < MaxCount)
 		StatList[StatCount++] = pStat;
+	/*StatList[StatCount - 1]->setID(StatCount);*/
 	
 }
 
@@ -240,7 +209,7 @@ void ApplicationManager::AddConnector(Connector* pConn)
 		pIn->GetPointClicked(Position);
 	}
 	s1 = GetStatement(Position);
-
+	SetSelectedStatement(s1);
 	pOut->PrintMessage("Successfully made delivering statment, now click on recieveing statment");
 	pIn->GetPointClicked(Position);
 
@@ -249,22 +218,10 @@ void ApplicationManager::AddConnector(Connector* pConn)
 		pOut->PrintMessage("Please, select on the recieveing statment");
 		pIn->GetPointClicked(Position);
 	}
-	ForbiddenReigon* ForbiddenArr = NULL;
-	s2 = GetStatement(Position);
-	/*if (StatCount > 2)
-	{
-		ForbiddenArr = new ForbiddenReigon[StatCount - 2];
-		for (int i = 0; i < StatCount; i++)
-		{
-			if (GetStatementIteration(i) != s1 && GetStatementIteration(i) != s2)
-			{
-				ForbiddenArr[i] = GetStatementIteration(i)->GetForbiddenReigon();
-			}
-		}
-	}*/
 	
+	s2 = GetStatement(Position);
 
-	pConn = new Connector(s1, s2, ForbiddenArr, StatCount);
+	pConn = new Connector(s1, s2);
 	ConnList[ConnCount] = pConn;
 	ConnCount++;
 }
@@ -294,7 +251,6 @@ Statement* ApplicationManager::GetStatement(Point P) const
 	{
 		if (StatList[i]->Is_In_Region(P) == true)
 		{
-			StatList[i]->SetSelected(true);
 			return StatList[i];
 		}
 	}
@@ -319,7 +275,14 @@ Statement *ApplicationManager::GetSelectedStatement() const
 ////////////////////////////////////////////////////////////////////////////////////
 //Set the statement selected by the user
 void ApplicationManager::SetSelectedStatement(Statement *pStat)
-{	pSelectedStat = pStat;	}
+{
+	if (pSelectedStat != NULL)
+	{
+		pSelectedStat->SetSelected(false);
+	}
+	pSelectedStat = pStat;
+	pSelectedStat->SetSelected(true);
+}
 
 ////////////////////////////////////////////////////////////////////////////////////
 //Returns the Clipboard

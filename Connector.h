@@ -6,7 +6,6 @@
 #include "GUI\UI_Info.h"
 #include "GUI\output.h"
 #include "ApplicationManager.h"
-#include "Statements/ForbiddenRegion.h"
 
 class Statement;
 
@@ -17,10 +16,7 @@ private:
 	Statement *DstStat;	//The destination statement of the connector
 	Point Start;	//Start point of the connector
 	Point End;		//End point of the connector
-	ForbiddenReigon* FUCK;
-	int Fuck_length;
 public:
-	Connector(Statement* Src, Statement* Dst , ForbiddenReigon *F , int x);
 	Connector(Statement* Src, Statement* Dst);
 
 	void		setSrcStat(Statement *Src);
@@ -36,7 +32,7 @@ public:
 	Point getEndPoint();
 
 	void Draw(Output* pOut) const;
-	bool IsSelectedCon(Point P);
+	bool IsSelectedCon(Point P) const;
 
 	~Connector();
 };

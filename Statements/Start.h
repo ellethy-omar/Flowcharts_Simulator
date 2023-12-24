@@ -11,7 +11,6 @@ private:
 	string LHS;	//Left Handside of the assignment (name of a variable)
 
 	Connector* pOutConn;
-	int kounter;
 
 	//Value Assignment Stat. has one Connector to next statement
 	//Each statement type in flowchart has a predefined number of (output) connectors
@@ -29,12 +28,6 @@ private:
 
 	virtual void UpdateStatementText();
 
-	virtual bool Is_In_Region(Point& p1);
-
-	void SetConnector(Connector* pOutConn);
-
-	Connector* GetConnector();
-
 public:
 
 	Start(Point Center);
@@ -43,5 +36,14 @@ public:
 
 	~Start();
 
+	Point getOutlet();
+
+	Point getInlet();
+
+	virtual void SetConnector(Connector* pOutConn);
+
+	virtual Connector* GetConnector();
+
+	virtual bool Is_In_Region(Point& p1);
 };
 #endif

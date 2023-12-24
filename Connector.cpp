@@ -1,33 +1,16 @@
 #include "Connector.h"
 
-Connector::Connector(Statement* Src, Statement* Dst, ForbiddenReigon* F, int x)
+Connector::Connector(Statement* Src, Statement* Dst)
 //When a connector is created, it must have a source statement and a destination statement
 //There are NO FREE connectors in the flowchart
 {
 	
-	SrcStat = Src;
-	DstStat = Dst;
-	FUCK = F;
-	/*for (int i = 0; i < x; i++)
-	{
-		FUCK[i] = F[i];
-	}*/
-	Fuck_length = x;
+	setSrcStat(Src);
+	setDstStat(Dst);
 	Start = SrcStat->getOutlet();
 	End = DstStat->getInlet();
 
 }
-
-Connector::Connector(Statement* Src, Statement* Dst)
-{
-	SrcStat = Src;
-	DstStat = Dst;
-	FUCK = NULL;
-	Fuck_length = 0;
-	Start = SrcStat->getOutlet();
-	End = DstStat->getInlet();
-}
-
 
 void Connector::setSrcStat(Statement *Src)
 {	SrcStat = Src;	}
@@ -40,7 +23,6 @@ void Connector::setDstStat(Statement *Dst)
 
 Statement* Connector::getDstStat()
 {	return DstStat;	}
-
 
 void Connector::setStartPoint(Point P)
 {	Start = P;	}
@@ -56,165 +38,33 @@ Point Connector::getEndPoint()
 
 void Connector::Draw(Output* pOut) const
 {
-
+	pOut->DrawConnector(Start, End);
 	///TODO: Call Output to draw a connector from SrcStat to DstStat on the output window
-
-	Point dummy = Start;
-	Point lag = Start;
-	lag.y += 10;
-	dummy.y += 10;
-	pOut->Drawline(dummy, Start);
-
-	while (dummy.x != End.x || dummy.y != (End.y - 10))
-	{
-		if (End.x != dummy.x)
-		{
-			if (End.x > Start.x)
-			{
-				for (int i = dummy.x; i < End.x; i++)
-				{
-					dummy.x++;
-					for (int j = 0; j < Fuck_length; j++)
-					{
-						if (FUCK != NULL)
-						{
-							if (FUCK[i].Isforbidden(dummy) == true)
-							{
-								dummy.x--;
-								break;
-							}
-						}
-					}
-					if (dummy.x == lag.x)
-					{
-						break;
-					}
-					else
-					{
-						pOut->Drawline(dummy, lag);
-					}
-					lag.x++;
-				}
-			}
-			else
-			{
-				for (int i = dummy.x; i > End.x; i--)
-				{
-					dummy.x--;
-					for (int j = 0; j < Fuck_length; j++)
-					{
-						if (FUCK != NULL)
-						{
-							if (FUCK[i].Isforbidden(dummy) == true)
-							{
-								dummy.x++;
-								break;
-							}
-						}
-					}
-					if (dummy.x == lag.x)
-					{
-						break;
-					}
-					else
-					{
-						pOut->Drawline(dummy, lag);
-					}
-					lag.x--;
-				}
-			}
-		}
-		if ((End.y - 10) != dummy.y)
-		{
-			if (End.y > Start.y)
-			{
-				for (int i = dummy.y; i < (End.y - 10); i++)
-				{
-					dummy.y++;
-					for (int j = 0; j < Fuck_length; j++)
-					{
-						if (FUCK != NULL)
-						{
-							if (FUCK[i].Isforbidden(dummy) == true)
-							{
-								dummy.y--;
-								break;
-							}
-						}
-					}
-					if (dummy.y == lag.y)
-					{
-						break;
-					}
-					else
-					{
-						pOut->Drawline(dummy, lag);
-					}
-					lag.y++;
-				}
-			}
-			else
-			{
-				for (int i = dummy.y; i > (End.y - 10); i--)
-				{
-					dummy.y--;
-					for (int j = 0; j < Fuck_length; j++)
-					{
-						if (FUCK != NULL)
-						{
-							if (FUCK[i].Isforbidden(dummy) == true)
-							{
-								dummy.y++;
-								break;
-							}
-						}
-					}
-					if (dummy.y == lag.y)
-					{
-						break;
-					}
-					else
-					{
-						pOut->Drawline(dummy, lag);
-					}
-					lag.y--;
-				}
-			}
-
-		}
-		dummy.y = End.y - 5;
-
-		pOut->DrawConnector(lag, dummy);
-	}
 }
 
-bool Connector::IsSelectedCon(Point P)
+bool Connector::IsSelectedCon(Point P) const
 {
-	Point dummy = Start;
-	Point lag = Start;
 	//			End
-	//	pxn	------.-----pxp
+	//	pxn	------------pxp
 	//		 \		  /
 	//		  \		P/
 	//		   \  . /
 	//			\  /
 	//			 \/
-	//			pxd
+	//			end
 
 
-	if (End.x +5 <= P.x && End.x - 5 >= P.x)
+	if (End.x +5 >= P.x && End.x - 5 <= P.x)
 	{
 		Point pxn;
-		pxn.x = End.x - 5; pxn.y = End.y;
+		pxn.x = End.x - 5; pxn.y = End.y -5;
 		Point pxp;
-		pxp.x = End.x + 5; pxp.y = End.y;
-		Point pxd;
-		pxd.x = End.x; pxp.y = End.y + 7; //5 root(2)
+		pxp.x = End.x + 5; pxp.y = End.y -5;
 
 		float slope1 = float(pxn.y - P.y) / (pxn.x - P.x);
-		float slope2 = float(pxn.y - pxd.y) / (pxn.x - pxd.x);
+		float slope2 = float(pxn.y - End.y) / (pxn.x - End.x);
 		float slope3 = float(pxp.y - P.y) / (pxp.x - P.x);
-		float slope4 = float(pxp.y - pxd.y) / (pxp.x - pxd.x);
+		float slope4 = float(pxp.y - End.y) / (pxp.x - End.x);
 		if (
 			(slope1 <= 0.0) && (slope2 <= slope1) && (slope3 >= slope4)
 			)
@@ -223,105 +73,176 @@ bool Connector::IsSelectedCon(Point P)
 		}
 	}
 
-	while (dummy.x != End.x || dummy.y != End.y)
+	if (Start.y <= End.y)
 	{
-		if (End.x > Start.x)
+		for (int j = Start.y -1 ; j < Start.y + 6; j++)
 		{
-			for (int i = Start.x; i < End.x; i++)
+			for (int i = Start.x - 1; i < Start.x + 1; i++)
 			{
-				for (int j = 0; j < Fuck_length; j++)
+				if (P.x == i && P.y == j)
+					return true;
+			}
+		}
+
+		for (int j = Start.y + 4; j < Start.y + 6; j++)
+		{
+			for (int i = Start.x - 1; i < End.x+1; i++) 
+			{
+				if (P.x == i && P.y == j)
+					return true;
+			}
+		}
+
+		for (int j = Start.y + 4; j < End.y + 1; j++)
+		{
+			for (int i = End.x-1; i < End.x + 1; i++)
+			{
+
+			}
+		}
+	}
+
+	else {
+		if (Start.x >= End.x && Start.y > End.y)
+		{
+			for (int j = Start.y - 1; j < Start.y + 6; j++)
+			{
+				for (int i = Start.x - 1; i < Start.x + 1; i++)
 				{
-					if (P.x == dummy.x)
-					{
-						break;
-					}
-					if (FUCK[i].Isforbidden(dummy) == true)
-					{
-						dummy.x--;
-						break;
-					}
+					if (P.x == i && P.y == j)
+						return true;
 				}
-				lag.x++;
-				dummy.x++;
-				if (dummy.x == lag.x)
+			}
+
+			for (int j = Start.y + 4; j < Start.y + 6; j++)
+			{
+				for (int i = Start.x - 1; i < End.x + 1; i++)
 				{
-					break;
+					if (P.x == i && P.y == j)
+						return true;
+				}
+			}
+
+			for (int j = Start.y + 4; j < End.y + UI.ASSGN_HI + 11; j++)
+			{
+				for (int i = End.x - 1; i < End.x + 1; i++)
+				{
+					if (P.x == i && P.y == j)
+						return true;
+				}
+			}
+
+			for (int j = End.y + UI.ASSGN_HI + 9; j < End.y + UI.ASSGN_HI + 11; j++)
+			{
+				for (int i = End.x - 1; i < End.x + UI.ASSGN_WDTH / 2 + 11; i++)
+				{
+					if (P.x == i && P.y == j)
+						return true;
+				}
+			}
+
+			for (int j = End.y + UI.ASSGN_HI + 11; j > End.y - 10; j--)
+			{
+				for (int i = End.x + UI.ASSGN_WDTH / 2 + 9; i < End.x + UI.ASSGN_WDTH / 2 + 11; i++)
+				{
+					if (P.x == i && P.y == j)
+						return true;
+				}
+			}
+
+			for (int j = End.y - 9; j > End.y - 11; j--)
+			{
+				for (int i = End.x + UI.ASSGN_WDTH / 2 + 11; i > End.x - 1; i--)
+				{
+					if (P.x == i && P.y == j)
+						return true;
+				}
+			}
+
+			for (int j = End.y - 11; j < End.y + 1; j++)
+			{
+				for (int i = End.x + 1; i < End.x - 1; i++)
+				{
+					if (P.x == i && P.y == j)
+						return true;
 				}
 			}
 		}
-		else
-		{
-			for (int i = Start.x; i > End.x; i--)
+		else {
+			if (Start.x < End.x && Start.y > End.y)
 			{
-				for (int j = 0; j < Fuck_length; j++)
+				for (int j = Start.y - 1; j < Start.y + 6; j++)
 				{
-					if (P.y == dummy.y)
+					for (int i = Start.x - 1; i < Start.x + 1; i++)
 					{
-						break;
-					}
-					if (FUCK[i].Isforbidden(dummy) == true)
-					{
-						dummy.x++;
-						break;
+						if (P.x == i && P.y == j)
+							return true;
 					}
 				}
-				lag.x--;
-				dummy.x--;
-				if (dummy.x == lag.x)
+
+				for (int j = Start.y + 4; j < Start.y + 6; j++)
 				{
-					break;
+					for (int i = Start.x - 1; i < End.x + 1; i++)
+					{
+						if (P.x == i && P.y == j)
+							return true;
+					}
+				}
+
+				for (int j = Start.y + 4; j < End.y + UI.ASSGN_HI + 11; j++)
+				{
+					for (int i = End.x - 1; i < End.x + 1; i++)
+					{
+						if (P.x == i && P.y == j)
+							return true;
+					}
+				}
+
+				for (int j = End.y + UI.ASSGN_HI + 9; j < End.y + UI.ASSGN_HI + 11; j++)
+				{
+					for (int i = End.x + 1; i > End.x - UI.ASSGN_WDTH / 2 - 11; i--)
+					{
+						if (P.x == i && P.y == j)
+							return true;
+					}
+				}
+
+				for (int j = End.y + UI.ASSGN_HI + 11; j > End.y - 10; j--)
+				{
+					for (int i = End.x - UI.ASSGN_WDTH / 2 - 9; i > End.x - UI.ASSGN_WDTH / 2 - 11; i--)
+					{
+						if (P.x == i && P.y == j)
+							return true;
+					}
+				}
+
+				for (int j = End.y - 9; j > End.y - 11; j--)
+				{
+					for (int i = End.x - UI.ASSGN_WDTH / 2 - 11; i > End.x + 1; i--)
+					{
+						if (P.x == i && P.y == j)
+							return true;
+					}
+				}
+
+				for (int j = End.y - 11; j < End.y + 1; j++)
+				{
+					for (int i = End.x + 1; i < End.x - 1; i++)
+					{
+						if (P.x == i && P.y == j)
+							return true;
+					}
 				}
 			}
 		}
-		if (End.y > Start.y)
-		{
-			for (int i = Start.y; i < End.y; i++)
-			{
-				for (int j = 0; j < Fuck_length; j++)
-				{
-					if (FUCK[i].Isforbidden(dummy) == true)
-					{
-						dummy.y--;
-						break;
-					}
-				}
-				lag.y++;
-				dummy.y++;
-				if (dummy.y == lag.y)
-				{
-					break;
-				}
-			}
-		}
-		else
-		{
-			for (int i = Start.y; i > End.y; i--)
-			{
-				for (int j = 0; j < Fuck_length; j++)
-				{
-					if (FUCK[i].Isforbidden(dummy) == true)
-					{
-						dummy.y++;
-						break;
-					}
-				}
-			}
-			lag.y--;
-			dummy.y--;
-			if (dummy.y == lag.y)
-			{
-				break;
-			}
-		}
-		if (P.x == dummy.x && P.y == dummy.y)
-		{
-			return true;
-		}
-	}	
+	}
+
 	return false;
+
 }
 
 Connector::~Connector()
 {
-	delete []FUCK;
+	SrcStat = NULL;
+	DstStat = NULL;
 }

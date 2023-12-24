@@ -8,10 +8,7 @@
 class End : public Statement 
 {
 private:
-	string LHS;	//Left Handside of the assignment (name of a variable)
 
-	Connector* pOutConn;
-	int kounter;
 	//Value Assignment Stat. has one Connector to next statement
 	//Each statement type in flowchart has a predefined number of (output) connectors
 	//For example, conditional statement always has 2 output connectors
@@ -34,9 +31,14 @@ public:
 
 	End(Point Center);
 
+	Point getOutlet();
+
+	Point getInlet();
+
 	virtual void Draw(Output* pOut) const;
 
 	~End();
+
 
 };
 #endif

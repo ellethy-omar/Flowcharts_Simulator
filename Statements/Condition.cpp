@@ -40,6 +40,11 @@ void Condition::setRHS(const string& R) {
 	UpdateStatementText();
 }
 
+Point Condition::getOutlet()
+{
+	return Point(0,0);
+}
+
 void Condition::Draw(Output* pOut) const {
 	pOut->DrawCondtionalStat(UpperPoint, UI.COND_WDTH, UI.COND_HI, Text, Selected);
 }
@@ -113,3 +118,4 @@ Point Condition::getOutletTrue() {
 Point Condition::getOutletFalse() {
 	return OutletFalse;
 }
+

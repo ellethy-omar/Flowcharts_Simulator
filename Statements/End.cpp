@@ -23,22 +23,28 @@ bool End::Is_In_Region(Point& p1)
 
 End::End(Point Center)
 {
-	kounter = 0;
-	Connector* pOutConn=NULL;
-	kounter++;
 	Text = "END";
 	this->Center = Center;
 	Inlet.x = Center.x;
 	Inlet.y = Center.y - UI.ASSGN_HI / 2;
 
-	/*F.pf1.x = Center.x - UI.ASSGN_WDTH / 2 - 10;	F.pf1.y = Center.y - UI.ASSGN_HI / 2 - 5;
-	F.pf2.x = Center.x + UI.ASSGN_WDTH / 2 + 10;	F.pf2.y = Center.y - UI.ASSGN_HI / 2 - 5;
-	F.pf3.x = Center.x + UI.ASSGN_WDTH / 2 + 10;	F.pf3.y = Center.y + UI.ASSGN_HI / 2 + 5;
-	F.pf4.x = Center.x - UI.ASSGN_WDTH / 2 - 10;	F.pf4.y = Center.y + UI.ASSGN_HI / 2 + 5;*/
-
 };
+
+Point End::getOutlet()
+{
+	Point P;
+	P.x = 0;
+	P.y = 0;
+	return P;
+}
+
+Point End::getInlet()
+{
+	return Inlet;
+}
 
 End::~End()
 {
-	kounter--;
+
 }
+
