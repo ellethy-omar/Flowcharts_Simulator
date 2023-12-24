@@ -220,7 +220,7 @@ void ApplicationManager::AddConnector(Connector* pConn)
 	}
 	
 	s2 = GetStatement(Position);
-
+	SetSelectedStatement(s2);
 	pConn = new Connector(s1, s2);
 	ConnList[ConnCount] = pConn;
 	ConnCount++;
