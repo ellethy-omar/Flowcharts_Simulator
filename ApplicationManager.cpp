@@ -209,7 +209,6 @@ void ApplicationManager::AddConnector(Connector* pConn)
 		pIn->GetPointClicked(Position);
 	}
 	s1 = GetStatement(Position);
-	SetSelectedStatement(s1);
 	pOut->PrintMessage("Successfully made delivering statment, now click on recieveing statment");
 	pIn->GetPointClicked(Position);
 
@@ -220,7 +219,6 @@ void ApplicationManager::AddConnector(Connector* pConn)
 	}
 	
 	s2 = GetStatement(Position);
-	SetSelectedStatement(s2);
 	pConn = new Connector(s1, s2);
 	ConnList[ConnCount] = pConn;
 	ConnCount++;
