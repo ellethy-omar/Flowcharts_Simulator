@@ -2,14 +2,7 @@
 #include "..\GUI\UI_Info.h"
 class ForbiddenReigon
 {
-	friend class Statement;
-	friend class End;
-	friend class Start;
-	friend class Condition;
-	friend class ValueAssign;
-	friend class VariableAssign;
-	friend class OperAssign;
-
+	
 protected:
 	Point pf1;
 	Point pf2;
