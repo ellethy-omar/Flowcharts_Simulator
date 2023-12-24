@@ -27,3 +27,6 @@ void Write::UpdateStatementText() {
 		T << "write " << print;
 		Text = T.str();
 };
+void Write:: SetConnector(connector* connect){
+	pOutConn=connect;
+};
