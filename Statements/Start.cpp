@@ -22,9 +22,7 @@ Start::Start(Point Center)
 bool Start::Is_In_Region(Point& p1)
 {
 
-	if (
-		((((p1.x - Center.x) ^ 2) / (UI.ASSGN_WDTH / 2) ^ 2 + (p1.y - Center.y) ^ 2) / (UI.ASSGN_HI / 2) ^ 2) <= 1
-		)
+	if ((p1.x >= (Center.x - UI.ASSGN_WDTH / 2)) && (p1.x <= (Center.x + UI.ASSGN_WDTH / 2)) && (p1.y >= Center.y - UI.ASSGN_HI / 2) && (p1.y <= Center.y + UI.ASSGN_HI / 2))
 	{
 		return true;
 	}
@@ -46,7 +44,7 @@ Start::~Start()
 
 }
 
-Point Start::getOutlet() 
+Point Start::getOutlet(int x)
 {
 	return Outlet;
 }
