@@ -41,7 +41,7 @@ Connector* Start::GetConnector()
 
 Start::~Start()
 {
-	if (pOutConn = +NULL)
+	if (pOutConn !=NULL)
 	{
 		delete pOutConn;
 	}
