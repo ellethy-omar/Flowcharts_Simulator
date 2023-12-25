@@ -40,11 +40,6 @@ void Condition::setRHS(const string& R) {
 	UpdateStatementText();
 }
 
-Point Condition::getOutlet()
-{
-	return Point(0,0);
-}
-
 void Condition::Draw(Output* pOut) const {
 	pOut->DrawCondtionalStat(UpperPoint, UI.COND_WDTH, UI.COND_HI, Text, Selected);
 }
@@ -54,7 +49,6 @@ void Condition::UpdateStatementText() {
 	T << LHS << " " << CompOperator << " " << RHS;
 	Text = T.str();
 }
-
 
 bool Condition::Is_In_Region(Point& p1) {
 	Point Upper, Lower, Left, Right;
@@ -107,8 +101,33 @@ bool Condition::Is_In_Region(Point& p1) {
 	return true;
 }
 
+void Condition::SetConnector(Connector* Connout)
+{
+	if (Connout->GetChecker() == 1)
+	{
+		pOutConnTrue = Connout;
+	}
+	else
+	{
+		pOutConnFalse = Connout;
+	}
+
+}
+
 Point Condition::getInlet() {
 	return Inlet;
+}
+
+Point Condition::getOutlet(int x)
+{
+	if (x == 1)
+	{
+		return getOutletTrue();
+	}
+	if (x == 2)
+	{
+		return getOutletFalse();
+	}
 }
 
 Point Condition::getOutletTrue() {
