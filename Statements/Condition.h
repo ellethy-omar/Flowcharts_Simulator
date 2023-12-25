@@ -10,8 +10,10 @@ private:
 	string RHS;
 	string LHS;
 	string CompOperator;
+
 	Connector* pOutConnTrue;
 	Connector* pOutConnFalse;
+
 	Point Inlet;
 	Point OutletTrue, OutletFalse;
 	Point UpperPoint;
@@ -38,6 +40,8 @@ public:
 	virtual void Draw(Output* pOut) const;
 
 	virtual bool Is_In_Region(Point& p1);
+
+	void SetConnector(Connector* Connout);
 
 	
 };
