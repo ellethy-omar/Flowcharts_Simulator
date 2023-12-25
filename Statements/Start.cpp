@@ -41,7 +41,10 @@ Connector* Start::GetConnector()
 
 Start::~Start()
 {
-
+	if (pOutConn = +NULL)
+	{
+		delete pOutConn;
+	}
 }
 
 Point Start::getOutlet(int x)
