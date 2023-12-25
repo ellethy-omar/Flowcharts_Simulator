@@ -8,8 +8,6 @@
 class Start : public Statement
 {
 private:
-	string LHS;	//Left Handside of the assignment (name of a variable)
-
 	Connector* pOutConn;
 
 	//Value Assignment Stat. has one Connector to next statement
