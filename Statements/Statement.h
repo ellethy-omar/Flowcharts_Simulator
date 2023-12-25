@@ -28,7 +28,7 @@ public:
 
 	virtual Point getInlet() = 0;
 
-	virtual Point getOutlet() = 0;
+	virtual Point getOutlet(int x =0) = 0;
 
 	void SetSelected(bool s);
 
@@ -37,10 +37,16 @@ public:
 	virtual void Draw(Output* pOut) const  = 0 ;	//Draw the statement
 
 	virtual bool Is_In_Region(Point & p1) = 0;
-	
+
 	virtual void setID(int id);
 
 	virtual int GetID() const;
+
+	virtual void SetConnector(Connector* Connout) =0;
+
+	virtual bool GetSelected();
+
+	virtual ~Statement();
 
 
 
