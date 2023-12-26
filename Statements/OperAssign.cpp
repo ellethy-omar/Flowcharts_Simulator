@@ -59,3 +59,11 @@ void OperAssign::Draw(Output* pOut) const
 {
 	pOut->DrawAssign(LeftCorner, UI.ASSGN_WDTH, UI.ASSGN_HI, Text, Selected);
 }
+
+OperAssign::~OperAssign()
+{
+	if (pOutConn != NULL)
+	{
+		delete pOutConn;
+	}
+}
