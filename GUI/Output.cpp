@@ -290,7 +290,6 @@ void Output::DrawWritestat(Point Left, int width, int height, string Text, bool 
 
 	pWind->SetPen(BLACK, 2);
 	pWind->DrawString(Left.x + width / 30, Left.y + height / 4, Text);
-}
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
