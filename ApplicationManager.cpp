@@ -228,17 +228,19 @@ void ApplicationManager::AddConnector(Connector* pConn)
 	test = dynamic_cast<Condition*>(s1);
 	if (test != NULL) 
 	{
-		pOut->PrintMessage("Selected a Condion statement  Enter 1 for true, Enter 2 for false, then click to continue");
+		pOut->PrintMessage("Selected a Condion statement  Enter 1 for true, Enter 2 for false, then click on the conditonal again to continue");
 		pIn->GetPointClicked(Position);
 		x = int(pIn->GetValue(pOut));
+		while (GetStatement(Position) != s1)
+		{
+			pOut->PrintMessage("Click on the same conditional to confirm");
+			pIn->GetPointClicked(Position);
+		}
 		while ((x != 1) && (x != 2))
 		{
-			pOut->PrintMessage("PLease, Enter 1 for true, Enter 2 for false");
-		 	x = int(pIn->GetValue(pOut));
+			x = int(pIn->GetValue(pOut));
 		}
 	}
-	
-	s1 = GetStatement(Position);
 
 	pOut->PrintMessage("Successfully made delivering statment, now click on recieveing statment");
 	pIn->GetPointClicked(Position);
@@ -366,11 +368,13 @@ void ApplicationManager::UpdateInterface() const
 
 	//Draw all statements
 	for(int i=0; i<StatCount; i++)
-		StatList[i]->Draw(pOut);
+		if (StatList[i] != NULL)
+			StatList[i]->Draw(pOut);
 	
 	//Draw all connections
 	for(int i=0; i<ConnCount; i++)
-		ConnList[i]->Draw(pOut);
+		if (StatList[i] != NULL)
+			ConnList[i]->Draw(pOut);
 
 }
 ////////////////////////////////////////////////////////////////////////////////////
@@ -387,10 +391,15 @@ Output *ApplicationManager::GetOutput() const
 ApplicationManager::~ApplicationManager()
 {
 	for(int i=0; i<StatCount; i++)
-		delete StatList[i];
-	for(int i=0; i<StatCount; i++)
-		delete ConnList[i];
+	{
+		if (StatList[i]!= NULL)
+			delete StatList[i];
+	}
+	for(int i=0; i<ConnCount; i++)
+	{
+		if (StatList[i] != NULL)
+			delete ConnList[i];
+	}
 	delete pIn;
 	delete pOut;
-	
 }
