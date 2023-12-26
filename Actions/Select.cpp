@@ -54,12 +54,26 @@ void Select::Execute()
 	ReadActionParameters();
 	if (S != NULL)
 	{
-		S->SetSelected(!(S->GetSelected()));
+		if (pManager->GetSelectedStatement() != NULL)
+		{
+			pManager->GetSelectedStatement()->SetSelected(false);
+		}
+		else
+		{
+			pManager->SetSelectedStatement(S);
+		}
 		S->Draw(pOut);
 	}
 	if (C != NULL)
 	{
-		C->SetSelected(!(C->GetSelected()));
+		if (pManager->GetSelectedCon() != NULL)
+		{
+			pManager->GetSelectedCon()->SetSelected(false);
+		}
+		else
+		{
+			pManager->SetSelectedCon(C);
+		}
 		C->Draw(pOut);
 	}
 }
