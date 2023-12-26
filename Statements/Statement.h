@@ -44,6 +44,8 @@ public:
 
 	virtual void SetConnector(Connector* Connout) =0;
 
+	virtual Connector* GetConnector(int checker = 0) = 0;
+
 	virtual bool GetSelected();
 
 	virtual ~Statement();
