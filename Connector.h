@@ -16,8 +16,12 @@ private:
 	Statement *DstStat;	//The destination statement of the connector
 	Point Start;	//Start point of the connector
 	Point End;		//End point of the connector
+	bool Selected;
+	int checker;
+	int ID;
 public:
-	Connector(Statement* Src, Statement* Dst);
+
+	Connector::Connector(Statement* Src, Statement* Dst, int x = 0);
 
 	void		setSrcStat(Statement *Src);
 	Statement*	getSrcStat();
@@ -32,7 +36,18 @@ public:
 	Point getEndPoint();
 
 	void Draw(Output* pOut) const;
-	bool IsSelectedCon(Point P) const;
+
+	int GetChecker() const;
+
+	bool Is_In_Region(Point P) const;
+
+	void SetSelected(bool truth);
+
+	bool GetSelected();
+
+	void setID(int id);
+
+	int GetID() const;
 
 	~Connector();
 };
