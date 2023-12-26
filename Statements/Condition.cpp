@@ -1,4 +1,5 @@
 #include "Condition.h"
+#include "..\Connector.h"
 #include <sstream>
 
 using namespace std;
@@ -114,6 +115,19 @@ void Condition::SetConnector(Connector* Connout)
 
 }
 
+Connector* Condition::GetConnector(int checker)
+{
+	if (checker == 1)
+	{
+		return pOutConnTrue;
+	}
+	else if (checker == 2)
+	{
+		return pOutConnFalse;
+	}
+	return nullptr;
+}
+
 Point Condition::getInlet() {
 	return Inlet;
 }
@@ -138,3 +152,10 @@ Point Condition::getOutletFalse() {
 	return OutletFalse;
 }
 
+Condition::~Condition()
+{
+	if (pOutConnTrue != NULL)
+		delete pOutConnTrue;
+	if (pOutConnFalse != NULL)
+		delete pOutConnFalse;
+}
