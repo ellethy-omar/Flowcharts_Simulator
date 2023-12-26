@@ -31,17 +31,21 @@ bool Start::Is_In_Region(Point& p1)
 
 void Start::SetConnector(Connector* pOutConn)
 {
+	if (this->pOutConn != NULL)
+	{
+		delete this->pOutConn;
+	}
 	this->pOutConn = pOutConn;
 }
 
-Connector* Start::GetConnector()
+Connector* Start::GetConnector(int checker)
 {
 	return pOutConn;
 }
 
 Start::~Start()
 {
-	if (pOutConn !=NULL)
+	if (pOutConn != NULL)
 	{
 		delete pOutConn;
 	}
