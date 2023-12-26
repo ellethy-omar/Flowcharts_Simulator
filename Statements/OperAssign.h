@@ -25,7 +25,11 @@ public:
 
 	Point getInlet();
 
-	Point getOutlet();
+	Point getOutlet(int x = 0);
+
+	void SetConnector(Connector* pOutConn);
+
+	Connector* GetConnector(int checker = 0);
 
 	bool Is_In_Region(Point& p1);
 
@@ -33,3 +37,4 @@ public:
 
 	~OperAssign();
 };
+
