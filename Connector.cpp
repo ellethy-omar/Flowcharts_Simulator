@@ -1,3 +1,5 @@
+#include "Connector.h"
+
 Connector::Connector(Statement* Src, Statement* Dst, int x)
 //When a connector is created, it must have a source statement and a destination statement
 //There are NO FREE connectors in the flowchart
@@ -477,6 +479,541 @@ bool Connector::Is_In_Region(Point P) const
 		break;
 	}
 		return false;
+}
+
+bool Connector::Is_In_Region(Statement* S) const
+{
+	Point P;
+	switch (checker)
+	{
+	case 0: // Normal goes down then moves to end
+	{
+		if (Start.y <= End.y)
+		{
+			for (int j = Start.y - 1; j < Start.y + 6; j++)
+			{
+				for (int i = Start.x - 1; i < Start.x + 1; i++)
+				{
+					P.x = i;
+					P.y = j;
+					if (S->Is_In_Region(P) == true)
+					{
+						return true;
+					}
+						
+				}
+			}
+
+			for (int j = Start.y + 4; j < Start.y + 6; j++)
+			{
+				for (int i = Start.x - 1; i < End.x + 1; i++)
+				{
+					P.x = i;
+					P.y = j;
+					if (S->Is_In_Region(P) == true)
+					{
+						return true;
+					}
+				}
+			}
+
+			for (int j = Start.y + 4; j < End.y + 1; j++)
+			{
+				for (int i = End.x - 1; i < End.x + 1; i++)
+				{
+					P.x = i;
+					P.y = j;
+					if (S->Is_In_Region(P) == true)
+					{
+						return true;
+					}
+				}
+			}
+		}
+
+		else {
+			if (Start.x >= End.x && Start.y > End.y)
+			{
+				for (int j = Start.y - 1; j < Start.y + 6; j++)
+				{
+					for (int i = Start.x - 1; i < Start.x + 1; i++)
+					{
+						P.x = i;
+						P.y = j;
+						if (S->Is_In_Region(P) == true)
+						{
+							return true;
+						}
+					}
+				}
+
+				for (int j = Start.y + 4; j < Start.y + 6; j++)
+				{
+					for (int i = Start.x - 1; i < End.x + 1; i++)
+					{
+						P.x = i;
+						P.y = j;
+						if (S->Is_In_Region(P) == true)
+						{
+							return true;
+						}
+					}
+				}
+
+				for (int j = Start.y + 4; j < End.y + UI.ASSGN_HI + 11; j++)
+				{
+					for (int i = End.x - 1; i < End.x + 1; i++)
+					{
+						P.x = i;
+						P.y = j;
+						if (S->Is_In_Region(P) == true)
+						{
+							return true;
+						}
+					}
+				}
+
+				for (int j = End.y + UI.ASSGN_HI + 9; j < End.y + UI.ASSGN_HI + 11; j++)
+				{
+					for (int i = End.x - 1; i < End.x + UI.ASSGN_WDTH / 2 + 11; i++)
+					{
+						P.x = i;
+						P.y = j;
+						if (S->Is_In_Region(P) == true)
+						{
+							return true;
+						}
+					}
+				}
+
+				for (int j = End.y + UI.ASSGN_HI + 11; j > End.y - 10; j--)
+				{
+					for (int i = End.x + UI.ASSGN_WDTH / 2 + 9; i < End.x + UI.ASSGN_WDTH / 2 + 11; i++)
+					{
+						P.x = i;
+						P.y = j;
+						if (S->Is_In_Region(P) == true)
+						{
+							return true;
+						}
+					}
+				}
+
+				for (int j = End.y - 9; j > End.y - 11; j--)
+				{
+					for (int i = End.x + UI.ASSGN_WDTH / 2 + 11; i > End.x - 1; i--)
+					{
+						P.x = i;
+						P.y = j;
+						if (S->Is_In_Region(P) == true)
+						{
+							return true;
+						}
+					}
+				}
+
+				for (int j = End.y - 11; j < End.y + 1; j++)
+				{
+					for (int i = End.x + 1; i < End.x - 1; i++)
+					{
+						P.x = i;
+						P.y = j;
+						if (S->Is_In_Region(P) == true)
+						{
+							return true;
+						}
+					}
+				}
+			}
+			else {
+				if (Start.x < End.x && Start.y > End.y)
+				{
+					for (int j = Start.y - 1; j < Start.y + 6; j++)
+					{
+						for (int i = Start.x - 1; i < Start.x + 1; i++)
+						{
+							P.x = i;
+							P.y = j;
+							if (S->Is_In_Region(P) == true)
+							{
+								return true;
+							}
+						}
+					}
+
+					for (int j = Start.y + 4; j < Start.y + 6; j++)
+					{
+						for (int i = Start.x - 1; i < End.x + 1; i++)
+						{
+							P.x = i;
+							P.y = j;
+							if (S->Is_In_Region(P) == true)
+							{
+								return true;
+							}
+						}
+					}
+
+					for (int j = Start.y + 4; j < End.y + UI.ASSGN_HI + 11; j++)
+					{
+						for (int i = End.x - 1; i < End.x + 1; i++)
+						{
+							P.x = i;
+							P.y = j;
+							if (S->Is_In_Region(P) == true)
+							{
+								return true;
+							}
+						}
+					}
+
+					for (int j = End.y + UI.ASSGN_HI + 9; j < End.y + UI.ASSGN_HI + 11; j++)
+					{
+						for (int i = End.x + 1; i > End.x - UI.ASSGN_WDTH / 2 - 11; i--)
+						{
+							P.x = i;
+							P.y = j;
+							if (S->Is_In_Region(P) == true)
+							{
+								return true;
+							}
+						}
+					}
+
+					for (int j = End.y + UI.ASSGN_HI + 11; j > End.y - 10; j--)
+					{
+						for (int i = End.x - UI.ASSGN_WDTH / 2 - 9; i > End.x - UI.ASSGN_WDTH / 2 - 11; i--)
+						{
+							P.x = i;
+							P.y = j;
+							if (S->Is_In_Region(P) == true)
+							{
+								return true;
+							}
+						}
+					}
+
+					for (int j = End.y - 9; j > End.y - 11; j--)
+					{
+						for (int i = End.x - UI.ASSGN_WDTH / 2 - 11; i > End.x + 1; i--)
+						{
+							P.x = i;
+							P.y = j;
+							if (S->Is_In_Region(P) == true)
+							{
+								return true;
+							}
+						}
+					}
+
+					for (int j = End.y - 11; j < End.y + 1; j++)
+					{
+						for (int i = End.x + 1; i < End.x - 1; i++)
+						{
+							P.x = i;
+							P.y = j;
+							if (S->Is_In_Region(P) == true)
+							{
+								return true;
+							}
+						}
+					}
+				}
+			}
+		}
+		break;
+
+	}
+	case 1: // Right of the Condtional
+	{
+		if (Start.x < End.x && Start.y + UI.ASSGN_HI / 2 <= End.y)
+		{
+			for (int j = Start.y - 1; j < Start.y + 1; j++)
+			{
+				for (int i = Start.x - 1; i < End.x + 1; i++)
+				{
+					P.x = i;
+					P.y = j;
+					if (S->Is_In_Region(P) == true)
+					{
+						return true;
+					}
+				}
+			}
+			for (int j = Start.y - 1; j < End.y; j++)
+			{
+				for (int i = End.x - 1; i < End.x + 1; i++)
+				{
+					P.x = i;
+					P.y = j;
+					if (S->Is_In_Region(P) == true)
+					{
+						return true;
+					}
+				}
+			}
+		}
+		else
+		{
+			if (Start.x < End.x && Start.y + UI.ASSGN_HI / 2 > End.y)
+			{
+				for (int j = Start.y - 1; j < Start.y + 1; j++)
+				{
+					for (int i = Start.x - 1; i < Start.x + 6; i++)
+					{
+						P.x = i;
+						P.y = j;
+						if (S->Is_In_Region(P) == true)
+						{
+							return true;
+						}
+					}
+				}
+
+				for (int j = Start.y - 1; j > End.y - 11; j--)
+				{
+					for (int i = Start.x + 4; i < Start.x + 6; i++)
+					{
+						P.x = i;
+						P.y = j;
+						if (S->Is_In_Region(P) == true)
+						{
+							return true;
+						}
+					}
+				}
+
+				for (int j = End.y - 9; j > End.y - 11; j--)
+				{
+					for (int i = Start.x + 4; i < End.x; i++)
+					{
+						P.x = i;
+						P.y = j;
+						if (S->Is_In_Region(P) == true)
+						{
+							return true;
+						}
+					}
+				}
+
+				for (int j = End.y - 11; j < End.y + 1; j++)
+				{
+					for (int i = End.x - 1; i < End.x + 1; i++)
+					{
+						P.x = i;
+						P.y = j;
+						if (S->Is_In_Region(P) == true)
+						{
+							return true;
+						}
+					}
+				}
+			}
+
+			if (Start.x >= End.x && Start.y + UI.ASSGN_HI / 2 <= End.y)
+			{
+				for (int j = Start.y - 1; j < Start.y + 1; j++)
+				{
+					for (int i = Start.x - 1; i < Start.x + 6; i++)
+					{
+						P.x = i;
+						P.y = j;
+						if (S->Is_In_Region(P) == true)
+						{
+							return true;
+						}
+					}
+				}
+
+				for (int j = Start.y - 1; j < End.y - 11; j++)
+				{
+					for (int i = Start.x + 4; i < Start.x + 6; i++)
+					{
+						P.x = i;
+						P.y = j;
+						if (S->Is_In_Region(P) == true)
+						{
+							return true;
+						}
+					}
+				}
+
+				for (int j = End.y - 9; j > End.y - 11; j--)
+				{
+					for (int i = End.x - 1; i > Start.x + 6; i--)
+					{
+						P.x = i;
+						P.y = j;
+						if (S->Is_In_Region(P) == true)
+						{
+							return true;
+						}
+					}
+				}
+
+				for (int j = End.y - 11; j < End.y + 1; j++)
+				{
+					for (int i = End.x - 1; i > End.x + 1; i--)
+					{
+						P.x = i;
+						P.y = j;
+						if (S->Is_In_Region(P) == true)
+						{
+							return true;
+						}
+					}
+				}
+			}
+		}
+	}
+	case 2: // Left of the Condtional
+	{
+
+		if (Start.x < End.x && Start.y + UI.ASSGN_HI / 2 <= End.y)
+		{
+			for (int j = Start.y - 1; j < Start.y + 1; j++)
+			{
+				for (int i = Start.x + 1; i > End.x - 1; i--)
+				{
+					P.x = i;
+					P.y = j;
+					if (S->Is_In_Region(P) == true)
+					{
+						return true;
+					}
+				}
+			}
+			for (int j = Start.y - 1; j < End.y; j++)
+			{
+				for (int i = End.x - 1; i < End.x + 1; i++)
+				{
+					P.x = i;
+					P.y = j;
+					if (S->Is_In_Region(P) == true)
+					{
+						return true;
+					}
+				}
+			}
+		}
+		else
+		{
+			if (Start.x < End.x && Start.y + UI.ASSGN_HI / 2 > End.y)
+			{
+				for (int j = Start.y - 1; j < Start.y + 1; j++)
+				{
+					for (int i = Start.x + 1; i > Start.x - 6; i--)
+					{
+						P.x = i;
+						P.y = j;
+						if (S->Is_In_Region(P) == true)
+						{
+							return true;
+						}
+					}
+				}
+
+				for (int j = Start.y - 1; j > End.y - 11; j--)
+				{
+					for (int i = Start.x - 4; i < Start.x - 6; i++)
+					{
+						P.x = i;
+						P.y = j;
+						if (S->Is_In_Region(P) == true)
+						{
+							return true;
+						}
+					}
+				}
+
+				for (int j = End.y - 9; j > End.y - 11; j--)
+				{
+					for (int i = Start.x - 4; i > End.x - 1; i--)
+					{
+						P.x = i;
+						P.y = j;
+						if (S->Is_In_Region(P) == true)
+						{
+							return true;
+						}
+					}
+				}
+
+				for (int j = End.y - 11; j < End.y + 1; j++)
+				{
+					for (int i = End.x - 1; i < End.x + 1; i++)
+					{
+						P.x = i;
+						P.y = j;
+						if (S->Is_In_Region(P) == true)
+						{
+							return true;
+						}
+					}
+				}
+			}
+
+			if (Start.x <= End.x && Start.y + UI.ASSGN_HI / 2 <= End.y)
+			{
+				for (int j = Start.y - 1; j < Start.y + 1; j++)
+				{
+					for (int i = Start.x + 1; i > Start.x - 6; i--)
+					{
+						P.x = i;
+						P.y = j;
+						if (S->Is_In_Region(P) == true)
+						{
+							return true;
+						}
+					}
+				}
+
+				for (int j = Start.y - 1; j < End.y - 11; j++)
+				{
+					for (int i = Start.x + 4; i < Start.x + 6; i++)
+					{
+						P.x = i;
+						P.y = j;
+						if (S->Is_In_Region(P) == true)
+						{
+							return true;
+						}
+					}
+				}
+
+				for (int j = End.y - 9; j > End.y - 11; j--)
+				{
+					for (int i = End.x + 1; i > Start.x - 4; i--)
+					{
+						P.x = i;
+						P.y = j;
+						if (S->Is_In_Region(P) == true)
+						{
+							return true;
+						}
+					}
+				}
+
+				for (int j = End.y - 11; j < End.y + 1; j++)
+				{
+					for (int i = End.x - 1; i < End.x + 1; i++)
+					{
+						P.x = i;
+						P.y = j;
+						if (S->Is_In_Region(P) == true)
+						{
+							return true;
+						}
+					}
+				}
+			}
+		}
+		break;
+	}
+	default:
+		break;
+	}
+	return false;
 }
 
 Connector::~Connector()
