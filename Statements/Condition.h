@@ -29,7 +29,7 @@ public:
 
 	void setRHS(const string& R);
 
-	Point getOutlet();
+	Point getOutlet(int x =0);
 
 	Point getInlet();
 
@@ -43,7 +43,10 @@ public:
 
 	void SetConnector(Connector* Connout);
 
-	
+	Connector* GetConnector(int checker = 0);
+
+	~Condition();
+
 };
 
 #endif
