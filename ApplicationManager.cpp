@@ -78,12 +78,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_READ:
-			/*pAct = new AddRead(this);
-			break;*/
+			pAct = new AddRead(this);
+			break;
 
 		case ADD_WRITE:
-			/*pAct = new AddWrite(this);
-			break;*/
+			pAct = new AddWrite(this);
+			break;
 
 		case ADD_CONNECTOR:
 			if (StatCount < 2)
