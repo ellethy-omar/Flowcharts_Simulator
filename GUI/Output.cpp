@@ -260,7 +260,7 @@ void Output::DrawCondtionalStat(Point Upper, int width, int height, string Text,
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-void Output::DrawReadstat(Point Center, int width, int height, string Text, bool Selected) {
+void Output::DrawReadstat(Point Left, int width, int height, string Text, bool Selected) {
 	if (Selected)
 		pWind->SetPen(UI.HighlightColor, 3);
 	else
@@ -277,7 +277,7 @@ void Output::DrawReadstat(Point Center, int width, int height, string Text, bool
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-void Output::DrawWritestat(Point Center, int width, int height, string Text, bool Selected) {
+void Output::DrawWritestat(Point Left, int width, int height, string Text, bool Selected) {
 	if (Selected)
 		pWind->SetPen(UI.HighlightColor, 3);
 	else
