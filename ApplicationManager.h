@@ -48,8 +48,9 @@ public:
 	int GetConnectorCount() const;
 
 	Statement* GetStatementIteration(int i);
+	Connector* GetConnIteration(int i);
 
-	void AddConnector(Connector* pConn);  //Adds a new Connector to the Flowchart
+	void AddConn(Connector* pConn);  //Adds a new Connector to the Flowchart
 	Connector *GetConnector(Point P) const;	//search for a Connector where point P belongs
 
 	// Note: you should use the following 4 functions 
@@ -64,6 +65,9 @@ public:
 	Statement *GetClipboard() const;	         //Returns the Clipboard
 	void SetClipboard(Statement *pStat);         //Set the Clipboard
 
+	void RemoveConnector(int x);
+
+	void RemoveStatement(int x);
 	// == Interface Management Functions ==
 	Input *GetInput() const;        //Return pointer to the input
 	Output *GetOutput() const;      //Return pointer to the output
