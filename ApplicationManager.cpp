@@ -310,9 +310,13 @@ void ApplicationManager::SetSelectedStatement(Statement *pStat)
 	{
 		ConSelected->SetSelected(false);
 	}
+	if (pSelectedStat == pStat)
+	{
+		pSelectedStat =  NULL;
+	}
 	pSelectedStat = pStat;
 	pSelectedStat->SetSelected(true);
-}
+	}
 
 Connector* ApplicationManager::GetSelectedCon() const
 {
@@ -328,6 +332,10 @@ void ApplicationManager::SetSelectedCon(Connector* pCon)
 	if (ConSelected != NULL)
 	{
 		ConSelected->SetSelected(false);
+	}
+	if (ConSelected == pCon)
+	{
+		ConSelected = NULL;
 	}
 	ConSelected = pCon;
 	ConSelected->SetSelected(true);
