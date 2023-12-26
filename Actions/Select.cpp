@@ -60,6 +60,6 @@ void Select::Execute()
 	if (C != NULL)
 	{
 		C->SetSelected(!(C->GetSelected()));
-		S->Draw(pOut);
+		C->Draw(pOut);
 	}
 }
