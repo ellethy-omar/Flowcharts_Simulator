@@ -6,14 +6,19 @@ using namespace std;
 void OperAssign::UpdateStatementText()
 {
 	ostringstream T;
-	T << LHS << " = " << RHS;
+	//string RHS = LHS_Of_Arithmaticoperator + " " + Arithmaticoperator + " " + RHS_Of_Arithmaticoperator;
+	T << LHS << " = " << LHS_Of_Arithmaticoperator << " " + Arithmaticoperator << " " << RHS_Of_Arithmaticoperator;
 	Text = T.str();
 }
 
-OperAssign::OperAssign(Point Lcorner, string LeftHS, string RightHS)
+OperAssign::OperAssign(Point Lcorner, string LeftHS ,string RightHSOfAO, string LEFTHSOfAO, string AO )
 {
+	IsTheRHSValue = false;
+	IsTheLHSValue = false;
 	LHS = LeftHS;
-	RHS = RightHS;
+	RHS_Of_Arithmaticoperator = RightHSOfAO;
+	LHS_Of_Arithmaticoperator = LEFTHSOfAO;
+	Arithmaticoperator = AO;
 	UpdateStatementText();
 	LeftCorner = Lcorner;
 	pOutConn = NULL;
@@ -21,6 +26,33 @@ OperAssign::OperAssign(Point Lcorner, string LeftHS, string RightHS)
 	Inlet.y = LeftCorner.y;
 	Outlet.x = Inlet.x;
 	Outlet.y = LeftCorner.y + UI.ASSGN_HI;
+	if (ValueOrVariable(RHS_Of_Arithmaticoperator) == VALUE_OP)
+	{
+		RHS_Of_Arithmaticoperator_In_caseOfValue = stod(RHS_Of_Arithmaticoperator);
+		IsTheRHSValue = true;
+	}
+	if (ValueOrVariable(LHS_Of_Arithmaticoperator) == VALUE_OP)
+	{
+		LHS_Of_Arithmaticoperator_In_caseOfValue = stod(LHS_Of_Arithmaticoperator);
+		IsTheRHSValue = true;
+	}
+}
+
+string OperAssign::getRightHSOfAO()
+{
+	return RHS_Of_Arithmaticoperator;
+	
+}
+
+string OperAssign::getLHS()
+{
+	return LHS;
+	
+}
+
+string OperAssign::getLHSofAO()
+{
+	return LHS_Of_Arithmaticoperator;
 }
 
 void OperAssign::setLHS(const string& L)
@@ -28,9 +60,29 @@ void OperAssign::setLHS(const string& L)
 	LHS = L;
 }
 
-void OperAssign::setRHS(string R)
+void OperAssign::setRightHSOfAO(string R)
 {
-	RHS = R;
+	RHS_Of_Arithmaticoperator = R;
+	if (ValueOrVariable(RHS_Of_Arithmaticoperator) == VALUE_OP)
+	{
+		RHS_Of_Arithmaticoperator_In_caseOfValue = stod(RHS_Of_Arithmaticoperator);
+		IsTheRHSValue = true;
+	}
+}
+
+void OperAssign::setAO(string ao)
+{
+	Arithmaticoperator = ao;
+}
+
+void OperAssign::setLEFTHSOfAO(string La)
+{
+	LHS_Of_Arithmaticoperator = La;
+	if (ValueOrVariable(LHS_Of_Arithmaticoperator) == VALUE_OP)
+	{
+		LHS_Of_Arithmaticoperator_In_caseOfValue = stod(LHS_Of_Arithmaticoperator);
+		IsTheRHSValue = true;
+	}
 }
 
 Point OperAssign::getInlet()
@@ -43,23 +95,9 @@ Point OperAssign::getOutlet(int x)
 	return Outlet;
 }
 
-void OperAssign::SetConnector(Connector* pOutConn)
-{
-	if (this->pOutConn != NULL)
-	{
-		delete this->pOutConn;
-	}
-	this->pOutConn = pOutConn;
-}
-
-Connector* OperAssign::GetConnector(int checker)
-{
-	return pOutConn;
-}
-
 bool OperAssign::Is_In_Region(Point& p1)
 {
-	if ((p1.x >= (LeftCorner.x - UI.ASSGN_WDTH / 2)) && (p1.x <= (LeftCorner.x + UI.ASSGN_WDTH / 2)) && (p1.y >= LeftCorner.y) && (p1.y <= LeftCorner.y + UI.ASSGN_HI))
+	if ((p1.x >= (LeftCorner.x)) && (p1.x <= (LeftCorner.x + UI.ASSGN_WDTH)) && (p1.y >= LeftCorner.y) && (p1.y <= LeftCorner.y + UI.ASSGN_HI))
 	{
 		return true;
 	}
@@ -74,12 +112,22 @@ void OperAssign::Draw(Output* pOut) const
 	pOut->DrawAssign(LeftCorner, UI.ASSGN_WDTH, UI.ASSGN_HI, Text, Selected);
 }
 
-OperAssign::~OperAssign()
+
+
+void OperAssign::SetConnector(Connector* pOutConn)
 {
-	if (pOutConn != NULL)
+	if (this->pOutConn != NULL)
 	{
-		delete pOutConn;
+		delete this->pOutConn;
 	}
+	this->pOutConn = pOutConn;
+}
+
+
+
+Connector* OperAssign::GetConnector(int checker)
+{
+	return pOutConn;
 }
 
 
