@@ -1,17 +1,17 @@
 #include "Actions\AddRead.h"
 #include "Actions\AddWrite.h"
+#include "Actions/AddConnector.h"
 #include "Actions\AddCondition.h"
 #include "Actions\AddEnd.h"
 #include "Actions\AddOperAssign.h"
 #include "Actions\AddVariableAssign.h"
 #include "Actions\AddStart.h"
 #include "Actions\AddValueAssign.h"
-//#include "Actions/Select.h"
-//#include "Actions/Delete.h"
+#include "Actions/Select.h"
+#include "Actions/Delete.h"
 #include "ApplicationManager.h"
 #include "GUI\Input.h"
 #include "GUI\Output.h"
-#include <fstream>
 //Constructor
 
 ApplicationManager::ApplicationManager()
@@ -24,6 +24,7 @@ ApplicationManager::ApplicationManager()
 	ConnCount = 0;
 	pSelectedStat = NULL;	//no Statement is selected yet
 	pClipboard = NULL;
+	ConSelected = NULL;
 	
 	//Create an array of Statement pointers and set them to NULL		
 	for(int i=0; i<MaxCount; i++)
@@ -78,12 +79,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case ADD_READ:
-			pAct = new AddRead(this);
-			break;
+			/*pAct = new AddRead(this);
+			break;*/
 
 		case ADD_WRITE:
-			pAct = new AddWrite(this);
-			break;
+			/*pAct = new AddWrite(this);
+			break;*/
 
 		case ADD_CONNECTOR:
 			if (StatCount < 2)
@@ -92,12 +93,12 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			}
 			else
 			{
-				AddConnector(ConnList[ConnCount]);
+				pAct = new AddConnector(this);
 			}	
 			break;
 
 		case SELECT:
-			pOut->PrintMessage("Action: select action, Click anywhere");
+			pAct = new Select(this);
 			break;
 
 		case EDIT_STAT:
@@ -105,7 +106,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case DEL:
-			pOut->PrintMessage("Action: delete action, Click anywhere");
+			pAct = new Delete(this);
 			break;
 
 		case DSN_TOOL:
@@ -167,6 +168,7 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 		case STATUS:
 			return;
+
 	}
 	//Execute the created action	
 	if (pAct != NULL)
@@ -203,66 +205,43 @@ int ApplicationManager::GetConnectorCount() const
 	return ConnCount;
 }
 
-void ApplicationManager::AddConnector(Connector* pConn)
+void ApplicationManager::AddConn(Connector* pConn)
 {
-
-	Point Position;
-	Statement* s1 = NULL;
-	Statement* s2 = NULL;
-
-	pOut->PrintMessage("Connector : Click on the first delivering statment");
-	pIn->GetPointClicked(Position);
-	s1 = GetStatement(Position);
-
-	Statement* test;
-	test = dynamic_cast<End*>(s1);
-
-	while (GetStatement(Position) == NULL || test != NULL)
-	{
-		pOut->PrintMessage("Please, select on the delivering statment such that it isn't a start statement");
-		pIn->GetPointClicked(Position);
-	
-		s1 = GetStatement(Position);
-		test = dynamic_cast<End*>(s1);
-	}
-	int x = 0;
-	test = dynamic_cast<Condition*>(s1);
-	if (test != NULL) 
-	{
-		pOut->PrintMessage("Selected a Condion statement  Enter 1 for true, Enter 2 for false, then click on the conditonal again to continue");
-		pIn->GetPointClicked(Position);
-		x = int(pIn->GetValue(pOut));
-		while (GetStatement(Position) != s1)
-		{
-			pOut->PrintMessage("Click on the same conditional to confirm");
-			pIn->GetPointClicked(Position);
-		}
-		while ((x != 1) && (x != 2))
-		{
-			x = int(pIn->GetValue(pOut));
-		}
-	}
-
-	pOut->PrintMessage("Successfully made delivering statment, now click on recieveing statment");
-	pIn->GetPointClicked(Position);
-
-	s2 = GetStatement(Position);
-	test = dynamic_cast<Start*>(s1);
-
-
-	while ((GetStatement(Position) == NULL || GetStatement(Position) == s1) || test != NULL)
-	{
-		pOut->PrintMessage("Please, select on the recieveing statment");
-		pIn->GetPointClicked(Position);
-		s2 = GetStatement(Position);
-		test = dynamic_cast<Start*>(s1);
-	}
-	
-	s2 = GetStatement(Position);
-	pConn = new Connector(s1, s2);
 	ConnList[ConnCount] = pConn;
 	pConn->setID(ConnCount);
 	ConnCount++;
+}
+
+void ApplicationManager::RemoveConnector(int x)
+{
+	for (int i = x; i < ConnCount; i++)
+	{
+		if (x != ConnCount - 1 )
+		{
+			ConnList[x] = ConnList[x + 1];
+		}
+		else
+		{
+			ConnList[x] = NULL;
+		}
+	}
+	UpdateInterface();
+}
+
+void ApplicationManager::RemoveStatement(int x)
+{
+	for (int i = x; i < StatCount; i++)
+	{
+		if (x != StatCount - 1)
+		{
+			StatList[x] = StatList[x + 1];
+		}
+		else
+		{
+			StatList[x] = NULL;
+		}
+	}
+	UpdateInterface();
 }
 
 Connector* ApplicationManager::GetConnector(Point P) const
@@ -305,6 +284,14 @@ Statement* ApplicationManager::GetStatementIteration(int i)
 	return NULL;
 }
 
+Connector* ApplicationManager::GetConnIteration(int i)
+{
+	if (i < ConnCount)
+	{
+		return ConnList[i];
+	}
+	return NULL;
+}
 
 ////////////////////////////////////////////////////////////////////////////////////
 //Returns the selected statement
@@ -363,6 +350,7 @@ void ApplicationManager::SetClipboard(Statement *pStat)
 
 
 //Draw all figures on the user interface
+
 void ApplicationManager::UpdateInterface() const
 {
 	pOut->ClearDrawArea();
@@ -404,6 +392,7 @@ ApplicationManager::~ApplicationManager()
 	delete pIn;
 	delete pOut;
 }
+
 //save
 void ApplicationManager::SaveAll(ofstream& OutFile) {
 	OutFile << StatCount<<endl;
