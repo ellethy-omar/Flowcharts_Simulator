@@ -10,7 +10,6 @@ Select::Select(ApplicationManager* pAppManager):Action(pAppManager)
 	C = NULL;
 }
 
-
 void Select::ReadActionParameters()
 {
 	Input* pIn = pManager->GetInput();
@@ -27,24 +26,40 @@ void Select::ReadActionParameters()
 	if (pManager->GetStatement(Position) != NULL)
 	{
 		S = pManager->GetStatement(Position);
+		for (int i = 0; i < pManager->GetStatCount(); i++)
+		{
+			if (S == pManager->GetStatementIteration(i))
+			{
+				ID = pManager->GetStatementIteration(i)->GetID();
+			}
+		}
 	}
-	else
+	else if (pManager->GetConnector(Position) != NULL)
 	{
 		C = pManager->GetConnector(Position);
+		for (int i = 0; i < pManager->GetConnectorCount(); i++)
+		{
+			if (C == pManager->GetConnector(i))
+			{
+				ID = pManager->GetConnector(i)->GetID();
+			}
+		}
 	}
 
 }
 
-
 void Select::Execute()
 {
+	Output* pOut = pManager->GetOutput();
 	ReadActionParameters();
-	if (pManager->GetStatement(Position) != NULL)
+	if (S != NULL)
 	{
 		S->SetSelected(!(S->GetSelected()));
+		S->Draw(pOut);
 	}
-	else
+	if (C != NULL)
 	{
 		C->SetSelected(!(C->GetSelected()));
+		S->Draw(pOut);
 	}
 }
