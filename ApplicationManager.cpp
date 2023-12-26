@@ -11,6 +11,7 @@
 #include "ApplicationManager.h"
 #include "GUI\Input.h"
 #include "GUI\Output.h"
+#include <fstream>
 //Constructor
 
 ApplicationManager::ApplicationManager()
@@ -403,3 +404,12 @@ ApplicationManager::~ApplicationManager()
 	delete pIn;
 	delete pOut;
 }
+//save
+void ApplicationManager::SaveAll(ofstream& OutFile) {
+	OutFile << StatCount<<endl;
+	for (int i = 0; i < StatCount; i++) {
+		StatList[i]->Save(OutFile);
+	}
+	/*for (int i = 0; i < ConnCount; i++) {
+		ConnList[i]->save(OutFile);
+	}
