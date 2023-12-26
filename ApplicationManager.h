@@ -1,6 +1,6 @@
 #ifndef APPLICATION_MANAGER_H
 #define APPLICATION_MANAGER_H
-
+#include <fstream>
 #include "DEFS.h"
 
 #include "Statements\Statement.h"
