@@ -81,3 +81,55 @@ OperAssign::~OperAssign()
 		delete pOutConn;
 	}
 }
+
+
+
+
+/*
+void OperAssign::Save(ofstream &OutFile){
+	OutFile<<"OP_ASSIGN  "<<ID<<"  "<<LeftCorner.x<<"  "<<LeftCorner.y<<"  "<<LHS<<"  "<<LHS_Of_Arithmaticoperator<<"  ";
+	
+	if(Arithmaticoperator=="+"){
+		OutFIle<<"ADD";
+	}
+	if(Arithmaticoperator=="-"){
+		OutFIle<<"SUB";
+	}
+	if(Arithmaticoperator=="*"){\
+		OutFIle<<"MUL";
+	}
+	if(Arithmaticoperator=="/"){
+		OutFIle<<"DIV";
+	}
+	
+	OutFile<<"  "<<RHS_Of_Arithmaticoperator;                              
+};
+
+void OperAssign::Load(ifstream &OutFile){
+	OutFile>>ID>>LeftCorner.x>>LeftCorner.y>>LHS>>LHS_Of_Arithmaticoperator>>Arithmaticoperator>>RHS_Of_Arithmaticoperator;
+
+	if(Arithmaticoperator=="ADD"){
+		Arithmaticoperator="+"
+	};
+	if(Arithmaticoperator=="SUB"){
+		Arithmaticoperator="-"
+	};
+	if(Arithmaticoperator=="MUL"){\
+		Arithmaticoperator="*"
+	};
+	if(Arithmaticoperator=="DIV"){
+		Arithmaticoperator="/"
+	};
+	UpdateStatementText();
+
+
+}
+
+
+
+
+
+
+*/
+
+
