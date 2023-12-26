@@ -73,10 +73,7 @@ void Select::Execute()
 		if (pManager->GetSelectedCon() != NULL)
 		{
 			pManager->GetSelectedCon()->SetSelected(false);
-			if (pManager->GetSelectedCon() != C)
-			{
-				pManager->SetSelectedCon(C);
-			}
+			pManager->SetSelectedCon(C);
 		}
 		else if (pManager->GetSelectedCon() != C)
 		{
