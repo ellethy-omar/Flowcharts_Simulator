@@ -382,14 +382,14 @@ void Output::DrawConnector(Point start, Point end, int checker , bool Selected)
 				pWind->DrawLine(start.x + 5, end.y - 10, end.x, end.y - 10);
 				pWind->DrawLine(end.x, end.y - 10, end.x, end.y);
 			}
-			else if (start.x < end.x && start.y + UI.ASSGN_HI / 2 <= end.y)
+			else if (start.x >= end.x && start.y + UI.ASSGN_HI / 2 <= end.y)
 			{
 				pWind->DrawLine(start.x, start.y, start.x + 5, start.y);
 				pWind->DrawLine(start.x + 5, start.y, start.x + 5, end.y - 10);
 				pWind->DrawLine(start.x + 5, end.y - 10, end.x , end.y - 10);
 				pWind->DrawLine(end.x, end.y - 10, end.x, end.y);
 			}
-			else if (start.x < end.x && start.y + UI.ASSGN_HI / 2 > end.y)
+			else if (start.x >= end.x && start.y + UI.ASSGN_HI / 2 > end.y)
 			{
 				pWind->DrawLine(start.x, start.y, start.x + 5, start.y);
 				pWind->DrawLine(start.x + 5, start.y, start.x + 5, end.y - 10);
