@@ -412,4 +412,4 @@ void ApplicationManager::SaveAll(ofstream& OutFile) {
 	}
 	/*for (int i = 0; i < ConnCount; i++) {
 		ConnList[i]->save(OutFile);
-	}
+	}*/
