@@ -18,7 +18,7 @@ void Select::ReadActionParameters()
 	pOut->PrintMessage("Select action: click on a statement or a connector to select / unselect");
 	pIn->GetPointClicked(Position);
 
-	while (pManager->GetStatement(Position) == NULL && pManager->GetConnector(Position))
+	while (pManager->GetStatement(Position) == NULL && pManager->GetConnector(Position) == NULL)
 	{
 		pOut->PrintMessage("Please click on a statement or a connector to select / unslect");
 		pIn->GetPointClicked(Position);
@@ -57,8 +57,12 @@ void Select::Execute()
 		if (pManager->GetSelectedStatement() != NULL)
 		{
 			pManager->GetSelectedStatement()->SetSelected(false);
+			if (pManager->GetSelectedStatement() != S)
+			{
+				pManager->SetSelectedStatement(S);
+			}
 		}
-		else
+		else if (pManager->GetSelectedStatement()!= S)
 		{
 			pManager->SetSelectedStatement(S);
 		}
@@ -69,11 +73,16 @@ void Select::Execute()
 		if (pManager->GetSelectedCon() != NULL)
 		{
 			pManager->GetSelectedCon()->SetSelected(false);
+			if (pManager->GetSelectedCon() != C)
+			{
+				pManager->SetSelectedCon(C);
+			}
 		}
-		else
+		else if (pManager->GetSelectedCon() != C)
 		{
 			pManager->SetSelectedCon(C);
 		}
 		C->Draw(pOut);
 	}
+
 }
