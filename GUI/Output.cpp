@@ -266,13 +266,13 @@ void Output::DrawReadstat(Point Center, int width, int height, string Text, bool
 	else
 		pWind->SetPen(UI.DrawColor, 3);
 
-	pWind->DrawLine(Center.x - width / 3, Center.y + height / 2, Center.x + width - width / 3, Center.y + height / 2);
-	pWind->DrawLine(Center.x + width - width / 3, Center.y + height / 2, Center.x + width / 3, Center.y - height / 2);
-	pWind->DrawLine(Center.x + width / 3, Center.y - height /2, Center.x - width + width / 3, Center.y - height / 2);
-	pWind->DrawLine(Center.x - width + width / 3, Center.y - height / 2, Center.x - width / 3, Center.y + height / 2);
+	pWind->DrawLine(Left.x, Left.y, Left.x + width, Left.y);
+	pWind->DrawLine(Left.x - width / 3, Left.y + height, Left.x + width - width / 3, Left.y + height);
+	pWind->DrawLine(Left.x, Left.y, Left.x - width / 3, Left.y + height);
+	pWind->DrawLine(Left.x + width, Left.y, Left.x + width - width / 3, Left.y + height);
 
 	pWind->SetPen(BLACK, 2);
-	pWind->DrawString(Center.x + width / 30, Center.y + height / 4, Text);
+	pWind->DrawString(Left.x + width / 30, Left.y + height / 4, Text);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -283,13 +283,13 @@ void Output::DrawWritestat(Point Center, int width, int height, string Text, boo
 	else
 		pWind->SetPen(UI.DrawColor, 3);
 
-	pWind->DrawLine(Center.x - width / 3, Center.y + height / 2, Center.x + width - width / 3, Center.y + height / 2);
-	pWind->DrawLine(Center.x + width - width / 3, Center.y + height / 2, Center.x + width / 3, Center.y - height / 2);
-	pWind->DrawLine(Center.x + width / 3, Center.y - height / 2, Center.x - width + width / 3, Center.y - height / 2);
-	pWind->DrawLine(Center.x - width + width / 3, Center.y - height / 2, Center.x - width / 3, Center.y + height / 2);
+	pWind->DrawLine(Left.x, Left.y, Left.x + width, Left.y);
+	pWind->DrawLine(Left.x - width / 3, Left.y + height, Left.x + width - width / 3, Left.y + height);
+	pWind->DrawLine(Left.x, Left.y, Left.x - width / 3, Left.y + height);
+	pWind->DrawLine(Left.x + width, Left.y, Left.x + width - width / 3, Left.y + height);
 
 	pWind->SetPen(BLACK, 2);
-	pWind->DrawString(Center.x + width / 30, Center.y + height / 4, Text);
+	pWind->DrawString(Left.x + width / 30, Left.y + height / 4, Text);
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
