@@ -21,3 +21,6 @@ float GetSlopes(Point start, Point end, float& slope);
 bool IsValue(string input);
 bool IsVariable(string input);
 OpType ValueOrVariable(string input);
+//save
+bool IsFileName(string input);
+
