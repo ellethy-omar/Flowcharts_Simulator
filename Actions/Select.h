@@ -6,6 +6,7 @@
 class Select : public Action
 {
 private:
+	int ID;
 	Point Position;
 	Statement* S;
 	Connector* C;
