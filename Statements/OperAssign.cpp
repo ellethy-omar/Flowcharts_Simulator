@@ -38,9 +38,23 @@ Point OperAssign::getInlet()
 	return Inlet;
 }
 
-Point OperAssign::getOutlet()
+Point OperAssign::getOutlet(int x)
 {
 	return Outlet;
+}
+
+void OperAssign::SetConnector(Connector* pOutConn)
+{
+	if (this->pOutConn != NULL)
+	{
+		delete this->pOutConn;
+	}
+	this->pOutConn = pOutConn;
+}
+
+Connector* OperAssign::GetConnector(int checker)
+{
+	return pOutConn;
 }
 
 bool OperAssign::Is_In_Region(Point& p1)
