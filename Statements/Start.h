@@ -42,6 +42,8 @@ public:
 
 	virtual Connector* GetConnector();
 
+	Connector* GetConnector(int checker = 0);
+
 	virtual bool Is_In_Region(Point& p1);
 };
 #endif
