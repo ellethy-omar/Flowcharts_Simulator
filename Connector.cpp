@@ -1,15 +1,13 @@
-#include "Connector.h"
-
-Connector::Connector(Statement* Src, Statement* Dst)
+Connector::Connector(Statement* Src, Statement* Dst, int x)
 //When a connector is created, it must have a source statement and a destination statement
 //There are NO FREE connectors in the flowchart
 {
-	
+	checker = x;
 	setSrcStat(Src);
 	setDstStat(Dst);
-	Start = SrcStat->getOutlet();
+	Start = SrcStat->getOutlet(x);
 	End = DstStat->getInlet();
-
+	Selected = false;
 }
 
 void Connector::setSrcStat(Statement *Src)
@@ -38,11 +36,36 @@ Point Connector::getEndPoint()
 
 void Connector::Draw(Output* pOut) const
 {
-	pOut->DrawConnector(Start, End);
+	pOut->DrawConnector(Start, End , checker, Selected);
 	///TODO: Call Output to draw a connector from SrcStat to DstStat on the output window
 }
 
-bool Connector::IsSelectedCon(Point P) const
+int Connector::GetChecker() const
+{
+	return checker;
+}
+
+void Connector::SetSelected(bool truth)
+{
+	Selected = truth;
+}
+
+bool Connector::GetSelected()
+{
+	return Selected;
+}
+
+void Connector::setID(int id)
+{
+	ID = id;
+}
+
+int Connector::GetID() const
+{
+	return ID;
+}
+
+bool Connector::Is_In_Region(Point P) const
 {
 	//			End
 	//	pxn	------------pxp
@@ -73,37 +96,12 @@ bool Connector::IsSelectedCon(Point P) const
 		}
 	}
 
-	if (Start.y <= End.y)
+	
+	switch (checker)
 	{
-		for (int j = Start.y -1 ; j < Start.y + 6; j++)
-		{
-			for (int i = Start.x - 1; i < Start.x + 1; i++)
-			{
-				if (P.x == i && P.y == j)
-					return true;
-			}
-		}
-
-		for (int j = Start.y + 4; j < Start.y + 6; j++)
-		{
-			for (int i = Start.x - 1; i < End.x+1; i++) 
-			{
-				if (P.x == i && P.y == j)
-					return true;
-			}
-		}
-
-		for (int j = Start.y + 4; j < End.y + 1; j++)
-		{
-			for (int i = End.x-1; i < End.x + 1; i++)
-			{
-
-			}
-		}
-	}
-
-	else {
-		if (Start.x >= End.x && Start.y > End.y)
+	case 0: // Normal goes down then moves to end
+	{
+		if (Start.y <= End.y)
 		{
 			for (int j = Start.y - 1; j < Start.y + 6; j++)
 			{
@@ -123,53 +121,17 @@ bool Connector::IsSelectedCon(Point P) const
 				}
 			}
 
-			for (int j = Start.y + 4; j < End.y + UI.ASSGN_HI + 11; j++)
+			for (int j = Start.y + 4; j < End.y + 1; j++)
 			{
 				for (int i = End.x - 1; i < End.x + 1; i++)
 				{
-					if (P.x == i && P.y == j)
-						return true;
-				}
-			}
 
-			for (int j = End.y + UI.ASSGN_HI + 9; j < End.y + UI.ASSGN_HI + 11; j++)
-			{
-				for (int i = End.x - 1; i < End.x + UI.ASSGN_WDTH / 2 + 11; i++)
-				{
-					if (P.x == i && P.y == j)
-						return true;
-				}
-			}
-
-			for (int j = End.y + UI.ASSGN_HI + 11; j > End.y - 10; j--)
-			{
-				for (int i = End.x + UI.ASSGN_WDTH / 2 + 9; i < End.x + UI.ASSGN_WDTH / 2 + 11; i++)
-				{
-					if (P.x == i && P.y == j)
-						return true;
-				}
-			}
-
-			for (int j = End.y - 9; j > End.y - 11; j--)
-			{
-				for (int i = End.x + UI.ASSGN_WDTH / 2 + 11; i > End.x - 1; i--)
-				{
-					if (P.x == i && P.y == j)
-						return true;
-				}
-			}
-
-			for (int j = End.y - 11; j < End.y + 1; j++)
-			{
-				for (int i = End.x + 1; i < End.x - 1; i++)
-				{
-					if (P.x == i && P.y == j)
-						return true;
 				}
 			}
 		}
+
 		else {
-			if (Start.x < End.x && Start.y > End.y)
+			if (Start.x >= End.x && Start.y > End.y)
 			{
 				for (int j = Start.y - 1; j < Start.y + 6; j++)
 				{
@@ -200,7 +162,7 @@ bool Connector::IsSelectedCon(Point P) const
 
 				for (int j = End.y + UI.ASSGN_HI + 9; j < End.y + UI.ASSGN_HI + 11; j++)
 				{
-					for (int i = End.x + 1; i > End.x - UI.ASSGN_WDTH / 2 - 11; i--)
+					for (int i = End.x - 1; i < End.x + UI.ASSGN_WDTH / 2 + 11; i++)
 					{
 						if (P.x == i && P.y == j)
 							return true;
@@ -209,7 +171,7 @@ bool Connector::IsSelectedCon(Point P) const
 
 				for (int j = End.y + UI.ASSGN_HI + 11; j > End.y - 10; j--)
 				{
-					for (int i = End.x - UI.ASSGN_WDTH / 2 - 9; i > End.x - UI.ASSGN_WDTH / 2 - 11; i--)
+					for (int i = End.x + UI.ASSGN_WDTH / 2 + 9; i < End.x + UI.ASSGN_WDTH / 2 + 11; i++)
 					{
 						if (P.x == i && P.y == j)
 							return true;
@@ -218,7 +180,7 @@ bool Connector::IsSelectedCon(Point P) const
 
 				for (int j = End.y - 9; j > End.y - 11; j--)
 				{
-					for (int i = End.x - UI.ASSGN_WDTH / 2 - 11; i > End.x + 1; i--)
+					for (int i = End.x + UI.ASSGN_WDTH / 2 + 11; i > End.x - 1; i--)
 					{
 						if (P.x == i && P.y == j)
 							return true;
@@ -234,11 +196,287 @@ bool Connector::IsSelectedCon(Point P) const
 					}
 				}
 			}
+			else {
+				if (Start.x < End.x && Start.y > End.y)
+				{
+					for (int j = Start.y - 1; j < Start.y + 6; j++)
+					{
+						for (int i = Start.x - 1; i < Start.x + 1; i++)
+						{
+							if (P.x == i && P.y == j)
+								return true;
+						}
+					}
+
+					for (int j = Start.y + 4; j < Start.y + 6; j++)
+					{
+						for (int i = Start.x - 1; i < End.x + 1; i++)
+						{
+							if (P.x == i && P.y == j)
+								return true;
+						}
+					}
+
+					for (int j = Start.y + 4; j < End.y + UI.ASSGN_HI + 11; j++)
+					{
+						for (int i = End.x - 1; i < End.x + 1; i++)
+						{
+							if (P.x == i && P.y == j)
+								return true;
+						}
+					}
+
+					for (int j = End.y + UI.ASSGN_HI + 9; j < End.y + UI.ASSGN_HI + 11; j++)
+					{
+						for (int i = End.x + 1; i > End.x - UI.ASSGN_WDTH / 2 - 11; i--)
+						{
+							if (P.x == i && P.y == j)
+								return true;
+						}
+					}
+
+					for (int j = End.y + UI.ASSGN_HI + 11; j > End.y - 10; j--)
+					{
+						for (int i = End.x - UI.ASSGN_WDTH / 2 - 9; i > End.x - UI.ASSGN_WDTH / 2 - 11; i--)
+						{
+							if (P.x == i && P.y == j)
+								return true;
+						}
+					}
+
+					for (int j = End.y - 9; j > End.y - 11; j--)
+					{
+						for (int i = End.x - UI.ASSGN_WDTH / 2 - 11; i > End.x + 1; i--)
+						{
+							if (P.x == i && P.y == j)
+								return true;
+						}
+					}
+
+					for (int j = End.y - 11; j < End.y + 1; j++)
+					{
+						for (int i = End.x + 1; i < End.x - 1; i++)
+						{
+							if (P.x == i && P.y == j)
+								return true;
+						}
+					}
+				}
+			}
+		}
+		break;
+
+	}
+	case 1: // Right of the Condtional
+	{
+		if (Start.x < End.x && Start.y + UI.ASSGN_HI / 2 <= End.y)
+		{
+			for (int j = Start.y - 1; j < Start.y + 1; j++)
+			{
+				for (int i = Start.x - 1; i < End.x + 1; i++)
+				{
+					if (P.x == i && P.y == j)
+						return true;
+				}
+			}
+			for (int j = Start.y - 1; j < End.y ; j++)
+			{
+				for (int i = End.x - 1; i < End.x + 1; i++)
+				{
+					if (P.x == i && P.y == j)
+						return true;
+				}
+			}
+		}
+		else
+		{
+			if (Start.x < End.x && Start.y + UI.ASSGN_HI / 2 > End.y)
+			{
+				for (int j = Start.y - 1; j < Start.y + 1; j++)
+				{
+					for (int i = Start.x - 1; i < Start.x + 6; i++)
+					{
+						if (P.x == i && P.y == j)
+							return true;
+					}
+				}
+
+				for (int j = Start.y - 1; j > End.y - 11; j--)
+				{
+					for (int i = Start.x + 4; i < Start.x + 6; i++)
+					{
+						if (P.x == i && P.y == j)
+							return true;
+					}
+				}
+
+				for (int j = End.y - 9; j > End.y - 11; j--)
+				{
+					for (int i = Start.x + 4; i < End.x; i++)
+					{
+						if (P.x == i && P.y == j)
+							return true;
+					}
+				}
+
+				for (int j = End.y - 11; j < End.y + 1; j++)
+				{
+					for (int i = End.x - 1; i < End.x + 1; i++)
+					{
+						if (P.x == i && P.y == j)
+							return true;
+					}
+				}
+			}
+
+			if (Start.x >= End.x && Start.y + UI.ASSGN_HI / 2 <= End.y)
+			{
+				for (int j = Start.y - 1; j < Start.y + 1; j++)
+				{
+					for (int i = Start.x - 1; i < Start.x + 6; i++)
+					{
+						if (P.x == i && P.y == j)
+							return true;
+					}
+				}
+
+				for (int j = Start.y - 1; j < End.y -11; j++)
+				{
+					for (int i = Start.x + 4; i < Start.x + 6; i++)
+					{
+						if (P.x == i && P.y == j)
+							return true;
+					}
+				}
+
+				for (int j = End.y - 9; j > End.y - 11; j--)
+				{
+					for (int i = End.x - 1; i > Start.x + 6; i--)
+					{
+						if (P.x == i && P.y == j)
+							return true;
+					}
+				}
+
+				for (int j = End.y - 11; j < End.y + 1; j++)
+				{
+					for (int i = End.x - 1; i > End.x + 1; i--)
+					{
+						if (P.x == i && P.y == j)
+							return true;
+					}
+				}
+			}
 		}
 	}
+	case 2: // Left of the Condtional
+	{
+	
+		if (Start.x < End.x && Start.y + UI.ASSGN_HI / 2 <= End.y)
+		{
+			for (int j = Start.y - 1; j < Start.y + 1; j++)
+			{
+				for (int i = Start.x + 1; i > End.x - 1; i--)
+				{
+					if (P.x == i && P.y == j)
+						return true;
+				}
+			}
+			for (int j = Start.y - 1; j < End.y; j++)
+			{
+				for (int i = End.x - 1; i < End.x + 1; i++)
+				{
+					if (P.x == i && P.y == j)
+						return true;
+				}
+			}
+		}
+		else
+		{
+			if (Start.x < End.x && Start.y + UI.ASSGN_HI / 2 > End.y)
+			{
+				for (int j = Start.y - 1; j < Start.y + 1; j++)
+				{
+					for (int i = Start.x + 1; i > Start.x - 6; i--)
+					{
+						if (P.x == i && P.y == j)
+							return true;
+					}
+				}
 
-	return false;
+				for (int j = Start.y - 1; j > End.y - 11; j--)
+				{
+					for (int i = Start.x - 4; i < Start.x - 6; i++)
+					{
+						if (P.x == i && P.y == j)
+							return true;
+					}
+				}
 
+				for (int j = End.y - 9; j > End.y - 11; j--)
+				{
+					for (int i = Start.x - 4; i > End.x -1; i--)
+					{
+						if (P.x == i && P.y == j)
+							return true;
+					}
+				}
+
+				for (int j = End.y - 11; j < End.y + 1; j++)
+				{
+					for (int i = End.x - 1; i < End.x + 1; i++)
+					{
+						if (P.x == i && P.y == j)
+							return true;
+					}
+				}
+			}
+
+			if (Start.x <= End.x && Start.y + UI.ASSGN_HI / 2 <= End.y)
+			{
+				for (int j = Start.y - 1; j < Start.y + 1; j++)
+				{
+					for (int i = Start.x + 1; i > Start.x - 6; i--)
+					{
+						if (P.x == i && P.y == j)
+							return true;
+					}
+				}
+
+				for (int j = Start.y - 1; j < End.y - 11; j++)
+				{
+					for (int i = Start.x + 4; i < Start.x + 6; i++)
+					{
+						if (P.x == i && P.y == j)
+							return true;
+					}
+				}
+
+				for (int j = End.y - 9; j> End.y - 11; j--)
+				{
+					for (int i = End.x + 1; i > Start.x - 4; i--)
+					{
+						if (P.x == i && P.y == j)
+							return true;
+					}
+				}
+
+				for (int j = End.y - 11; j < End.y + 1; j++)
+				{
+					for (int i = End.x - 1; i < End.x + 1; i++)
+					{
+						if (P.x == i && P.y == j)
+							return true;
+					}
+				}
+			}
+		}
+		break;
+	}
+	default:
+		break;
+	}
+		return false;
 }
 
 Connector::~Connector()
