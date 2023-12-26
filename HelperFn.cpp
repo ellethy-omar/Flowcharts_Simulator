@@ -190,3 +190,4 @@ bool IsFileName(string input) {
 		}
 	}
 	return true;
+}
