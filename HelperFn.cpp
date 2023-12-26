@@ -46,7 +46,7 @@ bool IsValue(string input)
 	// checks if the input string is a double value
 	// return true if it's double value, false otherwise
 
-	// Double values can be: 12.5, -12.5, -23, -23. , -23.0 …etc.
+	// Double values can be: 12.5, -12.5, -23, -23. , -23.0 â€¦etc.
 
 	//TODO: complete this function
 
@@ -182,3 +182,11 @@ OpType ValueOrVariable(string input)
 		return INVALID_OP;
 	}
 }
+//save// "/" ":" "\" "|" "<" ">" "?" "*" """
+bool IsFileName(string input) {
+	for (int i = 0; i < input.length(); i++) {
+		if (input[i] == 47 || input[i] == 58 || input[i] == 92 || input[i] == 124 || input[i] == 60 || input[i] == 62 || input[i] == 63 || input[i] == 42 || input[i] == 34) {
+			return false;
+		}
+	}
+	return true;
