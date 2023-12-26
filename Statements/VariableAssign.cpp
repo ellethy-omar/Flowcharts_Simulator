@@ -37,7 +37,7 @@ Point VariableAssign::getInlet()
 	return Inlet;
 }
 
-Point VariableAssign::getOutlet()
+Point VariableAssign::getOutlet(int x)
 {
 	return Outlet;
 }
@@ -59,5 +59,24 @@ bool VariableAssign::Is_In_Region(Point& p1)
 	}
 }
 
+void VariableAssign::SetConnector(Connector* pOutConn)
+{
+	if (this->pOutConn != NULL)
+	{
+		delete this->pOutConn;
+	}
+	this->pOutConn = pOutConn;
+}
 
+Connector* VariableAssign::GetConnector(int checker)
+{
+	return nullptr;
+}
 
+VariableAssign::~VariableAssign()
+{
+	if (pOutConn != NULL)
+	{
+		delete pOutConn;
+	}
+}
