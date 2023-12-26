@@ -28,3 +28,7 @@ bool Statement::GetSelected()
 {
 	return Selected;
 }
+
+Statement::~Statement()
+{
+}
