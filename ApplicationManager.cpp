@@ -6,6 +6,8 @@
 #include "Actions\AddVariableAssign.h"
 #include "Actions\AddStart.h"
 #include "Actions\AddValueAssign.h"
+//#include "Actions/Select.h"
+//#include "Actions/Delete.h"
 #include "ApplicationManager.h"
 #include "GUI\Input.h"
 #include "GUI\Output.h"
@@ -83,7 +85,14 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;*/
 
 		case ADD_CONNECTOR:
-			AddConnector(ConnList[ConnCount]);
+			if (StatCount < 2)
+			{
+				pOut->PrintMessage("please , add 2 statements in the drawing area to be able to use the connectors");
+			}
+			else
+			{
+				AddConnector(ConnList[ConnCount]);
+			}	
 			break;
 
 		case SELECT:
@@ -179,7 +188,7 @@ void ApplicationManager::AddStatement(Statement *pStat)
 {
 	if(StatCount < MaxCount)
 		StatList[StatCount++] = pStat;
-	/*StatList[StatCount - 1]->setID(StatCount);*/
+	StatList[StatCount - 1]->setID(StatCount);
 	
 }
 
@@ -202,27 +211,54 @@ void ApplicationManager::AddConnector(Connector* pConn)
 
 	pOut->PrintMessage("Connector : Click on the first delivering statment");
 	pIn->GetPointClicked(Position);
-
-	while (GetStatement(Position) == NULL)
-	{
-		pOut->PrintMessage("Please, select on the delivering statment");
-		pIn->GetPointClicked(Position);
-	}
 	s1 = GetStatement(Position);
-	SetSelectedStatement(s1);
+
+	Statement* test;
+	test = dynamic_cast<End*>(s1);
+
+	while (GetStatement(Position) == NULL || test != NULL)
+	{
+		pOut->PrintMessage("Please, select on the delivering statment such that it isn't a start statement");
+		pIn->GetPointClicked(Position);
+	
+		s1 = GetStatement(Position);
+		test = dynamic_cast<End*>(s1);
+	}
+	int x = 0;
+	test = dynamic_cast<Condition*>(s1);
+	if (test != NULL) 
+	{
+		pOut->PrintMessage("Selected a Condion statement  Enter 1 for true, Enter 2 for false, then click to continue");
+		pIn->GetPointClicked(Position);
+		x = int(pIn->GetValue(pOut));
+		while ((x != 1) && (x != 2))
+		{
+			pOut->PrintMessage("PLease, Enter 1 for true, Enter 2 for false");
+		 	x = int(pIn->GetValue(pOut));
+		}
+	}
+	
+	s1 = GetStatement(Position);
+
 	pOut->PrintMessage("Successfully made delivering statment, now click on recieveing statment");
 	pIn->GetPointClicked(Position);
 
-	while (GetStatement(Position) == NULL || GetStatement(Position) == s1)
+	s2 = GetStatement(Position);
+	test = dynamic_cast<Start*>(s1);
+
+
+	while ((GetStatement(Position) == NULL || GetStatement(Position) == s1) || test != NULL)
 	{
 		pOut->PrintMessage("Please, select on the recieveing statment");
 		pIn->GetPointClicked(Position);
+		s2 = GetStatement(Position);
+		test = dynamic_cast<Start*>(s1);
 	}
 	
 	s2 = GetStatement(Position);
-
 	pConn = new Connector(s1, s2);
 	ConnList[ConnCount] = pConn;
+	pConn->setID(ConnCount);
 	ConnCount++;
 }
 
@@ -230,7 +266,7 @@ Connector* ApplicationManager::GetConnector(Point P) const
 {
 	for (int i = 0; i < ConnCount; i++)
 	{
-		if (ConnList[i]->IsSelectedCon(P) == true)
+		if (ConnList[i]->Is_In_Region(P) == true)
 		{
 			return ConnList[i];
 		}
@@ -280,8 +316,31 @@ void ApplicationManager::SetSelectedStatement(Statement *pStat)
 	{
 		pSelectedStat->SetSelected(false);
 	}
+	if (ConSelected != NULL)
+	{
+		ConSelected->SetSelected(false);
+	}
 	pSelectedStat = pStat;
 	pSelectedStat->SetSelected(true);
+}
+
+Connector* ApplicationManager::GetSelectedCon() const
+{
+	return ConSelected;
+}
+
+void ApplicationManager::SetSelectedCon(Connector* pCon)
+{
+	if (pSelectedStat != NULL)
+	{
+		pSelectedStat->SetSelected(false);
+	}
+	if (ConSelected != NULL)
+	{
+		ConSelected->SetSelected(false);
+	}
+	ConSelected = pCon;
+	ConSelected->SetSelected(true);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////

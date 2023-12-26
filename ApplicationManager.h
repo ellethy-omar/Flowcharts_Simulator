@@ -22,28 +22,28 @@ private:
 	Connector* ConnList[MaxCount];	//List of all connectors (Array of pointers)
 
 	Statement *pSelectedStat; //a pointer to the last selected statement
-	                          //you can set and get this pointer
+                          //you can set and get this pointer
 	Statement *pClipboard;    //a pointer to the last copied/cut statement
-	                          //you can set and get this pointer
-
-	//Pointers to Input and Output classes
-	Input *pIn;
-	Output *pOut;
+                          //you can set and get this pointer
+	Connector* ConSelected;
+//Pointers to Input and Output classes
+Input *pIn;
+Output *pOut;
 
 public:	
 	ApplicationManager(); 
 	~ApplicationManager();
-	
+
 	// == Actions Related Functions ==
 	ActionType GetUserAction() const; //Reads the input command from the user 
-	                                  //and returns the corresponding action type
+                                  //and returns the corresponding action type
 	void ExecuteAction(ActionType) ;  //Creates an action and executes it
-	
+
 	// == Statements/Connector Management Functions ==
 	void AddStatement(Statement* pStat);    //Adds a new Statement to the Flowchart
 	Statement *GetStatement(Point P) const;	//Searches for a statement where point P belongs
-										     //TODO: Complete its implementation 
-	                                        //      WITHOUT breaking class responsibilities
+									     //TODO: Complete its implementation 
+                                        //      WITHOUT breaking class responsibilities
 	int GetStatCount() const;
 	int GetConnectorCount() const;
 
@@ -57,6 +57,9 @@ public:
 
 	Statement *GetSelectedStatement() const;	 //Returns the selected Statement
 	void SetSelectedStatement(Statement *pStat); //Set the Statement selected by the user
+
+	Connector* GetSelectedCon() const;
+	void SetSelectedCon(Connector* pCon);
 
 	Statement *GetClipboard() const;	         //Returns the Clipboard
 	void SetClipboard(Statement *pStat);         //Set the Clipboard

@@ -23,3 +23,8 @@ int Statement::GetID() const
 {
 	return ID;
 }
+
+bool Statement::GetSelected()
+{
+	return Selected;
+}

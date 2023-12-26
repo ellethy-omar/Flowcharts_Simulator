@@ -12,14 +12,15 @@ void End::UpdateStatementText() {};
 bool End::Is_In_Region(Point& p1)
 {
 
-	if (
-		((((p1.x - Center.x) ^ 2) / (UI.ASSGN_WDTH / 2) ^ 2 + (p1.y - Center.y) ^ 2) / (UI.ASSGN_HI / 2) ^ 2) <= 1
-		)
+	if ((p1.x >= (Center.x - UI.ASSGN_WDTH / 2)) && (p1.x <= (Center.x + UI.ASSGN_WDTH / 2)) && (p1.y >= Center.y - UI.ASSGN_HI / 2) && (p1.y <= Center.y + UI.ASSGN_HI / 2))
 	{
 		return true;
 	}
 	return false;
 }
+
+void End::SetConnector(Connector* pOutConn)
+{}
 
 End::End(Point Center)
 {
@@ -30,7 +31,7 @@ End::End(Point Center)
 
 };
 
-Point End::getOutlet()
+Point End::getOutlet(int x)
 {
 	Point P;
 	P.x = 0;
@@ -47,4 +48,3 @@ End::~End()
 {
 
 }
-

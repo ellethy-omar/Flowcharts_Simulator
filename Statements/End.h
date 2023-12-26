@@ -25,8 +25,6 @@ private:
 
 	virtual void UpdateStatementText();
 
-	virtual bool Is_In_Region(Point& p1);
-
 public:
 
 	End(Point Center);
@@ -38,6 +36,10 @@ public:
 	virtual void Draw(Output* pOut) const;
 
 	~End();
+
+	virtual bool Is_In_Region(Point& p1);
+
+	void SetConnector(Connector* pOutConn);
 
 
 };
