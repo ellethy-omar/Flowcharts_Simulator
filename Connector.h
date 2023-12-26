@@ -6,12 +6,12 @@
 #include "GUI\UI_Info.h"
 #include "GUI\output.h"
 #include "ApplicationManager.h"
-
 class Statement;
 
 class Connector	//a connector that connects two statements (Source & Destination)
 {
 private:
+
 	Statement *SrcStat;	//The source statement of the connector
 	Statement *DstStat;	//The destination statement of the connector
 	Point Start;	//Start point of the connector
@@ -40,6 +40,8 @@ public:
 	int GetChecker() const;
 
 	bool Is_In_Region(Point P) const;
+
+	bool Is_In_Region(Statement* P) const;
 
 	void SetSelected(bool truth);
 
