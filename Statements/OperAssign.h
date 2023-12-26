@@ -6,35 +6,35 @@ class OperAssign : public Statement
 {
 private:
 	string LHS;
-	string RHS;
-
+	string LHS_Of_Arithmaticoperator;
+	string RHS_Of_Arithmaticoperator;
+	string Arithmaticoperator;
 	Connector* pOutConn;
-
 	Point Inlet;
 	Point Outlet;
 	Point LeftCorner;
-
+	/*****************************/
+	double LHS_Of_Arithmaticoperator_In_caseOfValue;
+	bool IsTheRHSValue;
+	double RHS_Of_Arithmaticoperator_In_caseOfValue;
+	bool IsTheLHSValue;
+	/********************************************/
 	virtual void UpdateStatementText();
-
+	// x = 5 + 5
 public:
-	OperAssign(Point Lcorner, string LeftHS = "", string RightHS = "");
-
+	OperAssign(Point Lcorner, string LeftHS = "", string RightHSOfAO = "" , string LEFTHSOfAO = "", string AO = "");
+	string getRightHSOfAO();
+	string getLHS();
+	string getLHSofAO();
 	void setLHS(const string& L);
-
-	void setRHS(string R);
-
+	void setRightHSOfAO(string R);
+	void setAO(string ao);
+	void setLEFTHSOfAO(string La);
 	Point getInlet();
-
 	Point getOutlet(int x = 0);
-
-	void SetConnector(Connector* pOutConn);
-
-	Connector* GetConnector(int checker = 0);
-
 	bool Is_In_Region(Point& p1);
-
 	virtual void Draw(Output* pOut) const;
-
-	~OperAssign();
+	void SetConnector(Connector* pOutConn);
+	Connector* GetConnector(int checker = 0);
 };
 
