@@ -22,6 +22,11 @@ bool End::Is_In_Region(Point& p1)
 void End::SetConnector(Connector* pOutConn)
 {}
 
+Connector* End::GetConnector(int checker)
+{
+	return nullptr;
+}
+
 End::End(Point Center)
 {
 	Text = "END";
@@ -48,3 +53,4 @@ End::~End()
 {
 
 }
+
