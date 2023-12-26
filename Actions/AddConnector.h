@@ -10,6 +10,9 @@ class AddConnector : public Action
 {
 private:
 	Point Position;
+	int x;
+	Statement* s1;
+	Statement* s2;
 
 public:
 	AddConnector(ApplicationManager* pAppManager);
