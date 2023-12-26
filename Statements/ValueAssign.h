@@ -40,11 +40,17 @@ public:
 
 	Point getInlet();
 
-	Point getOutlet();
-
 	virtual void Draw(Output* pOut) const;
 
 	bool Is_In_Region(Point& p1);
+
+	Point getOutlet(int x = 0);
+
+	void SetConnector(Connector* pOutConn);
+
+	Connector* GetConnector(int checker = 0);
+
+	~ValueAssign();
 };
 
 #endif
