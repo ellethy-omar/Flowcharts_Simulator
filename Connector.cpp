@@ -292,7 +292,7 @@ bool Connector::Is_In_Region(Point P) const
 		}
 		else
 		{
-			if (Start.x < End.x && Start.y + UI.ASSGN_HI / 2 > End.y)
+			if (Start.x >= End.x && Start.y + UI.ASSGN_HI / 2 > End.y)
 			{
 				for (int j = Start.y - 1; j < Start.y + 1; j++)
 				{
