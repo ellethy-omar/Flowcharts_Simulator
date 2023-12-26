@@ -40,11 +40,24 @@ Point ValueAssign::getInlet()
 	return Inlet;
 }
 
-Point ValueAssign::getOutlet()
+Point ValueAssign::getOutlet(int x)
 {
 	return Outlet;
 }
 
+void ValueAssign::SetConnector(Connector* pOutConn)
+{
+	if (this->pOutConn != NULL)
+	{
+		delete this->pOutConn;
+	}
+	this->pOutConn = pOutConn;
+}
+
+Connector* ValueAssign::GetConnector(int checker)
+{
+	return pOutConn;
+}
 
 void ValueAssign::Draw(Output* pOut) const
 {
@@ -72,4 +85,12 @@ void ValueAssign::UpdateStatementText()
 	ostringstream T;
 	T<<LHS<<" = "<<RHS;	
 	Text = T.str();	 
+}
+
+ValueAssign::~ValueAssign()
+{
+	if (pOutConn != NULL)
+	{
+		delete pOutConn;
+	}
 }
