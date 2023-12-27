@@ -290,6 +290,7 @@ void Output::DrawWritestat(Point Left, int width, int height, string Text, bool 
 
 	pWind->SetPen(BLACK, 2);
 	pWind->DrawString(Left.x + width / 30, Left.y + height / 4, Text);
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -369,60 +370,51 @@ void Output::DrawConnector(Point start, Point end, int checker , bool Selected)
 			}
 			break;
 		case 1: // Conditional start point on right
+			
 			if (start.x < end.x && start.y + UI.ASSGN_HI / 2 <= end.y)
 			{
+				pWind->DrawString(start.x + 5, start.y + 5, "true");
 				pWind->DrawLine(start.x, start.y, end.x , start.y);
 				pWind->DrawLine(end.x , start.y, end.x, end.y);
 			}
 			else if (start.x < end.x && start.y + UI.ASSGN_HI / 2 > end.y)
 			{
+				pWind->DrawString(start.x + 5, start.y - 5, "true");
 				pWind->DrawLine(start.x, start.y, start.x + 5, start.y);
 				pWind->DrawLine(start.x + 5, start.y, start.x + 5, end.y - 10);
 				pWind->DrawLine(start.x + 5, end.y - 10, end.x, end.y - 10);
 				pWind->DrawLine(end.x, end.y - 10, end.x, end.y);
 			}
-			else if (start.x >= end.x && start.y + UI.ASSGN_HI / 2 <= end.y)
+			else 
 			{
+				pWind->DrawString(start.x + 5, start.y - 5, "true");
 				pWind->DrawLine(start.x, start.y, start.x + 5, start.y);
 				pWind->DrawLine(start.x + 5, start.y, start.x + 5, end.y - 10);
 				pWind->DrawLine(start.x + 5, end.y - 10, end.x , end.y - 10);
-				pWind->DrawLine(end.x, end.y - 10, end.x, end.y);
-			}
-			else if (start.x >= end.x && start.y + UI.ASSGN_HI / 2 > end.y)
-			{
-				pWind->DrawLine(start.x, start.y, start.x + 5, start.y);
-				pWind->DrawLine(start.x + 5, start.y, start.x + 5, end.y - 10);
-				pWind->DrawLine(start.x + 5, end.y - 10, end.x - UI.ASSGN_WDTH / 2 , end.y - 10);
-				pWind->DrawLine(end.x - UI.ASSGN_WDTH / 2, end.y - 10, end.x, end.y - 10);
 				pWind->DrawLine(end.x, end.y - 10, end.x, end.y);
 			}
 			break;
 		case 2:// Conditional start point on left
 			if (start.x > end.x && start.y + UI.ASSGN_HI / 2 <= end.y)
 			{
+				pWind->DrawString(start.x - 5, start.y + 5, "False");
 				pWind->DrawLine(start.x, start.y, end.x, start.y);
 				pWind->DrawLine(end.x, start.y, end.x, end.y);
 			}
 			else if (start.x > end.x && start.y + UI.ASSGN_HI / 2 > end.y)
 			{
+				pWind->DrawString(start.x - 5, start.y - 5, "False");
 				pWind->DrawLine(start.x, start.y, start.x - 5, start.y);
 				pWind->DrawLine(start.x - 5, start.y, start.x - 5, end.y - 10);
 				pWind->DrawLine(start.x - 5, end.y - 10, end.x, end.y - 10);
 				pWind->DrawLine(end.x, end.y - 10, end.x, end.y);
 			}
-			else if (start.x < end.x && start.y + UI.ASSGN_HI / 2 <= end.y)
+			else
 			{
+				pWind->DrawString(start.x - 5, start.y - 5, "False");
 				pWind->DrawLine(start.x, start.y, start.x - 5, start.y);
 				pWind->DrawLine(start.x - 5, start.y, start.x - 5, end.y - 10);
 				pWind->DrawLine(start.x - 5, end.y - 10, end.x, end.y - 10);
-				pWind->DrawLine(end.x, end.y - 10, end.x, end.y);
-			}
-			else if (start.x < end.x && start.y + UI.ASSGN_HI / 2 > end.y)
-			{
-				pWind->DrawLine(start.x, start.y, start.x - 5, start.y);
-				pWind->DrawLine(start.x - 5, start.y, start.x - 5, end.y - 10);
-				pWind->DrawLine(start.x - 5, end.y - 10, end.x + UI.ASSGN_WDTH / 2, end.y - 10);
-				pWind->DrawLine(end.x + UI.ASSGN_WDTH / 2, end.y - 10, end.x, end.y - 10);
 				pWind->DrawLine(end.x, end.y - 10, end.x, end.y);
 			}
 			break;
