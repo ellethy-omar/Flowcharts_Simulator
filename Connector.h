@@ -52,6 +52,7 @@ public:
 	int GetID() const;
 
 	~Connector();
+	void Save(ofstream& OutFile);
 };
 
 #endif
