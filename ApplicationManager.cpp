@@ -408,7 +408,18 @@ ApplicationManager::~ApplicationManager()
 	delete pIn;
 	delete pOut;
 }
-
+void ApplicationManager::SaveAll(ofstream& OutFile) {
+	OutFile << StatCount << endl;
+	for (int i = 0; i < StatCount; i++) {
+		StatList[i]->Save(OutFile);
+		OutFile << endl;
+	}
+	OutFile << endl << ConnCount<<endl;
+	for (int i = 0; i < ConnCount; i++) {
+		ConnList[i]->Save(OutFile);
+		OutFile << endl;
+	}
+}
 void ApplicationManager::LoadAll(ifstream& Infile) {
 	Point ptdummy;
 	string strdummy,StatType;
