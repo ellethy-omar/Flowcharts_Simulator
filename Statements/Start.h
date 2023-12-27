@@ -45,5 +45,7 @@ public:
 	Connector* GetConnector(int checker = 0);
 
 	virtual bool Is_In_Region(Point& p1);
+	virtual void Save(ofstream& OutFile);
+	virtual void Load(ifstream& Infile);
 };
 #endif
