@@ -78,15 +78,28 @@ void AddConnector::Execute()
 {
 	ReadActionParameters();
 	Point dummy;
+	Connector* C = NULL;
 	Connector* pCond = new Connector(s1, s2, x);
 
 	for (int i = 0; i < pManager->GetStatCount(); i++)
 	{
-		if (pManager->GetStatementIteration(i) != s1 || pManager->GetStatementIteration(i) != s2)
+		if (pManager->GetStatementIteration(i) != s1 && pManager->GetStatementIteration(i) != s2)
 		{
 			if (pCond->Is_In_Region(pManager->GetStatementIteration(i)) == true)
 			{
-				
+				for (int j = 0; j < pManager->GetConnectorCount(); j++)
+				{
+					if (pManager->GetConnIteration(j)->getDstStat() == pManager->GetStatementIteration(i) || pManager->GetConnIteration(j)->getSrcStat() == pManager->GetStatementIteration(i))
+					{
+						C = pManager->GetConnIteration(j);
+						pManager->RemoveConnector(j);
+						delete C;
+						C = NULL;
+						j--;
+					}
+				}
+				delete pManager->GetStatementIteration(i);
+				pManager->RemoveStatement(i);
 			}
 		}
 	}
