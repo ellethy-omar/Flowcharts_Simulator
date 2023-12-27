@@ -52,6 +52,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	Action* pAct = NULL;
 	Point P;
 	//According to ActioType, create the corresponding action object
+	if (UI.AppMode == DESIGN)
+	{
 	switch (ActType)
 	{
 		case ADD_VALUE_ASSIGN:
@@ -134,8 +136,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			break;
 
 		case SWITCH_SIM_MODE:
-			pOut->PrintMessage("Action: Switch to Simulation Mode, creating simualtion tool bar");
-			pOut->CreateSimulationToolBar(); // THIS TESTS Output::CreateSimulationToolBar() function //////
+			UI.AppMode = SIMULATION;
+			pOut->CreateSimulationToolBar();
 			break;
 
 		case SWITCH_DSN_MODE:
@@ -170,6 +172,26 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 			return;
 
 	}
+		
+	}
+	else if (UI.AppMode == SIMULATION)
+	{
+		switch (ActType)
+		{
+		case SWITCH_DSN_MODE:
+			UI.AppMode = SIMULATION;
+			pOut->CreateDesignToolBar();
+			break;
+		case VALIDATE:
+			Validate();
+			break;
+		case RUN:
+			run();
+			break;
+
+
+		}
+	}
 	//Execute the created action	
 	if (pAct != NULL)
 	{
@@ -187,12 +209,57 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 
 
 //Add a statement to the list of statements
+//void ApplicationManager::AddStatement(Statement *pStat)
+//{
+//	if(StatCount < MaxCount)
+//		StatList[StatCount++] = pStat;
+//	StatList[StatCount - 1]->setID(StatCount);
+//	
+//}
 void ApplicationManager::AddStatement(Statement *pStat)
 {
-	if(StatCount < MaxCount)
-		StatList[StatCount++] = pStat;
-	StatList[StatCount - 1]->setID(StatCount);
+	if (statcount < MaxCount)
+	{
+		StatList[statcount] = pStat;
+		StatList[statcount]->setID(statcount);
+		statcount++;
+	}
 	
+}
+bool ApplicationManager::Validate()
+{
+	ValidateOper val(StatList, statcount, ConnList, ConnCount,this);
+	bool cond1, cond2, cond3;
+	cond1 = val.CountNumberOfStart_End();
+	cond2 = val.CheckIfFullyandCorrectlyConnected();
+	cond3 = val.CheckofOutputConnectors();
+
+	if (cond1 == true && cond2 == true && cond3 == true)
+	{
+		pOut->PrintMessage("check for variables");
+		val.CheckForVariablesIntilization();
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+
+void ApplicationManager::run()
+{
+	if (Validate() == true)
+	{
+		pOut->ClearOutputBar();
+		Run r1(StatList, statcount, ConnList, ConnCount, this);
+		r1.operate();
+	}
+	else
+	{
+		pOut->PrintMessage("you cannot run until there are no complilation errors");
+	}
+
 }
 
 int ApplicationManager::GetStatCount() const
