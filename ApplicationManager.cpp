@@ -481,7 +481,7 @@ void ApplicationManager::SaveAll(ofstream& OutFile) {
 		StatList[i]->Save(OutFile);
 		OutFile << endl;
 	}
-	OutFile << endl << ConnCount<<endl;
+	OutFile << ConnCount<<endl;
 	for (int i = 0; i < ConnCount; i++) {
 		ConnList[i]->Save(OutFile);
 		OutFile << endl;
@@ -490,29 +490,33 @@ void ApplicationManager::SaveAll(ofstream& OutFile) {
 void ApplicationManager::LoadAll(ifstream& Infile) {
 	Point ptdummy;
 	string strdummy,StatType;
-	int value;
-	Infile >> StatCount;
+	int value,fileStatCount, fileConnCount,id;
+	Infile >> fileStatCount;
 	Statement * pstat;
-	for (int i = 0; i < StatCount; i++) {
-		Infile >> StatType;
+	for (int i = 0; i < fileStatCount; i++) {
+		Infile >> StatType>>id>>ptdummy.x>>ptdummy.y;
 
 		if (StatType == "READ") {
 			pstat = new Read(ptdummy, strdummy, value);
+			pstat->setID(id);
 			pstat->Load(Infile);
 			AddStatement(pstat);
 		}
 		if (StatType == "WRITE") {
 			pstat = new Write(ptdummy, strdummy);
+			pstat->setID(id);
 			pstat->Load(Infile);
 			AddStatement(pstat);
 		}
 		if (StatType == "COND") {
 			pstat = new Condition(ptdummy, strdummy);
+			pstat->setID(id);
 			pstat->Load(Infile);
 			AddStatement(pstat);
 		}
 		if (StatType == "END") {
 			pstat = new End(ptdummy);
+			pstat->setID(id);
 			pstat->Load(Infile);
 			AddStatement(pstat);
 		}
@@ -523,30 +527,34 @@ void ApplicationManager::LoadAll(ifstream& Infile) {
 		}
 		if (StatType == "OP_ASSIGN") {
 			pstat = new OperAssign(ptdummy, strdummy);
+			pstat->setID(id);
 			pstat->Load(Infile);
 			AddStatement(pstat);
 		}
 		if (StatType == "VAR_ASSIGN") {
 			pstat = new VariableAssign(ptdummy, strdummy);
+			pstat->setID(id);
 			pstat->Load(Infile);
 			AddStatement(pstat);
 		}
 		if (StatType == "VAL_ASSIGN") {
 			pstat = new ValueAssign(ptdummy, strdummy);
+			pstat->setID(id);
 			pstat->Load(Infile);
 			AddStatement(pstat);
 		}
 
 	}
-	Infile >> ConnCount;
+	Infile >> fileConnCount;
+	ConnCount = fileConnCount;
 	int srcid, dstid;
 	Connector* pconn;
 	Statement* SrcStat;	
 	Statement* DstStat;
 	int checker;
-	for (int i = 0; i < ConnCount; i++) {
+	for (int i = 0; i < fileConnCount; i++) {
 		Infile >> srcid >> dstid >>checker;
-		for (int j = 0; j < StatCount;j++) {
+		for (int j = 0; j < fileStatCount;j++) {
 			if (srcid == StatList[j]->GetID()) {
 				SrcStat = StatList[j];
 			}
@@ -555,5 +563,7 @@ void ApplicationManager::LoadAll(ifstream& Infile) {
 			}
 		}
 		pconn = new Connector(SrcStat, DstStat, checker);
+		ConnList[i] = pconn;
 	}
+		UpdateInterface();
 };
