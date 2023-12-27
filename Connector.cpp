@@ -79,19 +79,19 @@ bool Connector::Is_In_Region(Point P) const
 	//			end
 
 
-	if (End.x +5 >= P.x && End.x - 5 <= P.x)
+	if (End.x + 6 >= P.x && End.x - 6 <= P.x)
 	{
 		Point pxn;
-		pxn.x = End.x - 5; pxn.y = End.y -5;
+		pxn.x = End.x - 6; pxn.y = End.y -6;
 		Point pxp;
-		pxp.x = End.x + 5; pxp.y = End.y -5;
+		pxp.x = End.x + 6; pxp.y = End.y -6;
 
-		float slope1 = float(pxn.y - P.y) / (pxn.x - P.x);
-		float slope2 = float(pxn.y - End.y) / (pxn.x - End.x);
-		float slope3 = float(pxp.y - P.y) / (pxp.x - P.x);
-		float slope4 = float(pxp.y - End.y) / (pxp.x - End.x);
+		float slope1 = float(pxn.y - P.y) / float(pxn.x - P.x);
+		float slope2 = float(pxn.y - End.y) / float(pxn.x - End.x);
+		float slope3 = float(pxp.y - P.y) / float(pxp.x - P.x);
+		float slope4 = float(pxp.y - End.y) / float(pxp.x - End.x);
 		if (
-			(slope1 <= 0.0) && (slope2 <= slope1) && (slope3 >= slope4)
+			(slope2 >= slope1) && (slope3 >= slope4)
 			)
 		{
 			return true;
