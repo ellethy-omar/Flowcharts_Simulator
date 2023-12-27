@@ -67,6 +67,5 @@ void Start::Save(ofstream& OutFile) {
 	OutFile << "STRT" << " " << ID << " " << Center.x << " " << Center.y;
 }
 void Start::Load(ifstream& Infile) {
-	Infile >> ID >> Center.x >> Center.y;
 }
 
