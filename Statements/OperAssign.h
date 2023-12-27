@@ -36,5 +36,7 @@ public:
 	virtual void Draw(Output* pOut) const;
 	void SetConnector(Connector* pOutConn);
 	Connector* GetConnector(int checker = 0);
+	virtual void Save(ofstream& OutFile);
+	virtual void Load(ifstream& Infile);
 };
 
