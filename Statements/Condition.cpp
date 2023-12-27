@@ -159,3 +159,42 @@ Condition::~Condition()
 	if (pOutConnFalse != NULL)
 		delete pOutConnFalse;
 }
+void Condition::Save(ofstream& OutFile) {
+	OutFile <<"COND" << ID << " " << UpperPoint.x << " " << UpperPoint.y << LHS << " ";
+	if (CompOperator == "<") {
+		OutFile << "LESS";
+	}
+	if (CompOperator == ">") {
+		OutFile << "GRT";
+	}
+	if (CompOperator == ">=") {
+		OutFile << "GRTorEQ";
+	}
+	if (CompOperator == "==") {
+		OutFile << "EQ";
+	}
+	if (CompOperator == "<=") {
+		OutFile << "LESSorEQ";
+	}
+	OutFile << "  " << RHS;
+}
+void Condition::Load(ifstream& Infile) {
+	Infile >> ID >> UpperPoint.x >> UpperPoint.y >> LHS>> CompOperator>>RHS;
+	if (CompOperator == "LESS") {
+		CompOperator = "<";
+	}
+	if (CompOperator == "GRT") {
+		CompOperator = ">";
+	}
+	if (CompOperator == "GRTorEQ") {
+		CompOperator = ">=";
+	}
+	if ( CompOperator== "EQ") {
+		CompOperator = "==";
+	}
+	if (CompOperator == "LESSorEQ") {
+		CompOperator = "<=";
+	}
+	
+}
+
