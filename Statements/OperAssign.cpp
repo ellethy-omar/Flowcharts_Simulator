@@ -153,7 +153,7 @@ void OperAssign::Save(ofstream &OutFile){
 };
 
 void OperAssign::Load(ifstream &OutFile){
-	OutFile>>ID>>LeftCorner.x>>LeftCorner.y>>LHS>>LHS_Of_Arithmaticoperator>>Arithmaticoperator>>RHS_Of_Arithmaticoperator;
+	OutFile>>LHS>>LHS_Of_Arithmaticoperator>>Arithmaticoperator>>RHS_Of_Arithmaticoperator;
 
 	if(Arithmaticoperator=="ADD"){
 		Arithmaticoperator = "+";
