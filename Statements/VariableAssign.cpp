@@ -80,3 +80,11 @@ VariableAssign::~VariableAssign()
 		delete pOutConn;
 	}
 }
+void VariableAssign::Save(ofstream& OutFile) {
+	OutFile << "VAR_ASSIGN" << " " << ID << "  " << LeftCorner.x << " " << LeftCorner.y << " " << LHS << " " << RHS;
+}
+void VariableAssign::Load(ifstream& Infile) {
+	Infile >> ID >> LeftCorner.x >> LeftCorner.y >> LHS >> RHS;
+	UpdateStatementText();
+
+}
