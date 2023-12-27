@@ -57,7 +57,7 @@ void End::Save(ofstream& OutFile) {
 	OutFile << "END" << " " << ID << " " << Center.x << " " << Center.y;
 }
 void End::Load(ifstream& Infile) {
-	Infile >> ID >> Center.x >> Center.y;
+	
 }
 
 
