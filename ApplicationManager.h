@@ -74,6 +74,7 @@ public:
 	void UpdateInterface() const;	//Redraws all the drawing window
 	//save
 	void SaveAll(ofstream& OutFile);
+	void LoadAll(Instream& Infile);
 	
 };
 
