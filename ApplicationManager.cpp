@@ -409,12 +409,73 @@ ApplicationManager::~ApplicationManager()
 	delete pOut;
 }
 
-//save
-void ApplicationManager::SaveAll(ofstream& OutFile) {
-	OutFile << StatCount<<endl;
+void ApplicationManager::LoadAll(ifstream& Infile) {
+	Point ptdummy;
+	string strdummy,StatType;
+	int value;
+	Infile >> StatCount;
+	Statement * pstat;
 	for (int i = 0; i < StatCount; i++) {
-		StatList[i]->Save(OutFile);
+		Infile >> StatType;
+
+		if (StatType == "READ") {
+			pstat = new Read(ptdummy, strdummy, value);
+			pstat->Load(Infile);
+			AddStatement(pstat);
+		}
+		if (StatType == "WRITE") {
+			pstat = new Write(ptdummy, strdummy);
+			pstat->Load(Infile);
+			AddStatement(pstat);
+		}
+		if (StatType == "COND") {
+			pstat = new Condition(ptdummy, strdummy);
+			pstat->Load(Infile);
+			AddStatement(pstat);
+		}
+		if (StatType == "END") {
+			pstat = new End(ptdummy);
+			pstat->Load(Infile);
+			AddStatement(pstat);
+		}
+		if (StatType == "STRT") {
+			pstat = new Start(ptdummy);
+			pstat->Load(Infile);
+			AddStatement(pstat);
+		}
+		if (StatType == "OP_ASSIGN") {
+			pstat = new OperAssign(ptdummy, strdummy);
+			pstat->Load(Infile);
+			AddStatement(pstat);
+		}
+		if (StatType == "VAR_ASSIGN") {
+			pstat = new VariableAssign(ptdummy, strdummy);
+			pstat->Load(Infile);
+			AddStatement(pstat);
+		}
+		if (StatType == "VAL_ASSIGN") {
+			pstat = new ValueAssign(ptdummy, strdummy);
+			pstat->Load(Infile);
+			AddStatement(pstat);
+		}
+
 	}
-	/*for (int i = 0; i < ConnCount; i++) {
-		ConnList[i]->save(OutFile);
-	}*/
+	Infile >> ConnCount;
+	int srcid, dstid;
+	Connector* pconn;
+	Statement* SrcStat;	
+	Statement* DstStat;
+	int checker;
+	for (int i = 0; i < ConnCount; i++) {
+		Infile >> srcid >> dstid >>checker;
+		for (int j = 0; j < StatCount;j++) {
+			if (srcid == StatList[j]->GetID()) {
+				SrcStat = StatList[j];
+			}
+			if (dstid == StatList[j]->GetID()) {
+				DstStat = StatList[j];
+			}
+		}
+		pconn = new Connector(SrcStat, DstStat, checker);
+	}
+};
