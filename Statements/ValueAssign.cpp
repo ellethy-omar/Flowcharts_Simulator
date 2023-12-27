@@ -94,3 +94,11 @@ ValueAssign::~ValueAssign()
 		delete pOutConn;
 	}
 }
+void ValueAssign::Save(ofstream& OutFile) {
+	OutFile << "VAL_ASSIGN" << " " << ID << "  " << LeftCorner.x << " " << LeftCorner.y << " " << LHS << " " << RHS;
+}
+void ValueAssign::Load(ifstream& Infile) {
+	Infile >> ID >> LeftCorner.x >> LeftCorner.y >> LHS >> RHS;
+	UpdateStatementText();
+
+}
