@@ -33,7 +33,7 @@ void Write::Save(ofstream& OutFile) {
 	OutFile << "WRITE   " << ID << "  " << Center.x << "  " << Center.y << "    " << print;
 };
 void Write::Load(ifstream& InFile) {
-	InFile >> ID >> Center.x >> Center.y >> print;
+	InFile >> print;
 	UpdateStatementText();
 }
 Point Write::getInlet() {
