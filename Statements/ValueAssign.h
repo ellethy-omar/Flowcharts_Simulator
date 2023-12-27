@@ -51,6 +51,8 @@ public:
 	Connector* GetConnector(int checker = 0);
 
 	~ValueAssign();
+	virtual void Save(ofstream& OutFile);
+	virtual void Load(ifstream& Infile);
 };
 
 #endif
