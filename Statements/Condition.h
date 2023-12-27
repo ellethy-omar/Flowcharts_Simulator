@@ -44,6 +44,8 @@ public:
 	void SetConnector(Connector* Connout);
 
 	Connector* GetConnector(int checker = 0);
+	virtual void Save(ofstream& OutFile);
+	virtual void Load(ifstream& Infile);
 
 	~Condition();
 
