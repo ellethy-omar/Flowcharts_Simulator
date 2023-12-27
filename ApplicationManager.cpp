@@ -226,6 +226,7 @@ void ApplicationManager::RemoveConnector(int x)
 		}
 	}
 	UpdateInterface();
+	ConnCount--;
 }
 
 void ApplicationManager::RemoveStatement(int x)
@@ -242,6 +243,7 @@ void ApplicationManager::RemoveStatement(int x)
 		}
 	}
 	UpdateInterface();
+	StatCount--;
 }
 
 Connector* ApplicationManager::GetConnector(Point P) const
@@ -315,8 +317,11 @@ void ApplicationManager::SetSelectedStatement(Statement *pStat)
 		pSelectedStat =  NULL;
 	}
 	pSelectedStat = pStat;
-	pSelectedStat->SetSelected(true);
+	if (pSelectedStat != NULL)
+	{
+		pSelectedStat->SetSelected(true);
 	}
+}
 
 Connector* ApplicationManager::GetSelectedCon() const
 {
@@ -338,7 +343,10 @@ void ApplicationManager::SetSelectedCon(Connector* pCon)
 		ConSelected = NULL;
 	}
 	ConSelected = pCon;
-	ConSelected->SetSelected(true);
+	if (ConSelected !=NULL)
+	{
+		ConSelected->SetSelected(true);
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
