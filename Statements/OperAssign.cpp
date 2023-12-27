@@ -133,21 +133,20 @@ Connector* OperAssign::GetConnector(int checker)
 
 
 
-/*
 void OperAssign::Save(ofstream &OutFile){
 	OutFile<<"OP_ASSIGN  "<<ID<<"  "<<LeftCorner.x<<"  "<<LeftCorner.y<<"  "<<LHS<<"  "<<LHS_Of_Arithmaticoperator<<"  ";
 	
 	if(Arithmaticoperator=="+"){
-		OutFIle<<"ADD";
+		OutFile<<"ADD";
 	}
 	if(Arithmaticoperator=="-"){
-		OutFIle<<"SUB";
+		OutFile<<"SUB";
 	}
 	if(Arithmaticoperator=="*"){\
-		OutFIle<<"MUL";
+		OutFile<<"MUL";
 	}
 	if(Arithmaticoperator=="/"){
-		OutFIle<<"DIV";
+		OutFile<<"DIV";
 	}
 	
 	OutFile<<"  "<<RHS_Of_Arithmaticoperator;                              
@@ -157,27 +156,19 @@ void OperAssign::Load(ifstream &OutFile){
 	OutFile>>ID>>LeftCorner.x>>LeftCorner.y>>LHS>>LHS_Of_Arithmaticoperator>>Arithmaticoperator>>RHS_Of_Arithmaticoperator;
 
 	if(Arithmaticoperator=="ADD"){
-		Arithmaticoperator="+"
+		Arithmaticoperator = "+";
 	};
 	if(Arithmaticoperator=="SUB"){
-		Arithmaticoperator="-"
+		Arithmaticoperator = "-";
 	};
-	if(Arithmaticoperator=="MUL"){\
-		Arithmaticoperator="*"
+	if (Arithmaticoperator == "MUL") {
+		Arithmaticoperator = "*";
 	};
 	if(Arithmaticoperator=="DIV"){
-		Arithmaticoperator="/"
+		Arithmaticoperator = "/";
 	};
 	UpdateStatementText();
 
 
 }
-
-
-
-
-
-
-*/
-
 
