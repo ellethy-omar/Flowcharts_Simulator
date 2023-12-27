@@ -1021,3 +1021,13 @@ Connector::~Connector()
 	SrcStat = NULL;
 	DstStat = NULL;
 }
+void Connector::Save(ofstream& OutFile) {
+	if (checker == 0) {
+		OutFile << SrcStat->GetID() << " " << DstStat->GetID()<<" "<<"0";
+	}else if(checker == 1) {
+		OutFile << SrcStat->GetID() << " " << DstStat->GetID() << " " << "1";
+	}
+	else if (checker == 2) {
+		OutFile << SrcStat->GetID() << " " << DstStat->GetID() << " " << "2";
+	}
+}
