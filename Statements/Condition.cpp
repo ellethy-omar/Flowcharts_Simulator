@@ -179,7 +179,7 @@ void Condition::Save(ofstream& OutFile) {
 	OutFile << "  " << RHS;
 }
 void Condition::Load(ifstream& Infile) {
-	Infile >> ID >> UpperPoint.x >> UpperPoint.y >> LHS>> CompOperator>>RHS;
+	Infile >> LHS>> CompOperator>>RHS;
 	if (CompOperator == "LESS") {
 		CompOperator = "<";
 	}
