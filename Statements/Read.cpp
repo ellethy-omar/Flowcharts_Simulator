@@ -31,3 +31,11 @@ void Read:: UpdateStatementText() {
 void Read::SetConnector(Connector* connect){
 	pOutConn=connect;
 };
+void Read::Save(ofstream& OutFile) {
+	OutFile << "READ   " << ID << "  " << Center.x << "  " << Center.y << "   " << variable_name;
+};
+void Read::Load(ifstream& OutFile) {
+	OutFile >> ID >> Center.x >> Center.y >> variable_name;
+	UpdateStatementText();
+
+};
