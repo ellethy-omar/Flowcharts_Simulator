@@ -75,6 +75,8 @@ public:
 	//save
 	void SaveAll(ofstream& OutFile);
 	void LoadAll(Instream& Infile);
+	bool Validate();
+	void run();
 	
 };
 
