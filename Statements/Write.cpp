@@ -30,3 +30,10 @@ void Write::UpdateStatementText() {
 void Write:: SetConnector(Connector* connect){
 	pOutConn=connect;
 };
+void Write::Save(ofstream& OutFile) {
+	OutFile << "WRITE   " << ID << "  " << Center.x << "  " << Center.y << "    " << print;
+};
+void Write::Load(ifstream& InFile) {
+	InFile >> ID >> Center.x >> Center.y >> print;
+	UpdateStatementText();
+}
