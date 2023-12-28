@@ -20,6 +20,8 @@ public:
 	void SetConnector(Connector* pOutConn);
 	Connector* GetConnector(int checker = 0);
 	string GetPrint();
-
+	void Simulate(string(&allvariables)[200], double(&corespondingarray)[200], int& CountOfVariables, Output* pOut, Input* pIn, int writecount);
+	bool IsWriteVariable();
+	string getprint();
 };
 
