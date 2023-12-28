@@ -88,3 +88,47 @@ void VariableAssign::Load(ifstream& Infile) {
 	UpdateStatementText();
 
 }
+
+
+string VariableAssign::getLHS()
+{
+	return LHS;
+}
+
+string VariableAssign::getRHS()
+{
+	return RHS;
+}
+
+void VariableAssign::Simulate(string(&allvariables)[200], double(&corespondingarray)[200], int& CountOfVariables, Output* pOut, Input* pIn, int writecount)
+
+{
+	allvariables[CountOfVariables] = LHS;
+	CountOfVariables++;
+	bool checkifexist = false;
+	for (int i = 0; i < CountOfVariables - 1; i++)
+	{
+		if (allvariables[i] == LHS)
+		{
+			//corespondingarray[i] = RHS;
+			checkifexist = true;
+			break;
+		}
+	}
+	for (int i = 0; i < CountOfVariables; i++)
+	{
+		if(allvariables[i] == RHS)
+		if (checkifexist == true)
+		{
+			CountOfVariables--;
+			allvariables[CountOfVariables] = "";
+			corespondingarray[CountOfVariables - 1] = corespondingarray[i];
+
+		}
+		else
+		{
+			corespondingarray[CountOfVariables - 1] = corespondingarray[i];
+		}
+	}
+
+}
