@@ -29,6 +29,10 @@ bool Statement::GetSelected()
 	return Selected;
 }
 
+void Statement::Simulate(string(&allvariables)[200], double(&corespondingarray)[200], int& CountOfVariables, Output* pOut, Input* pIn, int writecount)
+{
+}
+
 Statement::~Statement()
 {
 }
