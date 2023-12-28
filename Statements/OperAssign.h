@@ -38,5 +38,6 @@ public:
 	Connector* GetConnector(int checker = 0);
 	virtual void Save(ofstream& OutFile);
 	virtual void Load(ifstream& Infile);
+void Simulate(string(&allvariables)[200], double(&corespondingarray)[200], int& CountOfVariables, Output* pOut, Input* pIn, int writecount);
 };
 
