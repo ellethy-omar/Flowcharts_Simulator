@@ -131,6 +131,127 @@ Connector* OperAssign::GetConnector(int checker)
 }
 
 
+void OperAssign::Simulate(string(&allvariables)[200], double(&corespondingarray)[200], int& CountOfVariables, Output* pOut, Input* pIn, int writecount)
+
+{
+	allvariables[CountOfVariables] = LHS;
+	CountOfVariables++;
+	bool checkifexist = false;
+	for (int i = 0; i < CountOfVariables - 1; i++)
+	{
+		if (allvariables[i] == LHS)
+		{
+			checkifexist = true;
+			break;
+		}
+	}
+	int LHSindex , RHSindex;
+	bool checkLHS = IsVariable(LHS_Of_Arithmaticoperator);
+	if (checkLHS == true)
+	{
+		for (int i = 0; i < CountOfVariables; i++)
+		{
+			if (allvariables[i] == LHS_Of_Arithmaticoperator)
+			{
+				LHSindex = i;
+				break;
+			}
+		}
+	}
+
+	bool checkRHS = IsVariable(RHS_Of_Arithmaticoperator);
+
+	if (checkLHS == true)
+	{
+		for (int i = 0; i < CountOfVariables; i++)
+		{
+			if (allvariables[i] == LHS_Of_Arithmaticoperator)
+			{
+				RHSindex = i;
+				break;
+			}
+		}
+	}
+
+	if(checkRHS == false && checkLHS == false)
+	{
+		if (Arithmaticoperator == "+")
+		{
+			corespondingarray[CountOfVariables - 1] = RHS_Of_Arithmaticoperator_In_caseOfValue + LHS_Of_Arithmaticoperator_In_caseOfValue;
+		}
+		else if (Arithmaticoperator == "-")
+		{
+			corespondingarray[CountOfVariables - 1] = RHS_Of_Arithmaticoperator_In_caseOfValue - LHS_Of_Arithmaticoperator_In_caseOfValue;
+		}
+		else if (Arithmaticoperator == "*")
+		{
+			corespondingarray[CountOfVariables - 1] = RHS_Of_Arithmaticoperator_In_caseOfValue * LHS_Of_Arithmaticoperator_In_caseOfValue;
+		}
+		else if (Arithmaticoperator == "/")
+		{
+			corespondingarray[CountOfVariables - 1] = LHS_Of_Arithmaticoperator_In_caseOfValue / RHS_Of_Arithmaticoperator_In_caseOfValue;
+		}
+	}
+	else if (checkLHS == true && checkRHS == false)
+	{
+		if (Arithmaticoperator == "+")
+		{
+			corespondingarray[CountOfVariables - 1] = RHS_Of_Arithmaticoperator_In_caseOfValue + corespondingarray[LHSindex];
+		}
+		else if (Arithmaticoperator == "-")
+		{
+			corespondingarray[CountOfVariables - 1] = RHS_Of_Arithmaticoperator_In_caseOfValue - corespondingarray[LHSindex];
+		}
+		else if (Arithmaticoperator == "*")
+		{
+			corespondingarray[CountOfVariables - 1] = RHS_Of_Arithmaticoperator_In_caseOfValue * corespondingarray[LHSindex];
+		}
+		else if (Arithmaticoperator == "/")
+		{
+			corespondingarray[CountOfVariables - 1] = corespondingarray[LHSindex] / RHS_Of_Arithmaticoperator_In_caseOfValue;
+		}
+	}
+	else if (checkLHS == false && checkRHS == true)
+	{
+		if (Arithmaticoperator == "+")
+		{
+			corespondingarray[CountOfVariables - 1] = corespondingarray[RHSindex] + LHS_Of_Arithmaticoperator_In_caseOfValue;
+		}
+		else if (Arithmaticoperator == "-")
+		{
+			corespondingarray[CountOfVariables - 1] = corespondingarray[RHSindex] - LHS_Of_Arithmaticoperator_In_caseOfValue;
+		}
+		else if (Arithmaticoperator == "*")
+		{
+			corespondingarray[CountOfVariables - 1] = corespondingarray[RHSindex] * LHS_Of_Arithmaticoperator_In_caseOfValue;
+		}
+		else if (Arithmaticoperator == "/")
+		{
+			corespondingarray[CountOfVariables - 1] = LHS_Of_Arithmaticoperator_In_caseOfValue / corespondingarray[RHSindex];
+		}
+	}
+	else if (checkLHS == true && checkRHS == true)
+	{
+		if (Arithmaticoperator == "+")
+		{
+			corespondingarray[CountOfVariables - 1] = corespondingarray[RHSindex] + corespondingarray[LHSindex];
+		}
+		else if (Arithmaticoperator == "-")
+		{
+			corespondingarray[CountOfVariables - 1] = corespondingarray[RHSindex] - corespondingarray[LHSindex];
+		}
+		else if (Arithmaticoperator == "*")
+		{
+			corespondingarray[CountOfVariables - 1] = corespondingarray[RHSindex] * corespondingarray[LHSindex];
+		}
+		else if (Arithmaticoperator == "/")
+		{
+			corespondingarray[CountOfVariables - 1] = corespondingarray[LHSindex] / corespondingarray[RHSindex];
+		}
+	}
+
+}
+
 
 
 void OperAssign::Save(ofstream &OutFile){
