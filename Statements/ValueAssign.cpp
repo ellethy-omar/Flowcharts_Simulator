@@ -22,6 +22,15 @@ ValueAssign::ValueAssign(Point Lcorner, string LeftHS, double RightHS)
 	Outlet.y = LeftCorner.y + UI.ASSGN_HI;
 
 }
+string ValueAssign::getLHS()
+{
+	return LHS;
+}
+
+double ValueAssign::getRHS()
+{
+	return RHS;
+}
 
 void ValueAssign::setLHS(const string &L)
 {
@@ -94,6 +103,37 @@ ValueAssign::~ValueAssign()
 		delete pOutConn;
 	}
 }
+
+
+
+void ValueAssign::Simulate(string(&allvariables)[200], double(&corespondingarray)[200], int& CountOfVariables, Output* pOut, Input* pIn, int writecount)
+
+{
+	allvariables[CountOfVariables] = LHS;
+	CountOfVariables++;
+	bool checkifexist = false;
+	for (int i = 0; i < CountOfVariables - 1; i++)
+	{
+		if (allvariables[i] == LHS)
+		{
+			//corespondingarray[i] = RHS;
+			checkifexist = true;
+			break;
+		}
+	}
+	if (checkifexist == true)
+	{
+		CountOfVariables--;
+		allvariables[CountOfVariables] = "";
+		corespondingarray[CountOfVariables - 1] = RHS;
+
+	}
+	else
+	{
+		corespondingarray[CountOfVariables - 1] = RHS;
+	}
+}
+
 void ValueAssign::Save(ofstream& OutFile) {
 	OutFile << "VAL_ASSIGN" << " " << ID << "  " << LeftCorner.x << " " << LeftCorner.y << " " << LHS << " " << RHS;
 }
