@@ -57,3 +57,49 @@ Connector* Write::GetConnector(int checker) {
 string Write::GetPrint() {
 	return print;
 };
+
+
+bool Write::IsWriteVariable()
+{
+	bool variable, valid;
+	int checklast = -1, checkfirst = -1;
+	string check = "\"";
+	checklast = print.find_last_not_of(check);
+	checkfirst = print.find_first_not_of(check);
+	if (checklast != print.length() - 1 && checkfirst != 0)
+	{
+		return false;
+	}
+	else 
+	{
+		valid = IsVariable(print);
+		if (valid == true) {
+			return true;
+		}
+	}
+}
+string Write::getprint()
+{
+	return print;
+}
+
+void Write::Simulate(string(&allvariables)[200], double(&corespondingarray)[200], int& CountOfVariables, Output* pOut, Input* pIn, int writecount)
+{
+	if (IsWriteVariable() == true)
+	{
+		int y = 100 + writecount * 20;
+		for (int i = 0; i < CountOfVariables; i++)
+		{
+			if (allvariables[i] == print)
+			{
+				string printdouble = to_string(corespondingarray[i]);
+				pOut->DrawRunString(0.77 * UI.width, y, printdouble);
+			}
+		}
+	}
+	else
+	{
+		int y = 100 + writecount * 20;
+		pOut->DrawRunString(0.75 * UI.width, y, print);
+	}
+}
